@@ -68,6 +68,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE salones SET tamaño = ? WHERE id_salon = ?");
             consulta.setBoolean(1,tamano);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -80,6 +82,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET proyector = ? WHERE salon = ?");
             consulta.setBoolean(1,proyector);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -91,6 +95,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET tv = ? WHERE salon = ?");
             consulta.setBoolean(1,TV);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -102,6 +108,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_vga = ? WHERE salon = ?");
             consulta.setBoolean(1,cableVGA);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -113,6 +121,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_hdmi = ? WHERE salon = ?");
             consulta.setBoolean(1,cableHDMI);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -124,6 +134,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_interlock220v = ? WHERE salon = ?");
             consulta.setBoolean(1,interlock220V);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -135,6 +147,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_audio = ? WHERE salon = ?");
             consulta.setBoolean(1,cableAudio);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -146,6 +160,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET conversor_señal = ? WHERE salon = ?");
             consulta.setBoolean(1,conversor);
             consulta.setInt(2,id_salon);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }

@@ -25,6 +25,8 @@ public class Carrera {
             PreparedStatement consulta = con.prepareStatement("UPDATE carreras SET nombre = ? WHERE id_carrera = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,id_carrera);
+            consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
