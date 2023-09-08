@@ -67,7 +67,7 @@ public class Profesor {
 
     public void setCarrera(Connection con, Carrera carrera) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET carrera = ? where dni = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET id_carrera = ? where dni = ?");
             consulta.setInt(1, carrera.getId_carrera());
             consulta.setString(2,dni);
         }catch (SQLException e){
