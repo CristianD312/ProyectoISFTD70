@@ -1,19 +1,33 @@
 package Objetos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Carrera {
-    private final Integer ID_Carrera;
-    private final String Nombre_Carrera;
-
-    public Carrera(Integer ID_Carrera, String nombre_Carrera) {
-        this.ID_Carrera = ID_Carrera;
-        Nombre_Carrera = nombre_Carrera;
+    private int id_carrera;
+    private String nombre;
+    public Carrera(int id_carrera, String nombre) {
+        this.id_carrera = id_carrera;
+        this.nombre = nombre;
     }
 
-    public Integer getID_Carrera() {
-        return ID_Carrera;
+    public int getId_carrera() {
+        return id_carrera;
     }
 
-    public String getNombre_Carrera() {
-        return Nombre_Carrera;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(Connection con, String nombre) {
+        try{
+            PreparedStatement consulta = con.prepareStatement("UPDATE carreras SET nombre = ? WHERE id_carrera = ?");
+            consulta.setString(1,nombre);
+            consulta.setInt(2,id_carrera);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        this.nombre = nombre;
     }
 }
