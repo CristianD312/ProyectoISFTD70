@@ -37,8 +37,8 @@ public class Profesor {
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
             consulta.setString(1,dni);
             consulta.setString(2,this.dni);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -50,8 +50,8 @@ public class Profesor {
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
             consulta.setString(1,nombre);
             consulta.setString(2,dni);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -63,8 +63,8 @@ public class Profesor {
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET apellido = ? where dni = ?");
             consulta.setString(1,apellido);
             consulta.setString(2,dni);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -76,8 +76,8 @@ public class Profesor {
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET id_carrera = ? where dni = ?");
             consulta.setInt(1, carrera.getId_carrera());
             consulta.setString(2,dni);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
