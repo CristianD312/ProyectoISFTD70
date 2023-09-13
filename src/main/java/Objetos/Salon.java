@@ -69,7 +69,6 @@ public class Salon {
             consulta.setBoolean(1,tamano);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -83,7 +82,6 @@ public class Salon {
             consulta.setBoolean(1,proyector);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -96,7 +94,6 @@ public class Salon {
             consulta.setBoolean(1,TV);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -109,7 +106,6 @@ public class Salon {
             consulta.setBoolean(1,cableVGA);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -122,7 +118,6 @@ public class Salon {
             consulta.setBoolean(1,cableHDMI);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -135,7 +130,6 @@ public class Salon {
             consulta.setBoolean(1,interlock220V);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -148,7 +142,6 @@ public class Salon {
             consulta.setBoolean(1,cableAudio);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -161,10 +154,20 @@ public class Salon {
             consulta.setBoolean(1,conversor);
             consulta.setInt(2,id_salon);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         this.conversor = conversor;
+    }
+
+    public void modificarTodo(Connection con, boolean[] elementos){
+        setProyector(con,elementos[0]);
+        setTV(con,elementos[1]);
+        setCableVGA(con,elementos[2]);
+        setCableHDMI(con,elementos[3]);
+        setCableAudio(con, elementos[4]);
+        setInterlock220V(con, elementos[5]);
+        setTamano(con,elementos[6]);
+        setConversor(con,elementos[7]);
     }
 }

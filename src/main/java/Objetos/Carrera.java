@@ -26,7 +26,6 @@ public class Carrera {
             consulta.setString(1,nombre);
             consulta.setInt(2,id_carrera);
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }

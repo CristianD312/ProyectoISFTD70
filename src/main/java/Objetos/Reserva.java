@@ -38,7 +38,7 @@ public class Reserva {
     public void setUsuario(Connection con, Usuario usuario) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE reservas SET usuario = ? WHERE id_reservas = ?");
-            consulta.setInt(1,usuario.getId_usuario());
+            //consulta.setInt(1,usuario.getId_usuario());
             consulta.setInt(2,id_reserva);
         }catch (SQLException e){
             e.printStackTrace();
