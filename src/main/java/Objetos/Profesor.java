@@ -60,7 +60,7 @@ public class Profesor {
 
     public void setApellido(Connection con, String apellido) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET apellido = ? where dni = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET Apellido = ? where dni = ?");
             consulta.setString(1,apellido);
             consulta.setString(2,dni);
             consulta.executeUpdate();
@@ -73,7 +73,7 @@ public class Profesor {
 
     public void setCarrera(Connection con, Carrera carrera) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET id_carrera = ? where dni = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET fk_id_carrera = ? where dni = ?");
             consulta.setInt(1, carrera.getId_carrera());
             consulta.setString(2,dni);
             consulta.executeUpdate();

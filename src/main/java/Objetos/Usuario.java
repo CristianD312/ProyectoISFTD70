@@ -38,8 +38,8 @@ public class Usuario {
             PreparedStatement consulta = con.prepareStatement("UPDATE usuarios SET nombre = ? where id_usuario = ?");
             consulta.setString(1, nombre);
             consulta.setInt(2, id_usuario);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,8 +55,8 @@ public class Usuario {
             PreparedStatement consulta = con.prepareStatement("UPDATE usuarios SET contraseña = ? where id_usuario = ?");
             consulta.setString(1, password);
             consulta.setInt(2, id_usuario);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,11 +70,11 @@ public class Usuario {
 
     public void setDni(Connection con , String dni) {
          try {
-            PreparedStatement consulta = con.prepareStatement("UPDATE usuarios SET dni = ? where id_usuario = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE usuarios SET dni = ? where fk_dni = ?");
             consulta.setString(1, dni);
             consulta.setInt(2, id_usuario);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
