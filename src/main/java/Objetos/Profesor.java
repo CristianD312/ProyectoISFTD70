@@ -35,7 +35,7 @@ public class Profesor {
     public void setDni(Connection con, Integer dni) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
-            consulta.setString(1,dni);
+            consulta.setInt(1,dni);
             consulta.setInt(2,this.dni);
             consulta.executeUpdate();
             consulta.close();
