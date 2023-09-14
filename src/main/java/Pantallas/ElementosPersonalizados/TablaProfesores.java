@@ -1,4 +1,4 @@
-package Pantallas;
+package Pantallas.ElementosPersonalizados;
 
 import Objetos.Profesor;
 
