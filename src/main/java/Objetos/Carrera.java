@@ -22,18 +22,14 @@ public class Carrera {
 
     public void setNombre(Connection con, String nombre) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE carreras SET nombre = ? WHERE id_carrera = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE carreras SET nombre_carrera = ? WHERE id_carrera = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,id_carrera);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         this.nombre = nombre;
-    }
-
-    @Override
-    public String toString() {
-        return nombre;
     }
 }

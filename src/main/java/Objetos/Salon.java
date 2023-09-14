@@ -65,10 +65,11 @@ public class Salon {
 
     public void setTamano(Connection con, boolean tamano) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE salones SET tamaño = ? WHERE id_salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
             consulta.setBoolean(1,tamano);
             consulta.setInt(2,id_salon);
             consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -78,10 +79,11 @@ public class Salon {
 
     public void setProyector(Connection con, boolean proyector) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET proyector = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET proyector = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,proyector);
             consulta.setInt(2,id_salon);
             consulta.close();
+            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -90,9 +92,10 @@ public class Salon {
 
     public void setTV(Connection con, boolean TV) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET tv = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET tv = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,TV);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
@@ -102,9 +105,10 @@ public class Salon {
 
     public void setCableVGA(Connection con, boolean cableVGA) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_vga = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET vga = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableVGA);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
@@ -114,9 +118,10 @@ public class Salon {
 
     public void setCableHDMI(Connection con, boolean cableHDMI) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_hdmi = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET hdmi = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableHDMI);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
@@ -126,9 +131,10 @@ public class Salon {
 
     public void setInterlock220V(Connection con,boolean interlock220V) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_interlock220v = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET interlock = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,interlock220V);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
@@ -138,9 +144,10 @@ public class Salon {
 
     public void setCableAudio(Connection con, boolean cableAudio) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET cable_audio = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET audio = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableAudio);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
@@ -150,24 +157,14 @@ public class Salon {
 
     public void setConversor(Connection con, boolean conversor) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET conversor_señal = ? WHERE salon = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET adp_conversor = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,conversor);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         this.conversor = conversor;
-    }
-
-    public void modificarTodo(Connection con, boolean[] elementos){
-        setProyector(con,elementos[0]);
-        setTV(con,elementos[1]);
-        setCableVGA(con,elementos[2]);
-        setCableHDMI(con,elementos[3]);
-        setCableAudio(con, elementos[4]);
-        setInterlock220V(con, elementos[5]);
-        setTamano(con,elementos[6]);
-        setConversor(con,elementos[7]);
     }
 }
