@@ -2,6 +2,7 @@ package Objetos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Profesor {
@@ -82,5 +83,29 @@ public class Profesor {
             e.printStackTrace();
         }
         this.carrera = carrera;
+    }
+    public void cargarDatosProfesor(Connection con){
+        try {
+            PreparedStatement consultaExistencia = con.prepareStatement("SELECT EXISTS (SELECT 1 FROM profesores WHERE dni = ?)");
+            consultaExistencia.setInt(1,dni);
+            int bol = 0;
+             ResultSet RS = consultaExistencia.executeQuery();
+             while(RS.next()){
+                 bol =RS.getInt(1);
+             }
+            if(bol != 1){
+                PreparedStatement cargaDeDatos = con.prepareStatement("INSERT INTO `profesores`(`dni`, `nombre`, `Apellido`, `fk_id_carrera`) VALUES (?,?,?,?)");
+                cargaDeDatos.setInt(1,dni);
+                cargaDeDatos.setString(2,nombre);
+                cargaDeDatos.setString(3,apellido);
+                cargaDeDatos.setInt(4,carrera.getId_carrera());
+                cargaDeDatos.executeUpdate();
+                cargaDeDatos.close();
+            }
+            consultaExistencia.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 }
