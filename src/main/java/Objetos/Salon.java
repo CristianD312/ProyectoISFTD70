@@ -2,7 +2,10 @@ package Objetos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import logica.Conexion;
 
 public class Salon {
     private int id_salon;
@@ -14,6 +17,8 @@ public class Salon {
     private boolean interlock220V;
     private boolean cableAudio;
     private boolean conversor;
+    
+    public Salon (){}
 
     public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor) {
         this.id_salon = id_salon;
@@ -167,4 +172,7 @@ public class Salon {
         }
         this.conversor = conversor;
     }
+    
+    
 }
+
