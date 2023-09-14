@@ -2,6 +2,7 @@ package Logica;
 
 import Objetos.Carrera;
 import Objetos.Profesor;
+import Objetos.Salon;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,5 +68,18 @@ public class Conexion {
             e.printStackTrace();
         }
         return carreras;
+    }
+    public ArrayList<Salon> cargarSalones(){
+        ArrayList<Salon> salones = new ArrayList<>();
+        try{
+            ResultSet RS = conexion.prepareStatement("SELECT * FROM salones INNER JOIN accesorios ON fk_salon = salones.id_salon").executeQuery();
+            while (RS.next()){
+                salones.add(new Salon(RS.getInt(1),RS.getBoolean(2),RS.getBoolean(10),RS.getBoolean(9),RS.getBoolean(5),RS.getBoolean(6),RS.getBoolean(4),RS.getBoolean(7),RS.getBoolean(8)));
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return salones;
     }
 }
