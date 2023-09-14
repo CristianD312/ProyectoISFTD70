@@ -4,6 +4,8 @@
 
 package Main;
 
+import Pantallas.PantallaReserva;
+
 /**
  *
  * @author dario
@@ -11,6 +13,8 @@ package Main;
 public class main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        PantallaReserva reservar = new PantallaReserva();
+        reservar.setVisible(true);
+        reservar.setLocationRelativeTo(null);
     }
 }
