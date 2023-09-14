@@ -5,18 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Profesor {
-    private String dni;
+    private Integer dni;
     private String nombre;
     private String apellido;
     private Carrera carrera;
-    public Profesor(String dni, String nombre, String apellido, Carrera carrera) {
+    public Profesor(Integer dni, String nombre, String apellido, Carrera carrera) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.carrera = carrera;
     }
 
-    public String getDni() {
+    public Integer getDni() {
         return dni;
     }
 
@@ -32,12 +32,14 @@ public class Profesor {
         return carrera;
     }
 
-    public void setDni(Connection con, String dni) {
+    public void setDni(Connection con, Integer dni) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
-            consulta.setString(1,dni);
-            consulta.setString(2,this.dni);
+            consulta.setInt(1,dni);
+            consulta.setInt(2,this.dni);
+            consulta.executeUpdate();
             consulta.close();
+            System.out.println("cambio dni");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -48,8 +50,10 @@ public class Profesor {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
             consulta.setString(1,nombre);
-            consulta.setString(2,dni);
+            consulta.setInt(2,dni);
+            consulta.executeUpdate();
             consulta.close();
+            System.out.println("cambio nombre");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -60,8 +64,10 @@ public class Profesor {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET apellido = ? where dni = ?");
             consulta.setString(1,apellido);
-            consulta.setString(2,dni);
+            consulta.setInt(2,dni);
+            consulta.executeUpdate();
             consulta.close();
+            System.out.println("Cambio apellido");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -70,10 +76,12 @@ public class Profesor {
 
     public void setCarrera(Connection con, Carrera carrera) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET id_carrera = ? where dni = ?");
+            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET fk_id_carrera = ? where dni = ?");
             consulta.setInt(1, carrera.getId_carrera());
-            consulta.setString(2,dni);
+            consulta.setInt(2,dni);
+            consulta.executeUpdate();
             consulta.close();
+            System.out.println("Cambio carrera");
         }catch (SQLException e){
             e.printStackTrace();
         }
