@@ -93,9 +93,8 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="profesorBox" max="32767" attributes="0"/>
+                                      <Component id="profesorBox" pref="165" max="32767" attributes="0"/>
                                       <Component id="horario" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jDateChooser1" alignment="0" pref="165" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jButton1" max="32767" attributes="0"/>
@@ -142,11 +141,8 @@
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="profesorBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -347,8 +343,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
