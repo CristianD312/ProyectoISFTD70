@@ -7,6 +7,7 @@ package Pantallas.Configuracion;
 import Logica.Conexion;
 import Objetos.Carrera;
 import Objetos.Profesor;
+import Objetos.Salon;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -16,24 +17,19 @@ import java.util.Objects;
  *
  * @author dario
  */
-public class ModificarProfesor extends javax.swing.JFrame {
+public class ModificarSalon extends javax.swing.JFrame {
     Conexion conexion;
-    Profesor profesor;
-
+    Salon salon;
     ArrayList<Carrera> carreras;
     /**
      * Creates new form ModificarProfesor
      */
-    public ModificarProfesor(Conexion conexion, Profesor profesor) {
+    public ModificarSalon(Conexion conexion, Salon salon) {
         this.conexion = conexion;
-        this.profesor = profesor;
+        this.salon = salon;
         carreras = conexion.cargarCarreras();
         initComponents();
-    }
-    public ModificarProfesor(Conexion conexion){
-        this.conexion = conexion;
-        carreras = conexion.cargarCarreras();
-        initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -44,7 +40,7 @@ public class ModificarProfesor extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        //creacion de elementos
+
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -52,45 +48,40 @@ public class ModificarProfesor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<Carrera>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
-        //Propiedades de ventana
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Modificar Profesor");
 
         jLabel1.setText("DNI:");
+
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Nombre:");
+
+        jTextField2.setText("jTextField2");
+
         jLabel3.setText("Apellido:");
+
+        jTextField3.setText("jTextField3");
+
         jLabel4.setText("Carrera:");
 
-        //rellena la choiceBox con las carreras disponibles
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<Carrera>(carreras.toArray(new Carrera[0])));
-
-        //si le paso un profesor a para modificar rellena los datos con los valores ya cargados en la base de datos
-        if(profesor != null) {
-            setTitle("Modificar Profesor");
-            jTextField1.setText(profesor.getDni().toString());
-            jTextField2.setText(profesor.getNombre());
-            jTextField3.setText(profesor.getApellido());
-            //hace que la carrera seleccionada por default en la comboBox sea la que tiene registrada ese profesor
-            for (Carrera carrera : carreras) {
-                if (profesor.getCarrera().getId_carrera() == carrera.getId_carrera()) {
-                    jComboBox1.setSelectedItem(carrera);
-                }
-            }
-        }else {
-            setTitle("Agregar Profesor");
-        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Guardar");
-        //Accion a realizar al pulsar el boton de guardado
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        //Posicionamiento de los elementos generado por netBeans, le presten mucha atención
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,21 +131,17 @@ public class ModificarProfesor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //si le pase un profesor va a modificar los datos de ese mismo
-        if(profesor!=null) {
-            profesor.setDni(conexion.getConexion(), Integer.parseInt(jTextField1.getText()));
-            profesor.setNombre(conexion.getConexion(), jTextField2.getText());
-            profesor.setApellido(conexion.getConexion(), jTextField3.getText());
-            profesor.setCarrera(conexion.getConexion(), (Carrera) Objects.requireNonNull(jComboBox1.getSelectedItem()));
-            System.out.println("Cargo todo");
-        }else{
-            profesor = new Profesor(Integer.parseInt(jTextField1.getText()),jTextField2.getText(),jTextField3.getText(),(Carrera) Objects.requireNonNull(jComboBox1.getSelectedItem()));
-            profesor.cargarDatosProfesor(conexion.getConexion());
-        }
+        //salon.setTamano();
+        //salon.
+       // System.out.println("Cargo todo");
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-public Profesor getProfesor(){return profesor;}
+
     /**
      * @param args the command line arguments
      */
@@ -172,14 +159,23 @@ public Profesor getProfesor(){return profesor;}
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModificarProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModificarProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModificarProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModificarProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ModificarProfesor().setVisible(true);
+            }
+        });
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -194,7 +190,7 @@ public Profesor getProfesor(){return profesor;}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private JComboBox<Carrera> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

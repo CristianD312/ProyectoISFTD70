@@ -45,223 +45,231 @@ public class Configuracion extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        //creación del TabPane
+        panelDePestañas = new javax.swing.JTabbedPane();
 
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButton10 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLayeredPane2 = new javax.swing.JLayeredPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLayeredPane3 = new javax.swing.JLayeredPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jLayeredPane4 = new javax.swing.JLayeredPane();
+        //Alinea las pestañas a la izquierda
+        panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        jLabel3.setText("jLabel3");
+        //creacion de Pestañas para el TabPane
+        tabSalones = new javax.swing.JLayeredPane();
+        tabProfesores = new javax.swing.JLayeredPane();
+        tabCarreras = new javax.swing.JLayeredPane();
+        tabConfiguracion = new javax.swing.JLayeredPane();
 
-        jButton1.setText("jButton1");
+        //Elementos pestaña salones
+        tablaSalonesScroll = new javax.swing.JScrollPane();//Panel que contendrá la tabla con los salones y le permitira Scrollear
+        tablaSalones = new javax.swing.JTable();
+        modificarSalon = new javax.swing.JButton();
+        agregarSalon = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //Elementos pestaña profesores
+        tablaProfesoresScroll = new javax.swing.JScrollPane();
+        tablaProfesores = new javax.swing.JTable();
+        modificarProfesor = new javax.swing.JButton();
+        agregarProfesor = new javax.swing.JButton();
+        eliminarProfesor = new javax.swing.JButton();
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        //elementos pestaña carreras
+        tablaCarrerasScroll = new javax.swing.JScrollPane();
+        tablaCarreras = new javax.swing.JTable();
+        modificarCarrera = new javax.swing.JButton();
+        agregarCarrera = new javax.swing.JButton();
+        eliminarCarrera = new javax.swing.JButton();
 
-        jTable3.setModel(new TablaSalones(salones));
-        jScrollPane3.setViewportView(jTable3);
+        //cuando operacion default al apretar el boton de cerrar la pestaña (descartar la pestaña y volver el foco a reservas)
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton10.setText("Modificar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        //carga de modelo de datos de tabla Salones
+        tablaSalones.setModel(new TablaSalones(salones));
+        tablaSalonesScroll.setViewportView(tablaSalones);
+
+        modificarSalon.setText("Modificar");
+        //Accion que realizará al hacer click en el boton de modificar
+        modificarSalon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                modificarSalonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("jButton2");
+        agregarSalon.setText("Agregar");
 
-        jLayeredPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+        tabSalones.setLayer(tablaSalonesScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabSalones.setLayer(modificarSalon, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabSalones.setLayer(agregarSalon, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout tabSalonesLayout = new javax.swing.GroupLayout(tabSalones);
+        tabSalones.setLayout(tabSalonesLayout);
+        tabSalonesLayout.setHorizontalGroup(
+            tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addGroup(tabSalonesLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jButton10)
+                .addComponent(modificarSalon)
                 .addGap(48, 48, 48)
-                .addComponent(jButton2)
+                .addComponent(agregarSalon)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+        tabSalonesLayout.setVerticalGroup(
+            tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabSalonesLayout.createSequentialGroup()
+                .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10)
-                    .addComponent(jButton2))
+                .addGroup(tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modificarSalon)
+                    .addComponent(agregarSalon))
                 .addGap(0, 18, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Salones", jLayeredPane1);
+        panelDePestañas.addTab("Salones", tabSalones);
 
-        jTable2.setModel(new TablaProfesores(profesores));
-        jScrollPane2.setViewportView(jTable2);
+        tablaProfesores.setModel(new TablaProfesores(profesores));
+        tablaProfesoresScroll.setViewportView(tablaProfesores);
 
-        jButton4.setText("Modificar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        modificarProfesor.setText("Modificar");
+        modificarProfesor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                modificarProfesorActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Agregar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        agregarProfesor.setText("Agregar");
+        agregarProfesor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                agregarProfesorActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Eliminar");
+        eliminarProfesor.setText("Eliminar");
 
-        jLayeredPane2.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabProfesores.setLayer(tablaProfesoresScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabProfesores.setLayer(modificarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabProfesores.setLayer(agregarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabProfesores.setLayer(eliminarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
-        jLayeredPane2.setLayout(jLayeredPane2Layout);
-        jLayeredPane2Layout.setHorizontalGroup(
-            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabProfesoresLayout = new javax.swing.GroupLayout(tabProfesores);
+        tabProfesores.setLayout(tabProfesoresLayout);
+        tabProfesoresLayout.setHorizontalGroup(
+            tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addGroup(tabProfesoresLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jButton4)
+                .addComponent(modificarProfesor)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(agregarProfesor)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(eliminarProfesor)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPane2Layout.setVerticalGroup(
-            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        tabProfesoresLayout.setVerticalGroup(
+            tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabProfesoresLayout.createSequentialGroup()
+                .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)))
+                .addGroup(tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modificarProfesor)
+                    .addComponent(agregarProfesor)
+                    .addComponent(eliminarProfesor)))
         );
 
-        jTabbedPane1.addTab("Profesores", jLayeredPane2);
+        panelDePestañas.addTab("Profesores", tabProfesores);
 
-        jTable1.setModel(new TablaCarreras(carreras)
+        tablaCarreras.setModel(new TablaCarreras(carreras)
         );
-        jScrollPane1.setViewportView(jTable1);
+        tablaCarrerasScroll.setViewportView(tablaCarreras);
 
-        jButton7.setText("Modificar");
+        modificarCarrera.setText("Modificar");
 
-        jButton8.setText("Agregar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        agregarCarrera.setText("Agregar");
+        agregarCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                agregarCarreraActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Eliminar");
+        eliminarCarrera.setText("Eliminar");
 
-        jLayeredPane3.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabCarreras.setLayer(tablaCarrerasScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabCarreras.setLayer(modificarCarrera, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabCarreras.setLayer(agregarCarrera, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabCarreras.setLayer(eliminarCarrera, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
-        jLayeredPane3.setLayout(jLayeredPane3Layout);
-        jLayeredPane3Layout.setHorizontalGroup(
-            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
+        javax.swing.GroupLayout tabCarrerasLayout = new javax.swing.GroupLayout(tabCarreras);
+        tabCarreras.setLayout(tabCarrerasLayout);
+        tabCarrerasLayout.setHorizontalGroup(
+            tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addGroup(tabCarrerasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton7)
+                .addComponent(modificarCarrera)
                 .addGap(63, 63, 63)
-                .addComponent(jButton8)
+                .addComponent(agregarCarrera)
                 .addGap(72, 72, 72)
-                .addComponent(jButton9)
+                .addComponent(eliminarCarrera)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPane3Layout.setVerticalGroup(
-            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        tabCarrerasLayout.setVerticalGroup(
+            tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabCarrerasLayout.createSequentialGroup()
+                .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton7)
-                        .addComponent(jButton8))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
-                        .addComponent(jButton9)
+                .addGroup(tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(modificarCarrera)
+                        .addComponent(agregarCarrera))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCarrerasLayout.createSequentialGroup()
+                        .addComponent(eliminarCarrera)
                         .addContainerGap())))
         );
 
-        jTabbedPane1.addTab("Carreras", jLayeredPane3);
+        panelDePestañas.addTab("Carreras", tabCarreras);
 
-        javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
-        jLayeredPane4.setLayout(jLayeredPane4Layout);
-        jLayeredPane4Layout.setHorizontalGroup(
-            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
+        tabConfiguracion.setLayout(tabConfiguracionLayout);
+        tabConfiguracionLayout.setHorizontalGroup(
+            tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 491, Short.MAX_VALUE)
         );
-        jLayeredPane4Layout.setVerticalGroup(
-            jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        tabConfiguracionLayout.setVerticalGroup(
+            tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 439, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Configuración", jLayeredPane4);
+        panelDePestañas.addTab("Configuración", tabConfiguracion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(panelDePestañas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(panelDePestañas)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       Profesor profesor = profesores.get(jTable2.getSelectedRow());
+    private void modificarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarProfesorActionPerformed
+       Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
        JFrame ventana = new ModificarProfesor(conexion, profesor);
        ventana.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_modificarProfesorActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
+        JFrame ventana = new ModificarProfesor(conexion);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_agregarProfesorActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void agregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCarreraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_agregarCarreraActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void modificarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarSalonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_modificarSalonActionPerformed
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -286,26 +294,26 @@ public class Configuracion extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregarCarrera;
+    private javax.swing.JButton agregarProfesor;
+    private javax.swing.JButton agregarSalon;
+    private javax.swing.JButton eliminarCarrera;
+    private javax.swing.JButton eliminarProfesor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JLayeredPane jLayeredPane4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JButton modificarCarrera;
+    private javax.swing.JButton modificarProfesor;
+    private javax.swing.JButton modificarSalon;
+    private javax.swing.JTabbedPane panelDePestañas;
+    private javax.swing.JLayeredPane tabCarreras;
+    private javax.swing.JLayeredPane tabConfiguracion;
+    private javax.swing.JLayeredPane tabProfesores;
+    private javax.swing.JLayeredPane tabSalones;
+    private javax.swing.JTable tablaCarreras;
+    private javax.swing.JScrollPane tablaCarrerasScroll;
+    private javax.swing.JTable tablaProfesores;
+    private javax.swing.JScrollPane tablaProfesoresScroll;
+    private javax.swing.JTable tablaSalones;
+    private javax.swing.JScrollPane tablaSalonesScroll;
     // End of variables declaration//GEN-END:variables
 }
