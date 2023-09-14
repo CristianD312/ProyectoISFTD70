@@ -5,6 +5,7 @@
 package Main;
 
 import Pantallas.PantallaReserva;
+import logica.Conexion;
 
 /**
  *
@@ -13,8 +14,14 @@ import Pantallas.PantallaReserva;
 public class main {
 
     public static void main(String[] args) {
-        PantallaReserva reservar = new PantallaReserva();
-        reservar.setVisible(true);
-        reservar.setLocationRelativeTo(null);
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            PantallaReserva reservar = new PantallaReserva();
+            reservar.setVisible(true);
+            reservar.setLocationRelativeTo(null);
+        } catch (Exception e) {
+        }
+        
     }
 }
