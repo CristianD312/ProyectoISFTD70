@@ -31,9 +31,19 @@ public class Configuracion extends javax.swing.JFrame {
 
     public Configuracion() {
         conexion = new Conexion();
-        profesores = conexion.cargarProfesores();
-        carreras = conexion.cargarCarreras();
-        salones = conexion.cargarSalones();
+        //le da la conexion a cada uno de los objetos para que puedan crear un arraylist de si mismos reflejando la base de datos
+        Carrera.setConexion(conexion.getConexion());
+        Profesor.setConexion(conexion.getConexion());
+        Salon.setConexion(conexion.getConexion());
+        //Carga los datos en el array interno de la clase
+        Carrera.cargarDatos();
+        Profesor.cargarDatos();
+        Salon.cargarDatos();
+        //relaciona el array interno de la clase con los array de la pantalla configuracion (estan sincronizados, cualquier cambien en unoo afecta el otro)
+        profesores = Profesor.getProfesores();
+        carreras = Carrera.getCarreras();
+        salones = Salon.getSalones();
+        //carga de componentes
         initComponents();
     }
 
@@ -45,47 +55,41 @@ public class Configuracion extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        //creación del TabPane
+
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         panelDePestañas = new javax.swing.JTabbedPane();
-
-        //Alinea las pestañas a la izquierda
-        panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        //creacion de Pestañas para el TabPane
         tabSalones = new javax.swing.JLayeredPane();
-        tabProfesores = new javax.swing.JLayeredPane();
-        tabCarreras = new javax.swing.JLayeredPane();
-        tabConfiguracion = new javax.swing.JLayeredPane();
-
-        //Elementos pestaña salones
-        tablaSalonesScroll = new javax.swing.JScrollPane();//Panel que contendrá la tabla con los salones y le permitira Scrollear
+        tablaSalonesScroll = new javax.swing.JScrollPane();
         tablaSalones = new javax.swing.JTable();
         modificarSalon = new javax.swing.JButton();
         agregarSalon = new javax.swing.JButton();
-
-        //Elementos pestaña profesores
+        tabProfesores = new javax.swing.JLayeredPane();
         tablaProfesoresScroll = new javax.swing.JScrollPane();
         tablaProfesores = new javax.swing.JTable();
         modificarProfesor = new javax.swing.JButton();
         agregarProfesor = new javax.swing.JButton();
         eliminarProfesor = new javax.swing.JButton();
-
-        //elementos pestaña carreras
+        tabCarreras = new javax.swing.JLayeredPane();
         tablaCarrerasScroll = new javax.swing.JScrollPane();
         tablaCarreras = new javax.swing.JTable();
         modificarCarrera = new javax.swing.JButton();
         agregarCarrera = new javax.swing.JButton();
         eliminarCarrera = new javax.swing.JButton();
+        tabConfiguracion = new javax.swing.JLayeredPane();
 
-        //cuando operacion default al apretar el boton de cerrar la pestaña (descartar la pestaña y volver el foco a reservas)
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        jLabel3.setText("jLabel3");
 
-        //carga de modelo de datos de tabla Salones
+        jButton1.setText("jButton1");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
         tablaSalones.setModel(new TablaSalones(salones));
         tablaSalonesScroll.setViewportView(tablaSalones);
 
         modificarSalon.setText("Modificar");
-        //Accion que realizará al hacer click en el boton de modificar
         modificarSalon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modificarSalonActionPerformed(evt);
@@ -93,7 +97,11 @@ public class Configuracion extends javax.swing.JFrame {
         });
 
         agregarSalon.setText("Agregar");
-
+        agregarSalon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarSalonActionPerformed(evt);
+            }
+        });
 
         tabSalones.setLayer(tablaSalonesScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabSalones.setLayer(modificarSalon, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -180,6 +188,11 @@ public class Configuracion extends javax.swing.JFrame {
         tablaCarrerasScroll.setViewportView(tablaCarreras);
 
         modificarCarrera.setText("Modificar");
+        modificarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarCarreraActionPerformed(evt);
+            }
+        });
 
         agregarCarrera.setText("Agregar");
         agregarCarrera.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +202,11 @@ public class Configuracion extends javax.swing.JFrame {
         });
 
         eliminarCarrera.setText("Eliminar");
+        eliminarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarCarreraActionPerformed(evt);
+            }
+        });
 
         tabCarreras.setLayer(tablaCarrerasScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabCarreras.setLayer(modificarCarrera, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -253,13 +271,15 @@ public class Configuracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarProfesorActionPerformed
-       Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
-       JFrame ventana = new ModificarProfesor(conexion, profesor);
+        //crea una nueva ventana formilaro para modificar los datos del profesor
+        Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
+       JFrame ventana = new ModificarProfesor(conexion, profesor, carreras);
        ventana.setVisible(true);
     }//GEN-LAST:event_modificarProfesorActionPerformed
 
     private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
-        JFrame ventana = new ModificarProfesor(conexion);
+        //crea una nueva ventana formulario para cargar los datos del profesor
+        JFrame ventana = new ModificarProfesor(conexion,carreras);
         ventana.setVisible(true);
     }//GEN-LAST:event_agregarProfesorActionPerformed
 
@@ -268,8 +288,23 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarCarreraActionPerformed
 
     private void modificarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarSalonActionPerformed
-        // TODO add your handling code here:
+        Salon salon = salones.get(tablaSalones.getSelectedRow());
+        JFrame ventana = new ModificarSalon(conexion, salon);
+        ventana.setVisible(true);
     }//GEN-LAST:event_modificarSalonActionPerformed
+
+    private void agregarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSalonActionPerformed
+        JFrame ventana = new ModificarSalon(conexion);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_agregarSalonActionPerformed
+
+    private void modificarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarCarreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificarCarreraActionPerformed
+
+    private void eliminarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCarreraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarCarreraActionPerformed
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
