@@ -273,13 +273,13 @@ public class Configuracion extends javax.swing.JFrame {
     private void modificarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarProfesorActionPerformed
         //crea una nueva ventana formilaro para modificar los datos del profesor
         Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
-       JFrame ventana = new ModificarProfesor(conexion, profesor, carreras);
+       JFrame ventana = new FormularioProfesor(conexion, profesor, carreras);
        ventana.setVisible(true);
     }//GEN-LAST:event_modificarProfesorActionPerformed
 
     private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
         //crea una nueva ventana formulario para cargar los datos del profesor
-        JFrame ventana = new ModificarProfesor(conexion,carreras);
+        JFrame ventana = new FormularioProfesor(conexion,carreras);
         ventana.setVisible(true);
     }//GEN-LAST:event_agregarProfesorActionPerformed
 
@@ -289,12 +289,12 @@ public class Configuracion extends javax.swing.JFrame {
 
     private void modificarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarSalonActionPerformed
         Salon salon = salones.get(tablaSalones.getSelectedRow());
-        JFrame ventana = new ModificarSalon(conexion, salon);
+        JFrame ventana = new FormularioSalon(conexion, salon);
         ventana.setVisible(true);
     }//GEN-LAST:event_modificarSalonActionPerformed
 
     private void agregarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSalonActionPerformed
-        JFrame ventana = new ModificarSalon(conexion);
+        JFrame ventana = new FormularioSalon(conexion);
         ventana.setVisible(true);
     }//GEN-LAST:event_agregarSalonActionPerformed
 
