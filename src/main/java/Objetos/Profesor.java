@@ -1,11 +1,16 @@
 package Objetos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Logica.Conexion;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Profesor {
+    //elemento estatico que guarda todas las instancias de la clase:
+    private static ArrayList<Profesor> profesores = new ArrayList<Profesor>();
+    //Elemento estatico que guarda la conexion
+    private static Connection conexion;
+
     private Integer dni;
     private String nombre;
     private String apellido;
@@ -16,7 +21,35 @@ public class Profesor {
         this.apellido = apellido;
         this.carrera = carrera;
     }
-
+    //Clase estatica que carga todos los profesores de la base de datos en el arraylist "profesores"
+    public static void cargarDatos(){
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet RS = consulta.executeQuery("SELECT * FROM `profesores` WHERE 1");
+            while(RS.next()){
+                Carrera carrera = null;
+                Statement consulta2 = conexion.createStatement();
+                ResultSet RS1 = consulta2.executeQuery("SELECT * FROM carreras WHERE id_carrera ="+RS.getInt(4));
+                while(RS1.next()) {
+                    carrera = new Carrera(RS1.getInt(1),RS1.getString(2));
+                }
+                consulta2.close();
+                profesores.add(new Profesor(RS.getInt(1),RS.getString(2),RS.getString(3),carrera));
+            }
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    //getter de el arraylist profesores
+    public static ArrayList<Profesor> getProfesores(){
+        return profesores;
+    }
+    //configura la conexion
+    public static void setConexion(Connection con){
+        conexion = con;
+    }
+    //getters de el objeto
     public Integer getDni() {
         return dni;
     }
@@ -32,7 +65,7 @@ public class Profesor {
     public Carrera getCarrera() {
         return carrera;
     }
-
+    //setters del objeto que se sincronizan con la base de datos
     public void setDni(Connection con, Integer dni) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
@@ -58,7 +91,6 @@ public class Profesor {
         }
         this.nombre = nombre;
     }
-
     public void setApellido(Connection con, String apellido) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET Apellido = ? where dni = ?");
@@ -84,6 +116,7 @@ public class Profesor {
         }
         this.carrera = carrera;
     }
+    //en caso de que el profesor no exista en la base de datos este metodo lo carga
     public void cargarDatosProfesor(Connection con){
         try {
             PreparedStatement consultaExistencia = con.prepareStatement("SELECT EXISTS (SELECT 1 FROM profesores WHERE dni = ?)");

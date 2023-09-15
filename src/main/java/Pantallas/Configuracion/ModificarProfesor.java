@@ -24,16 +24,18 @@ public class ModificarProfesor extends javax.swing.JFrame {
     /**
      * Creates new form ModificarProfesor
      */
-    public ModificarProfesor(Conexion conexion, Profesor profesor) {
+    public ModificarProfesor(Conexion conexion, Profesor profesor, ArrayList<Carrera> carreras) {
         this.conexion = conexion;
         this.profesor = profesor;
-        carreras = conexion.cargarCarreras();
+        this.carreras = carreras;
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public ModificarProfesor(Conexion conexion){
+    public ModificarProfesor(Conexion conexion, ArrayList<Carrera> carreras){
         this.conexion = conexion;
-        carreras = conexion.cargarCarreras();
+        this.carreras = carreras;
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -141,7 +143,7 @@ public class ModificarProfesor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //si le pase un profesor va a modificar los datos de ese mismo
+        //su el profesor es diferente de null, es decir que estou modificando un profesor existente ejecuta el codigo para modificarlo
         if(profesor!=null) {
             profesor.setDni(conexion.getConexion(), Integer.parseInt(jTextField1.getText()));
             profesor.setNombre(conexion.getConexion(), jTextField2.getText());
@@ -149,9 +151,11 @@ public class ModificarProfesor extends javax.swing.JFrame {
             profesor.setCarrera(conexion.getConexion(), (Carrera) Objects.requireNonNull(jComboBox1.getSelectedItem()));
             System.out.println("Cargo todo");
         }else{
+            //caso contrario estoy agregando un profesor, por lo tanto creo uno nuevo y lo subo a la base de datos
             profesor = new Profesor(Integer.parseInt(jTextField1.getText()),jTextField2.getText(),jTextField3.getText(),(Carrera) Objects.requireNonNull(jComboBox1.getSelectedItem()));
             profesor.cargarDatosProfesor(conexion.getConexion());
         }
+        //cierra la ventana sin cerrar el programa entero
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 public Profesor getProfesor(){return profesor;}

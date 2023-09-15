@@ -10,6 +10,7 @@ import Objetos.Profesor;
 import Objetos.Salon;
 
 import javax.swing.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,14 +21,32 @@ import java.util.Objects;
 public class ModificarSalon extends javax.swing.JFrame {
     Conexion conexion;
     Salon salon;
-    ArrayList<Carrera> carreras;
     /**
      * Creates new form ModificarProfesor
      */
     public ModificarSalon(Conexion conexion, Salon salon) {
         this.conexion = conexion;
         this.salon = salon;
-        carreras = conexion.cargarCarreras();
+        initComponents();
+        // en caso de usar este constructor estoy modificando un salon, el siguiente codigo carga los datos del mismo dentro de las checkbox:
+            if(salon.isTamano()){
+                comboBoxTamano.setSelectedItem(0);
+            }else{
+                comboBoxTamano.setSelectedItem(1);
+            }
+            proyector.setSelected(this.salon.isProyector());
+            TV.setSelected(this.salon.isTV());
+            cableVGA.setSelected(this.salon.isCableVGA());
+            cableHDMI.setSelected(this.salon.isCableHDMI());
+            cableAudio.setSelected(this.salon.isCableAudio());
+            interlock220V.setSelected(this.salon.isInterlock220V());
+            conversor.setSelected(this.salon.isConversor());
+            //cuando apretas la "x" cierra unicamente la ventana del formulario
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    public ModificarSalon(Conexion conexion) {
+        //en caso de utilizar este constructor se esta cargando un salon nuevo y carga el formulario sin nada selecciondo
+        this.conexion = conexion;
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -41,106 +60,137 @@ public class ModificarSalon extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        guardar = new javax.swing.JButton();
+        comboBoxTamano = new javax.swing.JComboBox<>();
+        proyector = new javax.swing.JCheckBox();
+        TV = new javax.swing.JCheckBox();
+        cableHDMI = new javax.swing.JCheckBox();
+        cableVGA = new javax.swing.JCheckBox();
+        interlock220V = new javax.swing.JCheckBox();
+        cableAudio = new javax.swing.JCheckBox();
+        conversor = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modificar Profesor");
 
-        jLabel1.setText("DNI:");
-
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                guardarActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Nombre:");
+        comboBoxTamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Grande" }));
+        comboBoxTamano.setPreferredSize(new java.awt.Dimension(200, 25));
 
-        jTextField2.setText("jTextField2");
-
-        jLabel3.setText("Apellido:");
-
-        jTextField3.setText("jTextField3");
-
-        jLabel4.setText("Carrera:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        proyector.setText("Proyector");
+        proyector.setPreferredSize(new java.awt.Dimension(200, 25));
+        proyector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                proyectorActionPerformed(evt);
             }
         });
+
+        TV.setText("Televisor");
+        TV.setPreferredSize(new java.awt.Dimension(200, 25));
+
+        cableHDMI.setText("Cable HDMI");
+        cableHDMI.setPreferredSize(new java.awt.Dimension(200, 25));
+
+        cableVGA.setText("Cable VGA");
+        cableVGA.setPreferredSize(new java.awt.Dimension(200, 25));
+
+        interlock220V.setText("Cable interlock 220v");
+        interlock220V.setPreferredSize(new java.awt.Dimension(200, 25));
+
+        cableAudio.setText("Cable de audio");
+        cableAudio.setPreferredSize(new java.awt.Dimension(200, 25));
+
+        conversor.setText("Conversor de señal");
+        conversor.setPreferredSize(new java.awt.Dimension(200, 25));
+
+        jLabel1.setText("Tamaño:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(proyector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cableHDMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(conversor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cableAudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(interlock220V, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cableVGA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(comboBoxTamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4))))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jButton1)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addComponent(guardar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxTamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(proyector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(TV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cableHDMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(cableVGA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(interlock220V, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(cableAudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(conversor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(guardar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //salon.setTamano();
-        //salon.
-       // System.out.println("Cargo todo");
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        //en caso de que salon sea diferente de null, es decir, que le pase un salon al formulario para modificar, este algoritmo modifica los valores del objeto existente y los sincroniza con la base de datos
+        if(salon != null){
+            salon.setTamano(conexion.getConexion(),comboBoxTamano.getSelectedItem()=="Grande");
+            salon.setProyector(conexion.getConexion(),rootPaneCheckingEnabled);
+            salon.setTV(conexion.getConexion(), rootPaneCheckingEnabled);
+            salon.setCableHDMI(conexion.getConexion(), rootPaneCheckingEnabled);
+            salon.setCableVGA(conexion.getConexion(), rootPaneCheckingEnabled);
+            salon.setInterlock220V(conexion.getConexion(), rootPaneCheckingEnabled);
+            salon.setCableAudio(conexion.getConexion(), rootPaneCheckingEnabled);
+            salon.setConversor(conexion.getConexion(), rootPaneCheckingEnabled);
+        }else{
+            //caso contrario crea un salon nuevo con ina id no valida(-1) y lo carga a la base de datos
+            salon = new Salon(-1,comboBoxTamano.getSelectedItem()=="Grande", rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
+            salon.cargarSalon(conexion.getConexion());
+        }
+        //cierra el formulario
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void proyectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proyectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_proyectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,14 +239,15 @@ public class ModificarSalon extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JCheckBox TV;
+    private javax.swing.JCheckBox cableAudio;
+    private javax.swing.JCheckBox cableHDMI;
+    private javax.swing.JCheckBox cableVGA;
+    private javax.swing.JComboBox<String> comboBoxTamano;
+    private javax.swing.JCheckBox conversor;
+    private javax.swing.JButton guardar;
+    private javax.swing.JCheckBox interlock220V;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JCheckBox proyector;
     // End of variables declaration//GEN-END:variables
 }

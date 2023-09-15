@@ -1,15 +1,36 @@
 package Objetos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Carrera {
+    private static ArrayList<Carrera> carreras = new ArrayList<>();
+    private static Connection conexion;
     private int id_carrera;
     private String nombre;
     public Carrera(int id_carrera, String nombre) {
         this.id_carrera = id_carrera;
         this.nombre = nombre;
+    }
+    public static void cargarDatos(){
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet RS = consulta.executeQuery("SELECT * FROM `carreras` WHERE 1");
+            while(RS.next()) {
+                carreras.add(new Carrera(RS.getInt(1),RS.getString(2)));
+            }
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    //getter del arraylist de carreras
+    public static ArrayList<Carrera> getCarreras() {
+        return carreras;
+    }
+    //configura la conexion
+    public static void setConexion(Connection conexion) {
+        Carrera.conexion = conexion;
     }
 
     public int getId_carrera() {

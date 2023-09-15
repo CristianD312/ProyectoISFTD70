@@ -1,11 +1,16 @@
 package Objetos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import Logica.Conexion;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Salon {
-    private int id_salon;
+    //elemento estatico que guarda todas las instacias de salon:
+    private static ArrayList<Salon> salones = new ArrayList<Salon>();
+    //Elemento estatico que guarda la conexion con la base de datos:
+    private static Connection conexion;
+    private Integer id_salon;
     private boolean tamano;
     private boolean proyector;
     private boolean TV;
@@ -26,7 +31,28 @@ public class Salon {
         this.cableAudio = cableAudio;
         this.conversor = conversor;
     }
+    //carga todos los salones en la base de datos en el arraylist "salones"
+    public static void cargarDatos(){
+        try{
+            ResultSet RS = conexion.prepareStatement("SELECT * FROM salones INNER JOIN accesorios ON fk_salon = salones.id_salon").executeQuery();
+            while (RS.next()){
+                salones.add(new Salon(RS.getInt(1),RS.getBoolean(2),RS.getBoolean(10),RS.getBoolean(9),RS.getBoolean(5),RS.getBoolean(6),RS.getBoolean(4),RS.getBoolean(7),RS.getBoolean(8)));
+            }
 
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    //devuelve los valores del arraylist salones
+    public static ArrayList<Salon> getSalones() {
+        return salones;
+    }
+    //configura la conexion
+    public static void setConexion(Connection conexion) {
+        Salon.conexion = conexion;
+    }
+
+    //Getters
     public int getId_salon() {
         return id_salon;
     }
@@ -63,13 +89,14 @@ public class Salon {
         return conversor;
     }
 
+    //setters que se sincronizan con la base de datos
     public void setTamano(Connection con, boolean tamano) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
             consulta.setBoolean(1,tamano);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -82,8 +109,8 @@ public class Salon {
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET proyector = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,proyector);
             consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
             consulta.close();
-            con.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -141,7 +168,6 @@ public class Salon {
         }
         this.interlock220V = interlock220V;
     }
-
     public void setCableAudio(Connection con, boolean cableAudio) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET audio = ? WHERE fk_salon = ?");
@@ -154,7 +180,6 @@ public class Salon {
         }
         this.cableAudio = cableAudio;
     }
-
     public void setConversor(Connection con, boolean conversor) {
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET adp_conversor = ? WHERE fk_salon = ?");
@@ -166,5 +191,35 @@ public class Salon {
             e.printStackTrace();
         }
         this.conversor = conversor;
+    }
+    //en caso de que el salon no exista en la base de datos (requiere que se le cargue el valor -1 en id_salon) lo carga
+    public void cargarSalon(Connection con){
+        try {
+            if(id_salon.equals(-1)){
+                int claveGenerada = -1;
+                PreparedStatement cargaDeDatos = con.prepareStatement("INSERT INTO `salones`(`Tamaño`) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+                cargaDeDatos.setBoolean(1,tamano);
+                cargaDeDatos.executeUpdate();
+                ResultSet RS = cargaDeDatos.getGeneratedKeys();
+                while(RS.next()) {
+                    claveGenerada = RS.getInt(1);
+                }
+                this.id_salon = claveGenerada;
+                cargaDeDatos.close();
+                cargaDeDatos = con.prepareStatement("INSERT INTO `accesorios`(`fk_salon`, `interlock`, `vga`, `hdmi`, `audio`, `adp_conversor`, `tv`, `proyector`) VALUES (?,?,?,?,?,?,?,?)");
+                cargaDeDatos.setInt(1,claveGenerada);
+                cargaDeDatos.setBoolean(2,interlock220V);
+                cargaDeDatos.setBoolean(3,cableVGA);
+                cargaDeDatos.setBoolean(4,cableHDMI);
+                cargaDeDatos.setBoolean(5,cableAudio);
+                cargaDeDatos.setBoolean(6,conversor);
+                cargaDeDatos.setBoolean(7,TV);
+                cargaDeDatos.setBoolean(8,proyector);
+                cargaDeDatos.executeUpdate();
+                cargaDeDatos.close();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
