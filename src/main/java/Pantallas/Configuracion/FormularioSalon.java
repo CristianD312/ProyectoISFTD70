@@ -18,13 +18,13 @@ import java.util.Objects;
  *
  * @author dario
  */
-public class ModificarSalon extends javax.swing.JFrame {
+public class FormularioSalon extends javax.swing.JFrame {
     Conexion conexion;
     Salon salon;
     /**
      * Creates new form ModificarProfesor
      */
-    public ModificarSalon(Conexion conexion, Salon salon) {
+    public FormularioSalon(Conexion conexion, Salon salon) {
         this.conexion = conexion;
         this.salon = salon;
         initComponents();
@@ -44,7 +44,7 @@ public class ModificarSalon extends javax.swing.JFrame {
             //cuando apretas la "x" cierra unicamente la ventana del formulario
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public ModificarSalon(Conexion conexion) {
+    public FormularioSalon(Conexion conexion) {
         //en caso de utilizar este constructor se esta cargando un salon nuevo y carga el formulario sin nada selecciondo
         this.conexion = conexion;
         initComponents();
@@ -171,18 +171,18 @@ public class ModificarSalon extends javax.swing.JFrame {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         //en caso de que salon sea diferente de null, es decir, que le pase un salon al formulario para modificar, este algoritmo modifica los valores del objeto existente y los sincroniza con la base de datos
         if(salon != null){
-            salon.setTamano(conexion.getConexion(),comboBoxTamano.getSelectedItem()=="Grande");
-            salon.setProyector(conexion.getConexion(),rootPaneCheckingEnabled);
-            salon.setTV(conexion.getConexion(), rootPaneCheckingEnabled);
-            salon.setCableHDMI(conexion.getConexion(), rootPaneCheckingEnabled);
-            salon.setCableVGA(conexion.getConexion(), rootPaneCheckingEnabled);
-            salon.setInterlock220V(conexion.getConexion(), rootPaneCheckingEnabled);
-            salon.setCableAudio(conexion.getConexion(), rootPaneCheckingEnabled);
-            salon.setConversor(conexion.getConexion(), rootPaneCheckingEnabled);
+            salon.setTamano(comboBoxTamano.getSelectedItem()=="Grande");
+            salon.setProyector(rootPaneCheckingEnabled);
+            salon.setTV(rootPaneCheckingEnabled);
+            salon.setCableHDMI(rootPaneCheckingEnabled);
+            salon.setCableVGA(rootPaneCheckingEnabled);
+            salon.setInterlock220V(rootPaneCheckingEnabled);
+            salon.setCableAudio(rootPaneCheckingEnabled);
+            salon.setConversor(rootPaneCheckingEnabled);
         }else{
             //caso contrario crea un salon nuevo con ina id no valida(-1) y lo carga a la base de datos
             salon = new Salon(-1,comboBoxTamano.getSelectedItem()=="Grande", rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
-            salon.cargarSalon(conexion.getConexion());
+            salon.cargarSalon();
         }
         //cierra el formulario
         this.dispose();
@@ -196,29 +196,6 @@ public class ModificarSalon extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModificarSalon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the form */
         /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -233,10 +210,12 @@ public class ModificarSalon extends javax.swing.JFrame {
             public void run() {
                 new ModificarProfesor().setVisible(true);
             }
-        });
+        });*/
 
-         */
-    }
+     }
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox TV;
@@ -250,4 +229,5 @@ public class ModificarSalon extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JCheckBox proyector;
     // End of variables declaration//GEN-END:variables
-}
+    }
+

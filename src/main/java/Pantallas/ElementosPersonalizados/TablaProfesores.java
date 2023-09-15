@@ -10,7 +10,9 @@ public class TablaProfesores extends AbstractTableModel {
     ArrayList<Profesor> profesores;
     String[] columnas = {"DNI","Nombre","Apellido","Carrera"};
 
-    public TablaProfesores(ArrayList<Profesor> profesores) {this.profesores = profesores;}
+    public TablaProfesores(ArrayList<Profesor> profesores) {
+        this.profesores = profesores;
+    }
     @Override
     public int getRowCount(){
         return profesores.size();

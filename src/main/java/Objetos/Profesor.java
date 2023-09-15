@@ -24,6 +24,7 @@ public class Profesor {
     //Clase estatica que carga todos los profesores de la base de datos en el arraylist "profesores"
     public static void cargarDatos(){
         try {
+            profesores.clear();
             Statement consulta = conexion.createStatement();
             ResultSet RS = consulta.executeQuery("SELECT * FROM `profesores` WHERE 1");
             while(RS.next()){
@@ -49,6 +50,10 @@ public class Profesor {
     public static void setConexion(Connection con){
         conexion = con;
     }
+    //Permite cargar profesores nuevos
+    public static void addProfesor(Profesor profesor){
+        profesores.add(profesor);
+    }
     //getters de el objeto
     public Integer getDni() {
         return dni;
@@ -66,9 +71,9 @@ public class Profesor {
         return carrera;
     }
     //setters del objeto que se sincronizan con la base de datos
-    public void setDni(Connection con, Integer dni) {
+    public void setDni(Integer dni) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
             consulta.setInt(1,dni);
             consulta.setInt(2,this.dni);
             consulta.executeUpdate();
@@ -79,9 +84,9 @@ public class Profesor {
         this.dni = dni;
     }
 
-    public void setNombre(Connection con, String nombre) {
+    public void setNombre( String nombre) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,dni);
             consulta.executeUpdate();
@@ -91,9 +96,9 @@ public class Profesor {
         }
         this.nombre = nombre;
     }
-    public void setApellido(Connection con, String apellido) {
+    public void setApellido(String apellido) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET Apellido = ? where dni = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET Apellido = ? where dni = ?");
             consulta.setString(1,apellido);
             consulta.setInt(2,dni);
             consulta.executeUpdate();
@@ -104,9 +109,9 @@ public class Profesor {
         this.apellido = apellido;
     }
 
-    public void setCarrera(Connection con, Carrera carrera) {
+    public void setCarrera(Carrera carrera) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET fk_id_carrera = ? where dni = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET fk_id_carrera = ? where dni = ?");
             consulta.setInt(1, carrera.getId_carrera());
             consulta.setInt(2,dni);
             consulta.executeUpdate();
@@ -117,9 +122,9 @@ public class Profesor {
         this.carrera = carrera;
     }
     //en caso de que el profesor no exista en la base de datos este metodo lo carga
-    public void cargarDatosProfesor(Connection con){
+    public void cargarDatosProfesor(){
         try {
-            PreparedStatement consultaExistencia = con.prepareStatement("SELECT EXISTS (SELECT 1 FROM profesores WHERE dni = ?)");
+            PreparedStatement consultaExistencia = conexion.prepareStatement("SELECT EXISTS (SELECT 1 FROM profesores WHERE dni = ?)");
             consultaExistencia.setInt(1,dni);
             int bol = 0;
              ResultSet RS = consultaExistencia.executeQuery();
@@ -127,7 +132,7 @@ public class Profesor {
                  bol =RS.getInt(1);
              }
             if(bol != 1){
-                PreparedStatement cargaDeDatos = con.prepareStatement("INSERT INTO `profesores`(`dni`, `nombre`, `Apellido`, `fk_id_carrera`) VALUES (?,?,?,?)");
+                PreparedStatement cargaDeDatos = conexion.prepareStatement("INSERT INTO `profesores`(`dni`, `nombre`, `Apellido`, `fk_id_carrera`) VALUES (?,?,?,?)");
                 cargaDeDatos.setInt(1,dni);
                 cargaDeDatos.setString(2,nombre);
                 cargaDeDatos.setString(3,apellido);

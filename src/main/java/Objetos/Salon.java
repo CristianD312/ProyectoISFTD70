@@ -34,6 +34,7 @@ public class Salon {
     //carga todos los salones en la base de datos en el arraylist "salones"
     public static void cargarDatos(){
         try{
+            salones.clear();
             ResultSet RS = conexion.prepareStatement("SELECT * FROM salones INNER JOIN accesorios ON fk_salon = salones.id_salon").executeQuery();
             while (RS.next()){
                 salones.add(new Salon(RS.getInt(1),RS.getBoolean(2),RS.getBoolean(10),RS.getBoolean(9),RS.getBoolean(5),RS.getBoolean(6),RS.getBoolean(4),RS.getBoolean(7),RS.getBoolean(8)));
@@ -90,9 +91,9 @@ public class Salon {
     }
 
     //setters que se sincronizan con la base de datos
-    public void setTamano(Connection con, boolean tamano) {
+    public void setTamano(boolean tamano) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
             consulta.setBoolean(1,tamano);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -104,9 +105,9 @@ public class Salon {
         this.tamano = tamano;
     }
 
-    public void setProyector(Connection con, boolean proyector) {
+    public void setProyector(boolean proyector) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET proyector = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET proyector = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,proyector);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -117,9 +118,9 @@ public class Salon {
         this.proyector = proyector;
     }
 
-    public void setTV(Connection con, boolean TV) {
+    public void setTV( boolean TV) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET tv = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET tv = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,TV);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -130,9 +131,9 @@ public class Salon {
         this.TV = TV;
     }
 
-    public void setCableVGA(Connection con, boolean cableVGA) {
+    public void setCableVGA(boolean cableVGA) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET vga = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET vga = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableVGA);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -143,9 +144,9 @@ public class Salon {
         this.cableVGA = cableVGA;
     }
 
-    public void setCableHDMI(Connection con, boolean cableHDMI) {
+    public void setCableHDMI(boolean cableHDMI) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET hdmi = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET hdmi = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableHDMI);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -156,9 +157,9 @@ public class Salon {
         this.cableHDMI = cableHDMI;
     }
 
-    public void setInterlock220V(Connection con,boolean interlock220V) {
+    public void setInterlock220V(boolean interlock220V) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET interlock = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET interlock = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,interlock220V);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -168,9 +169,9 @@ public class Salon {
         }
         this.interlock220V = interlock220V;
     }
-    public void setCableAudio(Connection con, boolean cableAudio) {
+    public void setCableAudio(boolean cableAudio) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET audio = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET audio = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableAudio);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -180,9 +181,9 @@ public class Salon {
         }
         this.cableAudio = cableAudio;
     }
-    public void setConversor(Connection con, boolean conversor) {
+    public void setConversor(boolean conversor) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE accesorios SET adp_conversor = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET adp_conversor = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,conversor);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -193,21 +194,19 @@ public class Salon {
         this.conversor = conversor;
     }
     //en caso de que el salon no exista en la base de datos (requiere que se le cargue el valor -1 en id_salon) lo carga
-    public void cargarSalon(Connection con){
+    public void cargarSalon(){
         try {
             if(id_salon.equals(-1)){
-                int claveGenerada = -1;
-                PreparedStatement cargaDeDatos = con.prepareStatement("INSERT INTO `salones`(`Tamaño`) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement cargaDeDatos = conexion.prepareStatement("INSERT INTO `salones`(`Tamaño`) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
                 cargaDeDatos.setBoolean(1,tamano);
                 cargaDeDatos.executeUpdate();
                 ResultSet RS = cargaDeDatos.getGeneratedKeys();
                 while(RS.next()) {
-                    claveGenerada = RS.getInt(1);
+                    id_salon = RS.getInt(1);
                 }
-                this.id_salon = claveGenerada;
                 cargaDeDatos.close();
-                cargaDeDatos = con.prepareStatement("INSERT INTO `accesorios`(`fk_salon`, `interlock`, `vga`, `hdmi`, `audio`, `adp_conversor`, `tv`, `proyector`) VALUES (?,?,?,?,?,?,?,?)");
-                cargaDeDatos.setInt(1,claveGenerada);
+                cargaDeDatos = conexion.prepareStatement("INSERT INTO `accesorios`(`fk_salon`, `interlock`, `vga`, `hdmi`, `audio`, `adp_conversor`, `tv`, `proyector`) VALUES (?,?,?,?,?,?,?,?)");
+                cargaDeDatos.setInt(1,id_salon);
                 cargaDeDatos.setBoolean(2,interlock220V);
                 cargaDeDatos.setBoolean(3,cableVGA);
                 cargaDeDatos.setBoolean(4,cableHDMI);

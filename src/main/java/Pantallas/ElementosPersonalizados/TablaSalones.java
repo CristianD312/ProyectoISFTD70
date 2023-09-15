@@ -1,7 +1,5 @@
 package Pantallas.ElementosPersonalizados;
 
-import Objetos.Carrera;
-import Objetos.Profesor;
 import Objetos.Salon;
 
 import javax.swing.table.AbstractTableModel;

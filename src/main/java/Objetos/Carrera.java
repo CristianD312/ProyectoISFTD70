@@ -14,6 +14,7 @@ public class Carrera {
     }
     public static void cargarDatos(){
         try {
+            carreras.clear();
             Statement consulta = conexion.createStatement();
             ResultSet RS = consulta.executeQuery("SELECT * FROM `carreras` WHERE 1");
             while(RS.next()) {
@@ -41,9 +42,9 @@ public class Carrera {
         return nombre;
     }
 
-    public void setNombre(Connection con, String nombre) {
+    public void setNombre(String nombre) {
         try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE carreras SET nombre_carrera = ? WHERE id_carrera = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE carreras SET nombre_carrera = ? WHERE id_carrera = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,id_carrera);
             consulta.executeUpdate();
@@ -52,6 +53,23 @@ public class Carrera {
             e.printStackTrace();
         }
         this.nombre = nombre;
+    }
+
+    public void cargarDatosCarrera(){
+        try {
+            if(id_carrera == -1){
+                PreparedStatement consulta = conexion.prepareStatement("INSERT INTO `carreras`(`nombre_carrera`) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
+                consulta.setString(1,nombre);
+                consulta.executeUpdate();
+                ResultSet RS = consulta.getGeneratedKeys();
+                while(RS.next()){
+                    id_carrera = RS.getInt(1);
+                }
+
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
