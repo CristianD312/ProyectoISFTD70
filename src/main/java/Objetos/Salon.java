@@ -1,11 +1,12 @@
 package Objetos;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import logica.Conexion;
+import Pantallas.PantallaReserva;
 
 public class Salon {
     private int id_salon;
@@ -17,10 +18,11 @@ public class Salon {
     private boolean interlock220V;
     private boolean cableAudio;
     private boolean conversor;
+    private String observacion;
     
     public Salon (){}
 
-    public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor) {
+    public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
         this.id_salon = id_salon;
         this.tamano = tamano;
         this.proyector = proyector;
@@ -30,6 +32,7 @@ public class Salon {
         this.interlock220V = interlock220V;
         this.cableAudio = cableAudio;
         this.conversor = conversor;
+        this.observacion = observacion;
     }
 
     public int getId_salon() {
@@ -172,6 +175,15 @@ public class Salon {
         }
         this.conversor = conversor;
     }
+    public String observacion() {
+        return observacion;
+    }
+
+    public void setObservacion() {
+        this.observacion = observacion;
+    }
+    
+    
     
     
 }
