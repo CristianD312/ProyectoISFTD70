@@ -595,11 +595,7 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarProfesorActionPerformed
 
     private void cambiarInterfazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarInterfazActionPerformed
-         Container contenedor = this.getContentPane();
-         contenedor.removeAll();
-         contenedor.add(new pantallaConfig2());
-         contenedor.revalidate();
-         repaint();
+
     }//GEN-LAST:event_cambiarInterfazActionPerformed
 
     private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
