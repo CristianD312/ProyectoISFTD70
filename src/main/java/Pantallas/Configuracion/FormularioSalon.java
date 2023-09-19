@@ -193,18 +193,18 @@ public class FormularioSalon extends javax.swing.JFrame {
         //en caso de que salon sea diferente de null, es decir, que le pase un salon al formulario para modificar, este algoritmo modifica los valores del objeto existente y los sincroniza con la base de datos
         if(salon != null){
             salon.setTamano(comboBoxTamano.getSelectedItem().toString());
-            salon.setProyector(rootPaneCheckingEnabled);
-            salon.setTV(rootPaneCheckingEnabled);
-            salon.setCableHDMI(rootPaneCheckingEnabled);
-            salon.setCableVGA(rootPaneCheckingEnabled);
-            salon.setInterlock220V(rootPaneCheckingEnabled);
-            salon.setCableAudio(rootPaneCheckingEnabled);
-            salon.setConversor(rootPaneCheckingEnabled);
+            salon.setProyector(proyector.isSelected());
+            salon.setTV(TV.isSelected());
+            salon.setCableHDMI(cableHDMI.isSelected());
+            salon.setCableVGA(cableVGA.isSelected());
+            salon.setInterlock220V(interlock220V.isSelected());
+            salon.setCableAudio(cableAudio.isSelected());
+            salon.setConversor(conversor.isSelected());
             salon.setObservaciones(observaciones.getText());
             salon.setNombre(nombre.getText());
         }else{
             //caso contrario crea un salon nuevo con ina id no valida(-1) y lo carga a la base de datos
-            salon = new Salon(-1,nombre.getText(),comboBoxTamano.getSelectedItem().toString(),observaciones.getText(),rootPaneCheckingEnabled,rootPaneCheckingEnabled,rootPaneCheckingEnabled,rootPaneCheckingEnabled,rootPaneCheckingEnabled,rootPaneCheckingEnabled,rootPaneCheckingEnabled);
+            salon = new Salon(-1,nombre.getText(),comboBoxTamano.getSelectedItem().toString(),observaciones.getText(),interlock220V.isSelected(),cableVGA.isSelected(),cableHDMI.isSelected(),cableAudio.isSelected(),conversor.isSelected(),TV.isSelected(),proyector.isSelected());
             salon.cargarSalon();
         }
         //cierra el formulario

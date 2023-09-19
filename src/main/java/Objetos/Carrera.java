@@ -62,6 +62,7 @@ public class Carrera {
                 consulta.setString(1,nombre);
                 consulta.executeUpdate();
                 ResultSet RS = consulta.getGeneratedKeys();
+                carreras.add(this);
                 while(RS.next()){
                     id_carrera = RS.getInt(1);
                 }
@@ -78,6 +79,7 @@ public class Carrera {
             consulta.setInt(1,id_carrera);
             consulta.executeUpdate();
             consulta.close();
+            carreras.remove(this);
         }catch (SQLException e){
             e.printStackTrace();
         }

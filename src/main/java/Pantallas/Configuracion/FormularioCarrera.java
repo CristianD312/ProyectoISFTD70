@@ -25,6 +25,7 @@ public class FormularioCarrera extends javax.swing.JFrame {
     public FormularioCarrera(Conexion conexion, Carrera carrera) {
         this.conexion = conexion;
         this.carrera = carrera;
+        initComponents();
         nombreCarrera.setText(carrera.getNombre());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }

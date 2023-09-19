@@ -206,7 +206,7 @@ public class Salon {
 
     public void setNombre(String nombre) {
         try{
-            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET nombre_salon = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET nombre_salon = ? WHERE id_salon = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -219,7 +219,7 @@ public class Salon {
 
     public void setObservaciones(String observaciones) {
         try{
-            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET observaciones = ? WHERE fk_salon = ?");
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET observaciones = ? WHERE id_salon = ?");
             consulta.setString(1,observaciones);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
@@ -235,9 +235,9 @@ public class Salon {
         try {
             if(id_salon.equals(-1)){
                 PreparedStatement cargaDeDatos = conexion.prepareStatement("INSERT INTO `salones`(`nombre_salon`, `tamaño`, `observaciones`) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
-                cargaDeDatos.setString(2,nombre);
+                cargaDeDatos.setString(1,nombre);
                 cargaDeDatos.setString(2,tamano);
-                cargaDeDatos.setString(2,observaciones);
+                cargaDeDatos.setString(3,observaciones);
                 cargaDeDatos.executeUpdate();
                 ResultSet RS = cargaDeDatos.getGeneratedKeys();
                 while(RS.next()) {
@@ -255,6 +255,7 @@ public class Salon {
                 cargaDeDatos.setBoolean(8,proyector);
                 cargaDeDatos.executeUpdate();
                 cargaDeDatos.close();
+                salones.add(this);
             }
         }catch (SQLException e){
             e.printStackTrace();

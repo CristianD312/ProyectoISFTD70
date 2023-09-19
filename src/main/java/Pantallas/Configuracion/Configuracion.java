@@ -13,7 +13,6 @@ import Pantallas.ElementosPersonalizados.TablaSalones;
 import com.formdev.flatlaf.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -42,7 +41,7 @@ public class Configuracion extends javax.swing.JFrame {
         }
         UIManager.put( "Button.arc", 999 );
         conexion = new Conexion();
-        //le da la conexion a cada uno de los objetos para que puedan crear un arraylist de si mismos reflejando la base de datos
+        //le da la conexion a cada uno de los objetos para que puedan crear un arraylist de sí mismos reflejando la base de datos
         Carrera.setConexion(conexion.getConexion());
         Profesor.setConexion(conexion.getConexion());
         Salon.setConexion(conexion.getConexion());
@@ -50,7 +49,7 @@ public class Configuracion extends javax.swing.JFrame {
         Carrera.cargarDatos();
         Profesor.cargarDatos();
         Salon.cargarDatos();
-        //relaciona el array interno de la clase con los array de la pantalla configuracion (estan sincronizados, cualquier cambien en unoo afecta el otro)
+        //relaciona el array interno de la clase con los array de la pantalla configuracion (están sincronizados, cualquier cambien en unoo afecta el otro)
         profesores = Profesor.getProfesores();
         carreras = Carrera.getCarreras();
         salones = Salon.getSalones();
@@ -69,7 +68,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        panelDePestañas = new javax.swing.JTabbedPane();
+        panelDePestanas = new javax.swing.JTabbedPane();
         tabSalones = new javax.swing.JLayeredPane();
         tablaSalonesScroll = new javax.swing.JScrollPane();
         tablaSalones = new javax.swing.JTable();
@@ -108,7 +107,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        panelDePestanas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         tablaSalones.setAutoCreateRowSorter(true);
         tablaSalones.setModel(new TablaSalones(salones));
@@ -116,18 +115,10 @@ public class Configuracion extends javax.swing.JFrame {
         tablaSalonesScroll.setViewportView(tablaSalones);
 
         modificarSalon.setText("Modificar");
-        modificarSalon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarSalonActionPerformed(evt);
-            }
-        });
+        modificarSalon.addActionListener(this::modificarSalonActionPerformed);
 
         agregarSalon.setText("Agregar");
-        agregarSalon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarSalonActionPerformed(evt);
-            }
-        });
+        agregarSalon.addActionListener(this::agregarSalonActionPerformed);
 
         tabSalones.setLayer(tablaSalonesScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabSalones.setLayer(modificarSalon, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -156,7 +147,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelDePestañas.addTab("Salones", tabSalones);
+        panelDePestanas.addTab("Salones", tabSalones);
 
         tablaProfesores.setAutoCreateRowSorter(true);
         tablaProfesores.setModel(new TablaProfesores(profesores));
@@ -165,25 +156,13 @@ public class Configuracion extends javax.swing.JFrame {
         tablaProfesoresScroll.setViewportView(tablaProfesores);
 
         modificarProfesor.setText("Modificar");
-        modificarProfesor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarProfesorActionPerformed(evt);
-            }
-        });
+        modificarProfesor.addActionListener(this::modificarProfesorActionPerformed);
 
         agregarProfesor.setText("Agregar");
-        agregarProfesor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarProfesorActionPerformed(evt);
-            }
-        });
+        agregarProfesor.addActionListener(this::agregarProfesorActionPerformed);
 
         eliminarProfesor.setText("Eliminar");
-        eliminarProfesor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarProfesorActionPerformed(evt);
-            }
-        });
+        eliminarProfesor.addActionListener(this::eliminarProfesorActionPerformed);
 
         tabProfesores.setLayer(tablaProfesoresScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabProfesores.setLayer(modificarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -216,7 +195,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
-        panelDePestañas.addTab("Profesores", tabProfesores);
+        panelDePestanas.addTab("Profesores", tabProfesores);
 
         tablaCarreras.setModel(new TablaCarreras(carreras)
         );
@@ -225,25 +204,13 @@ public class Configuracion extends javax.swing.JFrame {
         tablaCarrerasScroll.setViewportView(tablaCarreras);
 
         modificarCarrera.setText("Modificar");
-        modificarCarrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarCarreraActionPerformed(evt);
-            }
-        });
+        modificarCarrera.addActionListener(this::modificarCarreraActionPerformed);
 
         agregarCarrera.setText("Agregar");
-        agregarCarrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarCarreraActionPerformed(evt);
-            }
-        });
+        agregarCarrera.addActionListener(this::agregarCarreraActionPerformed);
 
         eliminarCarrera.setText("Eliminar");
-        eliminarCarrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarCarreraActionPerformed(evt);
-            }
-        });
+        eliminarCarrera.addActionListener(this::eliminarCarreraActionPerformed);
 
         tabCarreras.setLayer(tablaCarrerasScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabCarreras.setLayer(modificarCarrera, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -276,21 +243,13 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelDePestañas.addTab("Carreras", tabCarreras);
+        panelDePestanas.addTab("Carreras", tabCarreras);
 
-        botonTema.setText("Tema  Oscuro");
-        botonTema.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonTemaActionPerformed(evt);
-            }
-        });
+        botonTema.setText("Tema Oscuro");
+        botonTema.addActionListener(this::botonTemaActionPerformed);
 
         cambiarInterfaz.setText("Cambiar Interfaz");
-        cambiarInterfaz.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cambiarInterfazActionPerformed(evt);
-            }
-        });
+        cambiarInterfaz.addActionListener(this::cambiarInterfazActionPerformed);
 
         jLabel1.setText("Opciones Graficas:");
 
@@ -305,11 +264,7 @@ public class Configuracion extends javax.swing.JFrame {
         jButton2.setText("Guardar");
 
         jButton3.setText("Respaldar base de datos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jButton4.setText("Restaurar desde respaldo");
 
@@ -386,52 +341,60 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap(204, Short.MAX_VALUE))
         );
 
-        panelDePestañas.addTab("Configuración", tabConfiguracion);
+        panelDePestanas.addTab("Configuración", tabConfiguracion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDePestañas)
+            .addComponent(panelDePestanas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDePestañas)
+            .addComponent(panelDePestanas)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarSalonActionPerformed
-        //su hay algun elemento de la tabla seleccionado se ejecuta el if
+        //su hay algún elemento de la tabla seleccionado se ejecuta el if
         if(tablaSalones.getSelectedRow() != -1) {
             //crea una nueva instancia de formulario profesor y le pasa los datos del profesor a modificar
-            Salon salon = salones.get(tablaSalones.getSelectedRow());
-            JFrame ventana = new FormularioSalon(conexion, salon);
-
-            //centra la nueva pestaña y la posiciona por encima de todas
-            ventana.setLocationRelativeTo(this);
-            ventana.setAlwaysOnTop(true);
-
-            //desactiva la pestaña de configuracion mientras
-            this.setFocusable(false);
-            this.setEnabled(false);
-            //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
-            JFrame ventanaConfig = this;
-            //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
-            ventana.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    ventanaConfig.setEnabled(true);
-                    ventanaConfig.setFocusable(true);
-                    tablaSalones.updateUI();
+            Salon salon = null;
+            for (Salon sal : salones) {
+                if (sal.getId_salon() == (int) tablaSalones.getValueAt(tablaSalones.getSelectedRow(), 0)) {
+                    salon = sal;
+                    break;
                 }
-            });
-            ventana.setVisible(true);
-        }else{
-            //en caso de no tener ningun salon para modificar tira un mensaje de error
-            JOptionPane.showMessageDialog(this,"Por favor seleccione el Salón que desea modificar","Error",JOptionPane.ERROR_MESSAGE);
-        }
+            }
+            if (salon != null) {
+                JFrame ventana = new FormularioSalon(conexion, salon);
+
+                //centra la nueva pestaña y la posiciona por encima de todas
+                ventana.setLocationRelativeTo(this);
+                ventana.setAlwaysOnTop(true);
+
+                //desactiva la pestaña de configuracion mientras
+                this.setFocusable(false);
+                this.setEnabled(false);
+                //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
+                JFrame ventanaConfig = this;
+                //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
+                ventana.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        ventanaConfig.setEnabled(true);
+                        ventanaConfig.setFocusable(true);
+                        tablaSalones.updateUI();
+                    }
+                });
+                ventana.setVisible(true);
+            }
+            } else {
+                //en caso de no tener ningun salon para modificar tira un mensaje de error
+                JOptionPane.showMessageDialog(this, "Por favor seleccione el Salón que desea modificar", "Error", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_modificarSalonActionPerformed
 
     private void agregarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSalonActionPerformed
@@ -498,32 +461,43 @@ public class Configuracion extends javax.swing.JFrame {
         //su hay algun elemento de la tabla seleccionado se ejecuta el if
         if(tablaCarreras.getSelectedRow() != -1) {
             //crea una nueva instancia de formulario profesor y le pasa los datos del profesor a modificar
-            Carrera carrera = carreras.get(tablaCarreras.getSelectedRow());
-            JFrame ventana = new FormularioCarrera(conexion, carrera);
-
-            //centra la nueva pestaña y la posiciona por encima de todas
-            ventana.setLocationRelativeTo(this);
-            ventana.setAlwaysOnTop(true);
-
-            //desactiva la pestaña de configuracion mientras
-            this.setFocusable(false);
-            this.setEnabled(false);
-            //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
-            JFrame ventanaConfig = this;
-            //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
-            ventana.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    ventanaConfig.setEnabled(true);
-                    ventanaConfig.setFocusable(true);
-                    tablaCarreras.updateUI();
+            Carrera carrera = null;
+            for (Carrera carr : carreras) {
+                if (carr.getId_carrera() == (int) tablaCarreras.getValueAt(tablaCarreras.getSelectedRow(), 0)) {
+                    carrera = carr;
+                    break;
                 }
-            });
-            ventana.setVisible(true);
-        }else{
-            //en caso de no tener ninguna carrera para modificar tira un mensaje de error
-            JOptionPane.showMessageDialog(this,"Por favor seleccione la carrera que desea modificar","Error",JOptionPane.ERROR_MESSAGE);
-        }
+            }
+            if (carrera != null) {
+                System.out.println(carrera.getId_carrera());
+                System.out.println(carrera.getNombre());
+                JFrame ventana = new FormularioCarrera(conexion, carrera);
+
+                //centra la nueva pestaña y la posiciona por encima de todas
+                ventana.setLocationRelativeTo(this);
+                ventana.setAlwaysOnTop(true);
+
+                //desactiva la pestaña de configuracion mientras
+                this.setFocusable(false);
+                this.setEnabled(false);
+                //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
+                JFrame ventanaConfig = this;
+                //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
+                ventana.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        ventanaConfig.setEnabled(true);
+                        ventanaConfig.setFocusable(true);
+                        tablaCarreras.updateUI();
+                    }
+                });
+                ventana.setVisible(true);
+            }
+            } else {
+                //en caso de no tener ninguna carrera para modificar tira un mensaje de error
+                JOptionPane.showMessageDialog(this, "Por favor seleccione la carrera que desea modificar", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
     }//GEN-LAST:event_modificarCarreraActionPerformed
 
     private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
@@ -554,28 +528,36 @@ public class Configuracion extends javax.swing.JFrame {
         //su hay algun elemento de la tabla seleccionado se ejecuta el if
         if(tablaProfesores.getSelectedRow() != -1) {
             //crea una nueva instancia de formulario profesor y le pasa los datos del profesor a modificar
-            Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
-            JFrame ventana = new FormularioProfesor(conexion, profesor, carreras);
-
-            //centra la nueva pestaña y la posiciona por encima de todas
-            ventana.setLocationRelativeTo(this);
-            ventana.setAlwaysOnTop(true);
-
-            //desactiva la pestaña de configuracion mientras
-            this.setFocusable(false);
-            this.setEnabled(false);
-            //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
-            JFrame ventanaConfig = this;
-            //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
-            ventana.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    ventanaConfig.setEnabled(true);
-                    ventanaConfig.setFocusable(true);
-                    tabProfesores.updateUI();
+            Profesor profe = null;
+            for(Profesor profesor: profesores){
+                if(profesor.getDni() == tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(),0)){
+                    profe = profesor;
+                    break;
                 }
-            });
-            ventana.setVisible(true);
+            }
+            if(profe != null) {
+                JFrame ventana = new FormularioProfesor(conexion, profe, carreras);
+
+                //centra la nueva pestaña y la posiciona por encima de todas
+                ventana.setLocationRelativeTo(this);
+                ventana.setAlwaysOnTop(true);
+
+                //desactiva la pestaña de configuracion mientras
+                this.setFocusable(false);
+                this.setEnabled(false);
+                //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
+                JFrame ventanaConfig = this;
+                //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
+                ventana.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        ventanaConfig.setEnabled(true);
+                        ventanaConfig.setFocusable(true);
+                        tabProfesores.updateUI();
+                    }
+                });
+                ventana.setVisible(true);
+            }
         }else{
             //en caso de no tener nungun profesor para modificar tira un mensaje de error
             JOptionPane.showMessageDialog(this,"Por favor seleccione el profesor que desea modificar","Error",JOptionPane.ERROR_MESSAGE);
@@ -587,7 +569,7 @@ public class Configuracion extends javax.swing.JFrame {
             for(Profesor profesor: profesores){
                 if(profesor.getDni() == (int)tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(),0)){
                     profesor.borrarProfesor();
-                    tablaCarreras.updateUI();
+                    tablaProfesores.updateUI();
                     break;
                 }
             }
@@ -629,28 +611,18 @@ public class Configuracion extends javax.swing.JFrame {
                     System.out.println("Carpeta seleccionada: " + carpetaSeleccionada.getAbsolutePath());
                 }
     }//GEN-LAST:event_jButton3ActionPerformed
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         // Carga de tema
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-
-                new Configuracion().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new Configuracion().setVisible(true));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarCarrera;
@@ -676,7 +648,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton modificarCarrera;
     private javax.swing.JButton modificarProfesor;
     private javax.swing.JButton modificarSalon;
-    private javax.swing.JTabbedPane panelDePestañas;
+    private javax.swing.JTabbedPane panelDePestanas;
     private javax.swing.JLayeredPane tabCarreras;
     private javax.swing.JLayeredPane tabConfiguracion;
     private javax.swing.JLayeredPane tabProfesores;
