@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JComboBox;
 import logica.Conexion;
 import Pantallas.PantallaReserva;
+import javax.swing.JOptionPane;
 
 public class Salon {
     private int id_salon;
@@ -20,9 +21,9 @@ public class Salon {
     private boolean conversor;
     private String observacion;
     
-    public Salon (){}
+    public Salon(){}
 
-    public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
+    /*public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
         this.id_salon = id_salon;
         this.tamano = tamano;
         this.proyector = proyector;
@@ -33,10 +34,14 @@ public class Salon {
         this.cableAudio = cableAudio;
         this.conversor = conversor;
         this.observacion = observacion;
-    }
+    }*/
 
     public int getId_salon() {
         return id_salon;
+    }
+    
+    public void setId_salon(int id_salon) {
+        this.id_salon = id_salon;
     }
 
     public boolean isTamano() {
@@ -175,15 +180,30 @@ public class Salon {
         }
         this.conversor = conversor;
     }
-    public String observacion() {
+    public String getObservacion() {
         return observacion;
     }
 
-    public void setObservacion() {
+    public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
     
-    
+    public static void guardarObservacion (Salon observa){
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            String sql ="UPDATE `salones` SET `observaciones`= ? WHERE `id_salon` = ?";
+            PreparedStatement statement = conect.getConn().prepareStatement(sql);
+            statement.setString(1, observa.getObservacion());
+            statement.setInt(2, observa.getId_salon());
+            statement.executeUpdate();
+            statement.close();
+            JOptionPane.showMessageDialog(null, "Observacion cargada con exito");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
+        }
+    }
     
     
 }
