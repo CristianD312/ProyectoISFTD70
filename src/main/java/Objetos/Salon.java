@@ -23,7 +23,7 @@ public class Salon {
     
     public Salon(){}
 
-    /*public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
+    public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
         this.id_salon = id_salon;
         this.tamano = tamano;
         this.proyector = proyector;
@@ -34,7 +34,7 @@ public class Salon {
         this.cableAudio = cableAudio;
         this.conversor = conversor;
         this.observacion = observacion;
-    }*/
+    }
 
     public int getId_salon() {
         return id_salon;

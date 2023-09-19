@@ -3,12 +3,15 @@ package Objetos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import logica.Conexion;
 
 public class Profesor {
     private Integer dni;
     private String nombre;
     private String apellido;
     private Carrera carrera;
+    
+    public Profesor (){}
     public Profesor(Integer dni, String nombre, String apellido, Carrera carrera) {
         this.dni = dni;
         this.nombre = nombre;
@@ -32,16 +35,7 @@ public class Profesor {
         return carrera;
     }
 
-    public void setDni(Connection con, Integer dni) {
-        try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
-            consulta.setInt(1,dni);
-            consulta.setInt(2,this.dni);
-            consulta.executeUpdate();
-            consulta.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
