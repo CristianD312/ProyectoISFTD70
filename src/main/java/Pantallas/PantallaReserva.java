@@ -4,6 +4,7 @@
  */
 package Pantallas;
 
+import Logica.ComboBoxItemProfes;
 import Logica.ComboBoxItem;
 import Objetos.Carrera;
 import Objetos.Profesor;
@@ -331,6 +332,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         Conexion conect = new Conexion(null);
         conect.conectar();
         Connection conn = null;
+        
         Object salon = salonesBox.getSelectedItem();
         String conversionSalonElegido = salon.toString();
         conversionSalonElegido = conversionSalonElegido.trim();
@@ -340,13 +342,36 @@ public class PantallaReserva extends javax.swing.JFrame {
         String conversionCarreraElegida=selectedItem.toString();
         conversionCarreraElegida = conversionCarreraElegida.trim();
         int carreraElegida = Integer.parseInt(conversionSalonElegido);
+         try {
+            JOptionPane.showMessageDialog(null, "El numero de carrera es "+carreraElegida);
+        } catch (Exception e) {
+        }
         
         
         ComboBoxItemProfes selectItem = (ComboBoxItemProfes) profesorBox.getSelectedItem();
         String conversionProfesorElegido=selectItem.toString();
         conversionProfesorElegido=conversionProfesorElegido.trim();
+        try {
+            String sql = "SELECT dni, nombre, apellido FROM `profesores`";
+            java.sql.Statement statement = conect.getConn().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                int dnis = resultSet.getInt("dni");
+                String nombreProfe = resultSet.getString("nombre");
+                String apellidoProfe = resultSet.getString("apellido");
+                
+            }
+            
+            
+        } catch (Exception e) {
+        }
+        
         int profesorElegido = Integer.parseInt(conversionProfesorElegido);
-        JOptionPane.showMessageDialog(null, "El numero de ID del profe es "+profesorElegido);
+        try {
+            JOptionPane.showMessageDialog(null, "El numero de ID del profe es "+profesorElegido);
+        } catch (Exception e) {
+        }
+        
         
         
         Date dia=diaBox.getDate();
@@ -443,18 +468,18 @@ public class PantallaReserva extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al cargar las carreras: "+e.toString());
         }
     }
-    private void cargarProfesoresBOX(JComboBox profesoresBox){
+    private void cargarProfesoresBOX(JComboBox profesorBox){
         Conexion conect = new Conexion(null);
         conect.conectar(); 
         try {
-            String sql = "SELECT  dni, nombre, apellido FROM `profesores`";
+            String sql = "SELECT dni, nombre, apellido FROM `profesores`";
             java.sql.Statement statement = conect.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
-                int dni = resultSet.getInt("dni");
+                int dnis = resultSet.getInt("dni");
                 String nombresProfes = resultSet.getString("nombre");
                 String apellidosProfes = resultSet.getString("apellido");
-                profesoresBox.addItem(new ComboBoxItemProfes(dni, nombresProfes, apellidosProfes));
+                profesorBox.addItem(new ComboBoxItemProfes(dnis, nombresProfes, apellidosProfes));
                 
             }
         } catch (Exception e) {
