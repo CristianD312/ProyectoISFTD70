@@ -1,7 +1,5 @@
 package Objetos;
 
-import Logica.Conexion;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,7 +9,8 @@ public class Salon {
     //Elemento estatico que guarda la conexion con la base de datos:
     private static Connection conexion;
     private Integer id_salon;
-    private boolean tamano;
+    private String tamano;
+    private String nombre;
     private boolean proyector;
     private boolean TV;
     private boolean cableVGA;
@@ -19,8 +18,9 @@ public class Salon {
     private boolean interlock220V;
     private boolean cableAudio;
     private boolean conversor;
+    private String observaciones;
 
-    public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor) {
+    public Salon(int id_salon, String nombre ,String tamano, String observaciones, boolean interlock220V, boolean cableVGA, boolean cableHDMI, boolean cableAudio, boolean conversor, boolean TV, boolean proyector ) {
         this.id_salon = id_salon;
         this.tamano = tamano;
         this.proyector = proyector;
@@ -30,6 +30,8 @@ public class Salon {
         this.interlock220V = interlock220V;
         this.cableAudio = cableAudio;
         this.conversor = conversor;
+        this.nombre = nombre;
+        this.observaciones = observaciones;
     }
     //carga todos los salones en la base de datos en el arraylist "salones"
     public static void cargarDatos(){
@@ -37,7 +39,7 @@ public class Salon {
             salones.clear();
             ResultSet RS = conexion.prepareStatement("SELECT * FROM salones INNER JOIN accesorios ON fk_salon = salones.id_salon").executeQuery();
             while (RS.next()){
-                salones.add(new Salon(RS.getInt(1),RS.getBoolean(2),RS.getBoolean(10),RS.getBoolean(9),RS.getBoolean(5),RS.getBoolean(6),RS.getBoolean(4),RS.getBoolean(7),RS.getBoolean(8)));
+                salones.add(new Salon(RS.getInt(1),RS.getString(2), RS.getString(3), RS.getString(4),RS.getBoolean(6),RS.getBoolean(7),RS.getBoolean(8),RS.getBoolean(9),RS.getBoolean(10),RS.getBoolean(11),RS.getBoolean(12)));
             }
 
         }catch (SQLException e){
@@ -58,7 +60,7 @@ public class Salon {
         return id_salon;
     }
 
-    public boolean isTamano() {
+    public String getTamano() {
         return tamano;
     }
 
@@ -90,11 +92,19 @@ public class Salon {
         return conversor;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
     //setters que se sincronizan con la base de datos
-    public void setTamano(boolean tamano) {
+    public void setTamano(String tamano) {
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
-            consulta.setBoolean(1,tamano);
+            consulta.setString(1,tamano);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
@@ -193,12 +203,41 @@ public class Salon {
         }
         this.conversor = conversor;
     }
+
+    public void setNombre(String nombre) {
+        try{
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET nombre_salon = ? WHERE fk_salon = ?");
+            consulta.setString(1,nombre);
+            consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        this.nombre = nombre;
+    }
+
+    public void setObservaciones(String observaciones) {
+        try{
+            PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET observaciones = ? WHERE fk_salon = ?");
+            consulta.setString(1,observaciones);
+            consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        this.observaciones = observaciones;
+    }
+
     //en caso de que el salon no exista en la base de datos (requiere que se le cargue el valor -1 en id_salon) lo carga
     public void cargarSalon(){
         try {
             if(id_salon.equals(-1)){
-                PreparedStatement cargaDeDatos = conexion.prepareStatement("INSERT INTO `salones`(`Tamaño`) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
-                cargaDeDatos.setBoolean(1,tamano);
+                PreparedStatement cargaDeDatos = conexion.prepareStatement("INSERT INTO `salones`(`nombre_salon`, `tamaño`, `observaciones`) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                cargaDeDatos.setString(2,nombre);
+                cargaDeDatos.setString(2,tamano);
+                cargaDeDatos.setString(2,observaciones);
                 cargaDeDatos.executeUpdate();
                 ResultSet RS = cargaDeDatos.getGeneratedKeys();
                 while(RS.next()) {
