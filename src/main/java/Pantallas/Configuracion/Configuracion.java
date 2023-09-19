@@ -4,6 +4,7 @@
  */
 package Pantallas.Configuracion;
 import Logica.Conexion;
+import Logica.parametrosDeConfiguracion;
 import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Salon;
@@ -33,12 +34,6 @@ public class Configuracion extends javax.swing.JFrame {
      */
 
     public Configuracion() {
-        // Carga de tema
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         UIManager.put( "Button.arc", 999 );
         conexion = new Conexion();
         //le da la conexion a cada uno de los objetos para que puedan crear un arraylist de sí mismos reflejando la base de datos
@@ -55,6 +50,30 @@ public class Configuracion extends javax.swing.JFrame {
         salones = Salon.getSalones();
         //carga de componentes
         initComponents();
+        parametrosDeConfiguracion.cargarParametros();
+        if(parametrosDeConfiguracion.getTema().equals("Oscuro")){
+            ponerTemaOscuro();
+            botonTema.setText("Tema Claro");
+        } else if (parametrosDeConfiguracion.getTema().equals("Claro")) {
+            ponerTemaClaro();
+            botonTema.setText("Tema Oscuro");
+        }
+    }
+    private void ponerTemaOscuro(){
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void ponerTemaClaro(){
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -245,7 +264,6 @@ public class Configuracion extends javax.swing.JFrame {
 
         panelDePestanas.addTab("Carreras", tabCarreras);
 
-        botonTema.setText("Tema Oscuro");
         botonTema.addActionListener(this::botonTemaActionPerformed);
 
         cambiarInterfaz.setText("Cambiar Interfaz");
@@ -582,20 +600,14 @@ public class Configuracion extends javax.swing.JFrame {
 
     private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
         if(botonTema.getText().equals("Tema Oscuro")){
-            try {
-                UIManager.setLookAndFeel(new FlatDarkLaf());
-                SwingUtilities.updateComponentTreeUI(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            System.out.println(botonTema.getText());
+            System.out.println("Tema Oscuro");
+            ponerTemaOscuro();
+            parametrosDeConfiguracion.setTema("Oscuro");
             botonTema.setText("Tema Claro");
         }else {
-            try {
-                UIManager.setLookAndFeel(new FlatLightLaf());
-                SwingUtilities.updateComponentTreeUI(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            ponerTemaClaro();
+            parametrosDeConfiguracion.setTema("Claro");
             botonTema.setText("Tema Oscuro");
         }
     }//GEN-LAST:event_botonTemaActionPerformed
