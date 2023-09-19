@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Conexion {
-    private String URL = "jdbc:mysql://localhost:3306/tst";
+    private String URL = "jdbc:mysql://localhost:3306/reservas";
     private String USR = "root";
     private String PSSWD = "";
     Connection conexion;

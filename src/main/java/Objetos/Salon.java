@@ -271,4 +271,9 @@ public class Salon {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

@@ -157,4 +157,9 @@ public class Profesor {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return apellido+", "+nombre;
+    }
 }
