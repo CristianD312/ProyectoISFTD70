@@ -29,6 +29,10 @@ public class FormularioProfesor extends javax.swing.JFrame {
         this.profesor = profesor;
         this.carreras = carreras;
         initComponents();
+        dniProfesor.setText(profesor.getDni().toString());
+        nombreProfesor.setText(profesor.getNombre());
+        apellidoProfesor.setText(profesor.getApellido());
+        comboboxCarreras.setSelectedItem(profesor.getCarrera());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     public FormularioProfesor(Conexion conexion, ArrayList<Carrera> carreras){
@@ -48,13 +52,13 @@ public class FormularioProfesor extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        dniProfesor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        nombreProfesor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        apellidoProfesor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboboxCarreras = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,19 +66,13 @@ public class FormularioProfesor extends javax.swing.JFrame {
 
         jLabel1.setText("DNI:");
 
-        jTextField1.setText("jTextField1");
-
         jLabel2.setText("Nombre:");
-
-        jTextField2.setText("jTextField2");
 
         jLabel3.setText("Apellido:");
 
-        jTextField3.setText("jTextField3");
-
         jLabel4.setText("Carrera:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxCarreras.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,14 +90,14 @@ public class FormularioProfesor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
+                            .addComponent(nombreProfesor)
+                            .addComponent(dniProfesor)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(apellidoProfesor, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(comboboxCarreras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addComponent(jButton1)))
@@ -111,19 +109,19 @@ public class FormularioProfesor extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dniProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nombreProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(apellidoProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboboxCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -135,14 +133,14 @@ public class FormularioProfesor extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //su el profesor es diferente de null, es decir que estou modificando un profesor existente ejecuta el codigo para modificarlo
         if(profesor!=null) {
-            profesor.setDni(Integer.parseInt(jTextField1.getText()));
-            profesor.setNombre(jTextField2.getText());
-            profesor.setApellido(jTextField3.getText());
-            profesor.setCarrera((Carrera) Objects.requireNonNull(jComboBox1.getSelectedItem()));
+            profesor.setDni(Integer.parseInt(dniProfesor.getText()));
+            profesor.setNombre(nombreProfesor.getText());
+            profesor.setApellido(apellidoProfesor.getText());
+            profesor.setCarrera((Carrera) Objects.requireNonNull(comboboxCarreras.getSelectedItem()));
             System.out.println("Cargo todo");
         }else{
             //caso contrario estoy agregando un profesor, por lo tanto creo uno nuevo y lo subo a la base de datos
-            profesor = new Profesor(Integer.parseInt(jTextField1.getText()),jTextField2.getText(),jTextField3.getText(),(Carrera) Objects.requireNonNull(jComboBox1.getSelectedItem()));
+            profesor = new Profesor(Integer.parseInt(dniProfesor.getText()),nombreProfesor.getText(),apellidoProfesor.getText(),(Carrera) Objects.requireNonNull(comboboxCarreras.getSelectedItem()));
             profesor.cargarDatosProfesor();
             Profesor.addProfesor(profesor);
         }
@@ -197,14 +195,14 @@ public Profesor getProfesor(){return profesor;}
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellidoProfesor;
+    private javax.swing.JComboBox<Carrera> comboboxCarreras;
+    private javax.swing.JTextField dniProfesor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nombreProfesor;
     // End of variables declaration//GEN-END:variables
 }

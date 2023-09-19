@@ -4,7 +4,9 @@
 
 package Main;
 
+import Logica.Conexion;
 import Objetos.Profesor;
+import Pantallas.Configuracion.Configuracion;
 
 import java.util.ArrayList;
 
@@ -15,8 +17,6 @@ import java.util.ArrayList;
 public class main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        Profesor.cargarDatos();
-        ArrayList<Profesor> profes = Profesor.getProfesores();
+       new Configuracion().setVisible(true);
     }
 }
