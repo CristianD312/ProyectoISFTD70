@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Salon {
     //elemento estatico que guarda todas las instacias de salon:
-    private static ArrayList<Salon> salones = new ArrayList<Salon>();
+    private static ArrayList<Salon> salones = new ArrayList<>();
     //Elemento estatico que guarda la conexion con la base de datos:
     private static Connection conexion;
     private Integer id_salon;

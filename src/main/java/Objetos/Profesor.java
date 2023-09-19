@@ -1,13 +1,12 @@
 package Objetos;
 
-import Logica.Conexion;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class Profesor {
     //elemento estatico que guarda todas las instancias de la clase:
-    private static ArrayList<Profesor> profesores = new ArrayList<Profesor>();
+    private static ArrayList<Profesor> profesores = new ArrayList<>();
     //Elemento estatico que guarda la conexion
     private static Connection conexion;
 
