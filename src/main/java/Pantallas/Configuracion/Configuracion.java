@@ -87,7 +87,7 @@ public class Configuracion extends javax.swing.JFrame {
         agregarCarrera = new javax.swing.JButton();
         eliminarCarrera = new javax.swing.JButton();
         tabConfiguracion = new javax.swing.JLayeredPane();
-        jButton2 = new javax.swing.JButton();
+        botonTema = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -165,6 +165,11 @@ public class Configuracion extends javax.swing.JFrame {
         });
 
         eliminarProfesor.setText("Eliminar");
+        eliminarProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarProfesorActionPerformed(evt);
+            }
+        });
 
         tabProfesores.setLayer(tablaProfesoresScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabProfesores.setLayer(modificarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -258,9 +263,14 @@ public class Configuracion extends javax.swing.JFrame {
 
         panelDePestañas.addTab("Carreras", tabCarreras);
 
-        jButton2.setText("Tema  Oscuro");
+        botonTema.setText("Tema  Oscuro");
+        botonTema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTemaActionPerformed(evt);
+            }
+        });
 
-        tabConfiguracion.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(botonTema, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
         tabConfiguracion.setLayout(tabConfiguracionLayout);
@@ -270,7 +280,7 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(tabConfiguracionLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton2)
+                    .addComponent(botonTema)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         tabConfiguracionLayout.setVerticalGroup(
@@ -279,7 +289,7 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(tabConfiguracionLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton2)
+                    .addComponent(botonTema)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -478,6 +488,38 @@ public class Configuracion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Por favor seleccione el profesor que desea modificar","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_modificarProfesorActionPerformed
+
+    private void eliminarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarProfesorActionPerformed
+        if(0 == JOptionPane.showConfirmDialog(this,"¿Desea proceder?","Confirmación",JOptionPane.YES_NO_OPTION)){
+            for(Profesor profesor: profesores){
+                if(profesor.getDni() == (int)tablaProfesores.getValueAt(tablaProfesores.getSelectedRow(),0)){
+                    profesor.borrarProfesor();
+                    tablaCarreras.updateUI();
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_eliminarProfesorActionPerformed
+
+    private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
+        if(botonTema.getText().equals("Tema Oscuro")){
+            try {
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+                SwingUtilities.updateComponentTreeUI(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            botonTema.setText("Tema Claro");
+        }else {
+            try {
+                UIManager.setLookAndFeel(new FlatLightLaf());
+                SwingUtilities.updateComponentTreeUI(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            botonTema.setText("Tema Oscuro");
+        }
+    }//GEN-LAST:event_botonTemaActionPerformed
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -505,10 +547,10 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton agregarCarrera;
     private javax.swing.JButton agregarProfesor;
     private javax.swing.JButton agregarSalon;
+    private javax.swing.JButton botonTema;
     private javax.swing.JButton eliminarCarrera;
     private javax.swing.JButton eliminarProfesor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton modificarCarrera;
     private javax.swing.JButton modificarProfesor;
