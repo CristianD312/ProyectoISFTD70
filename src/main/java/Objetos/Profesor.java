@@ -111,6 +111,7 @@ public class Profesor {
             consulta.setInt(1,dni);
             consulta.executeUpdate();
             consulta.close();
+            profesores.remove(this);
         }catch (SQLException e){
             e.printStackTrace();
         }
