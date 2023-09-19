@@ -4,7 +4,12 @@
  */
 package Pantallas;
 
+import Logica.ComboBoxItem;
+import Objetos.Carrera;
+import Objetos.Profesor;
+import Objetos.Reserva;
 import Objetos.Salon;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -53,17 +58,17 @@ public class PantallaReserva extends javax.swing.JFrame {
         profesorBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        reservar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAccesorios = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        diaBox = new com.toedter.calendar.JDateChooser();
         mostrarAccesorios = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         guardarObservacion = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        horarioBox = new javax.swing.JComboBox<>();
         observacionEscrita = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         iniciarSesion = new javax.swing.JMenu();
@@ -94,7 +99,12 @@ public class PantallaReserva extends javax.swing.JFrame {
 
         jLabel6.setText("HORARIO:");
 
-        jButton1.setText("RESERVAR");
+        reservar.setText("RESERVAR");
+        reservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reservarActionPerformed(evt);
+            }
+        });
 
         tablaAccesorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,7 +180,7 @@ public class PantallaReserva extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00" }));
+        horarioBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00-10:00", "10:00-12:00", "12:00-14:00", "14:00-16:00", "16:00-18:00", "18:00-20:00", "20:00-22:00" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,7 +199,7 @@ public class PantallaReserva extends javax.swing.JFrame {
                                 .addGap(193, 193, 193))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(reservar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
@@ -206,9 +216,9 @@ public class PantallaReserva extends javax.swing.JFrame {
                                             .addComponent(jLabel6))
                                         .addGap(28, 28, 28)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(diaBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(profesorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(horarioBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(47, 47, 47)
@@ -256,13 +266,13 @@ public class PantallaReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(diaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(horarioBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(reservar)))
                 .addGap(31, 31, 31))
         );
 
@@ -316,6 +326,59 @@ public class PantallaReserva extends javax.swing.JFrame {
     private void salonesBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salonesBoxActionPerformed
 
     }//GEN-LAST:event_salonesBoxActionPerformed
+
+    private void reservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservarActionPerformed
+        Conexion conect = new Conexion(null);
+        conect.conectar();
+        Connection conn = null;
+        Object salon = salonesBox.getSelectedItem();
+        String conversionSalonElegido = salon.toString();
+        conversionSalonElegido = conversionSalonElegido.trim();
+        int salonElegido = Integer.parseInt(conversionSalonElegido);
+        
+        ComboBoxItem selectedItem = (ComboBoxItem) carrerasBox.getSelectedItem();
+        String conversionCarreraElegida=selectedItem.toString();
+        conversionCarreraElegida = conversionCarreraElegida.trim();
+        int carreraElegida = Integer.parseInt(conversionSalonElegido);
+        
+        
+        ComboBoxItemProfes selectItem = (ComboBoxItemProfes) profesorBox.getSelectedItem();
+        String conversionProfesorElegido=selectItem.toString();
+        conversionProfesorElegido=conversionProfesorElegido.trim();
+        int profesorElegido = Integer.parseInt(conversionProfesorElegido);
+        JOptionPane.showMessageDialog(null, "El numero de ID del profe es "+profesorElegido);
+        
+        
+        Date dia=diaBox.getDate();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fecha = formato.format(dia);
+        
+        
+        Object horario=horarioBox.getSelectedItem();
+        String horarioElegido=horario.toString();
+        
+        Salon nuevoSalon = new Salon();
+        nuevoSalon.setId_salon(salonElegido);
+        
+        Carrera carrera = new Carrera();
+        carrera.setId_carrera(carreraElegida);
+        
+        Profesor profe = new Profesor();
+        profe.setDni(profesorElegido);
+        
+        Reserva reservacion = new Reserva();
+        reservacion.setSalon( nuevoSalon);
+        reservacion.setCarrera(carrera);
+        reservacion.setHorarioSalon(horarioElegido);
+        reservacion.setFechaSalon(fecha);
+        reservacion.setProfesor( profe);
+        reservacion.crearReservas(reservacion);
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_reservarActionPerformed
 
     private void cargarObservaciones(Object numSalon){
         String observ = observacionEscrita.getText();
@@ -373,8 +436,8 @@ public class PantallaReserva extends javax.swing.JFrame {
             while(resultSet.next()){
                 int idCarrera = resultSet.getInt("id_carrera");
                 String nombreCarrera = resultSet.getString("nombre_carrera");
-                String opciones = idCarrera + " " + nombreCarrera;
-                carrerasBox.addItem(opciones);
+                //String opciones = idCarrera + " " + nombreCarrera;
+                carrerasBox.addItem(new ComboBoxItem(idCarrera, nombreCarrera));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar las carreras: "+e.toString());
@@ -384,12 +447,15 @@ public class PantallaReserva extends javax.swing.JFrame {
         Conexion conect = new Conexion(null);
         conect.conectar(); 
         try {
-            String sql = "SELECT nombre FROM `profesores`";
+            String sql = "SELECT  dni, nombre, apellido FROM `profesores`";
             java.sql.Statement statement = conect.getConn().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
+                int dni = resultSet.getInt("dni");
                 String nombresProfes = resultSet.getString("nombre");
-                profesoresBox.addItem(nombresProfes);
+                String apellidosProfes = resultSet.getString("apellido");
+                profesoresBox.addItem(new ComboBoxItemProfes(dni, nombresProfes, apellidosProfes));
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los profesores: "+e.toString());
@@ -462,12 +528,11 @@ public class PantallaReserva extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> carrerasBox;
     private javax.swing.JMenu configuracion;
+    private com.toedter.calendar.JDateChooser diaBox;
     private javax.swing.JMenu estadistica;
     private javax.swing.JButton guardarObservacion;
+    private javax.swing.JComboBox<String> horarioBox;
     private javax.swing.JMenu iniciarSesion;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -484,6 +549,7 @@ public class PantallaReserva extends javax.swing.JFrame {
     private javax.swing.JButton mostrarAccesorios;
     private javax.swing.JTextField observacionEscrita;
     private javax.swing.JComboBox<String> profesorBox;
+    private javax.swing.JButton reservar;
     private javax.swing.JComboBox<String> salonesBox;
     private javax.swing.JMenu soporteAyuda;
     private javax.swing.JTable tablaAccesorios;
