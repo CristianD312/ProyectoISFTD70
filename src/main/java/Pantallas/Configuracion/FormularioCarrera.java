@@ -52,8 +52,6 @@ public class FormularioCarrera extends javax.swing.JFrame {
 
         jLabel1.setText("Carrera:");
 
-        nombreCarrera.setText("jTextField1");
-
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,8 +93,7 @@ public class FormularioCarrera extends javax.swing.JFrame {
         //su el profesor es diferente de null, es decir que estou modificando un profesor existente ejecuta el codigo para modificarlo
         if(carrera != null) {
             carrera.setNombre(nombreCarrera.getText());
-            System.out.println("Cargo todo");
-        }else{
+            }else{
             //caso contrario estoy agregando un profesor, por lo tanto creo uno nuevo y lo subo a la base de datos
             Carrera carreraACargar = new Carrera(-1,nombreCarrera.getText());
             carreraACargar.cargarDatosCarrera();
