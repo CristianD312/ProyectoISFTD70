@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -88,6 +89,18 @@ public class Configuracion extends javax.swing.JFrame {
         eliminarCarrera = new javax.swing.JButton();
         tabConfiguracion = new javax.swing.JLayeredPane();
         botonTema = new javax.swing.JButton();
+        cambiarInterfaz = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -99,6 +112,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         tablaSalones.setAutoCreateRowSorter(true);
         tablaSalones.setModel(new TablaSalones(salones));
+        tablaSalones.setShowVerticalLines(true);
         tablaSalonesScroll.setViewportView(tablaSalones);
 
         modificarSalon.setText("Modificar");
@@ -123,7 +137,7 @@ public class Configuracion extends javax.swing.JFrame {
         tabSalones.setLayout(tabSalonesLayout);
         tabSalonesLayout.setHorizontalGroup(
             tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
             .addGroup(tabSalonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(modificarSalon)
@@ -147,7 +161,7 @@ public class Configuracion extends javax.swing.JFrame {
         tablaProfesores.setAutoCreateRowSorter(true);
         tablaProfesores.setModel(new TablaProfesores(profesores));
         tablaProfesores.setFillsViewportHeight(true);
-        tablaProfesores.setShowHorizontalLines(true);
+        tablaProfesores.setShowVerticalLines(true);
         tablaProfesoresScroll.setViewportView(tablaProfesores);
 
         modificarProfesor.setText("Modificar");
@@ -180,7 +194,7 @@ public class Configuracion extends javax.swing.JFrame {
         tabProfesores.setLayout(tabProfesoresLayout);
         tabProfesoresLayout.setHorizontalGroup(
             tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabProfesoresLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(modificarProfesor)
@@ -207,6 +221,7 @@ public class Configuracion extends javax.swing.JFrame {
         tablaCarreras.setModel(new TablaCarreras(carreras)
         );
         tablaCarreras.setFillsViewportHeight(true);
+        tablaCarreras.setShowVerticalLines(true);
         tablaCarrerasScroll.setViewportView(tablaCarreras);
 
         modificarCarrera.setText("Modificar");
@@ -239,7 +254,7 @@ public class Configuracion extends javax.swing.JFrame {
         tabCarreras.setLayout(tabCarrerasLayout);
         tabCarrerasLayout.setHorizontalGroup(
             tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
             .addGroup(tabCarrerasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(modificarCarrera)
@@ -270,27 +285,105 @@ public class Configuracion extends javax.swing.JFrame {
             }
         });
 
+        cambiarInterfaz.setText("Cambiar Interfaz");
+        cambiarInterfaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarInterfazActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Opciones Graficas:");
+
+        jLabel2.setText("Base de datos:");
+
+        jLabel4.setText("jLabel4");
+
+        jLabel5.setText("Usuario");
+
+        jLabel6.setText("Contraseña");
+
+        jButton2.setText("Guardar");
+
+        jButton3.setText("Respaldar base de datos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Restaurar desde respaldo");
+
         tabConfiguracion.setLayer(botonTema, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(cambiarInterfaz, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jPasswordField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
         tabConfiguracion.setLayout(tabConfiguracionLayout);
         tabConfiguracionLayout.setHorizontalGroup(
             tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-            .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(tabConfiguracionLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(botonTema)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                .addGap(229, 229, 229)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cambiarInterfaz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1)
+                    .addComponent(jTextField2)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addGap(185, 185, 185))
         );
         tabConfiguracionLayout.setVerticalGroup(
             tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-            .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(tabConfiguracionLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cambiarInterfaz)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonTema)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
         panelDePestañas.addTab("Configuración", tabConfiguracion);
@@ -501,6 +594,14 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarProfesorActionPerformed
 
+    private void cambiarInterfazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarInterfazActionPerformed
+         Container contenedor = this.getContentPane();
+         contenedor.removeAll();
+         contenedor.add(new pantallaConfig2());
+         contenedor.revalidate();
+         repaint();
+    }//GEN-LAST:event_cambiarInterfazActionPerformed
+
     private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
         if(botonTema.getText().equals("Tema Oscuro")){
             try {
@@ -520,6 +621,18 @@ public class Configuracion extends javax.swing.JFrame {
             botonTema.setText("Tema Oscuro");
         }
     }//GEN-LAST:event_botonTemaActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int seleccion = chooser.showOpenDialog(null);
+
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    File carpetaSeleccionada = chooser.getSelectedFile();
+                    System.out.println("Carpeta seleccionada: " + carpetaSeleccionada.getAbsolutePath());
+                }
+    }//GEN-LAST:event_jButton3ActionPerformed
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -548,10 +661,22 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton agregarProfesor;
     private javax.swing.JButton agregarSalon;
     private javax.swing.JButton botonTema;
+    private javax.swing.JToggleButton cambiarInterfaz;
     private javax.swing.JButton eliminarCarrera;
     private javax.swing.JButton eliminarProfesor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton modificarCarrera;
     private javax.swing.JButton modificarProfesor;
     private javax.swing.JButton modificarSalon;
