@@ -72,6 +72,18 @@ public class Carrera {
         }
     }
 
+    public void borrarCarrera(){
+        try{
+            PreparedStatement consulta = conexion.prepareStatement("DELETE FROM `carreras` WHERE id_carrera = ?");
+            consulta.setInt(1,id_carrera);
+            consulta.executeUpdate();
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        carreras.remove(this);
+    }
+
     @Override
     public String toString() {
         return nombre;

@@ -32,6 +32,8 @@ public class FormularioSalon extends javax.swing.JFrame {
             cableAudio.setSelected(this.salon.isCableAudio());
             interlock220V.setSelected(this.salon.isInterlock220V());
             conversor.setSelected(this.salon.isConversor());
+            nombre.setText(this.salon.getNombre());
+            observaciones.setText(this.salon.getObservaciones());
             //cuando apretas la "x" cierra unicamente la ventana del formulario
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -75,7 +77,7 @@ public class FormularioSalon extends javax.swing.JFrame {
             }
         });
 
-        comboBoxTamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Grande" }));
+        comboBoxTamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chico","Mediano","Grande" }));
         comboBoxTamano.setPreferredSize(new java.awt.Dimension(200, 25));
 
         proyector.setText("Proyector");

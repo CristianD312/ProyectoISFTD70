@@ -146,4 +146,15 @@ public class Profesor {
         }
 
     }
+
+    public void borrarProfesor(){
+        try {
+            PreparedStatement consulta = conexion.prepareStatement("DELETE FROM `profesores` WHERE dni = ?");
+            consulta.setInt(1,dni);
+            consulta.executeUpdate();
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

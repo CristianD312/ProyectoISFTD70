@@ -87,13 +87,13 @@ public class Configuracion extends javax.swing.JFrame {
         agregarCarrera = new javax.swing.JButton();
         eliminarCarrera = new javax.swing.JButton();
         tabConfiguracion = new javax.swing.JLayeredPane();
+        jButton2 = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -123,29 +123,31 @@ public class Configuracion extends javax.swing.JFrame {
         tabSalones.setLayout(tabSalonesLayout);
         tabSalonesLayout.setHorizontalGroup(
             tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
             .addGroup(tabSalonesLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(modificarSalon)
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
                 .addComponent(agregarSalon)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tabSalonesLayout.setVerticalGroup(
             tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabSalonesLayout.createSequentialGroup()
-                .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tablaSalonesScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(tabSalonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(modificarSalon)
                     .addComponent(agregarSalon))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelDePestañas.addTab("Salones", tabSalones);
 
         tablaProfesores.setAutoCreateRowSorter(true);
         tablaProfesores.setModel(new TablaProfesores(profesores));
+        tablaProfesores.setFillsViewportHeight(true);
+        tablaProfesores.setShowHorizontalLines(true);
         tablaProfesoresScroll.setViewportView(tablaProfesores);
 
         modificarProfesor.setText("Modificar");
@@ -173,31 +175,33 @@ public class Configuracion extends javax.swing.JFrame {
         tabProfesores.setLayout(tabProfesoresLayout);
         tabProfesoresLayout.setHorizontalGroup(
             tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-            .addGroup(tabProfesoresLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+            .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabProfesoresLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(modificarProfesor)
                 .addGap(18, 18, 18)
                 .addComponent(agregarProfesor)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(eliminarProfesor)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         tabProfesoresLayout.setVerticalGroup(
             tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabProfesoresLayout.createSequentialGroup()
-                .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabProfesoresLayout.createSequentialGroup()
+                .addComponent(tablaProfesoresScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(tabProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(modificarProfesor)
                     .addComponent(agregarProfesor)
-                    .addComponent(eliminarProfesor)))
+                    .addComponent(eliminarProfesor)
+                    .addComponent(modificarProfesor))
+                .addGap(7, 7, 7))
         );
 
         panelDePestañas.addTab("Profesores", tabProfesores);
 
         tablaCarreras.setModel(new TablaCarreras(carreras)
         );
+        tablaCarreras.setFillsViewportHeight(true);
         tablaCarrerasScroll.setViewportView(tablaCarreras);
 
         modificarCarrera.setText("Modificar");
@@ -230,41 +234,53 @@ public class Configuracion extends javax.swing.JFrame {
         tabCarreras.setLayout(tabCarrerasLayout);
         tabCarrerasLayout.setHorizontalGroup(
             tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
             .addGroup(tabCarrerasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(modificarCarrera)
-                .addGap(63, 63, 63)
+                .addGap(18, 18, 18)
                 .addComponent(agregarCarrera)
-                .addGap(72, 72, 72)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(eliminarCarrera)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         tabCarrerasLayout.setVerticalGroup(
             tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabCarrerasLayout.createSequentialGroup()
-                .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(modificarCarrera)
-                        .addComponent(agregarCarrera))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCarrerasLayout.createSequentialGroup()
-                        .addComponent(eliminarCarrera)
-                        .addContainerGap())))
+                .addComponent(tablaCarrerasScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabCarrerasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modificarCarrera)
+                    .addComponent(agregarCarrera)
+                    .addComponent(eliminarCarrera))
+                .addContainerGap())
         );
 
         panelDePestañas.addTab("Carreras", tabCarreras);
+
+        jButton2.setText("Tema  Oscuro");
+
+        tabConfiguracion.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
         tabConfiguracion.setLayout(tabConfiguracionLayout);
         tabConfiguracionLayout.setHorizontalGroup(
             tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         tabConfiguracionLayout.setVerticalGroup(
             tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         panelDePestañas.addTab("Configuración", tabConfiguracion);
@@ -282,83 +298,6 @@ public class Configuracion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void modificarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarProfesorActionPerformed
-        //su hay algun elemento de la tabla seleccionado se ejecuta el if
-        if(tablaProfesores.getSelectedRow() != -1) {
-            //crea una nueva instancia de formulario profesor y le pasa los datos del profesor a modificar
-            Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
-            JFrame ventana = new FormularioProfesor(conexion, profesor, carreras);
-
-            //centra la nueva pestaña y la posiciona por encima de todas
-            ventana.setLocationRelativeTo(this);
-            ventana.setAlwaysOnTop(true);
-
-            //desactiva la pestaña de configuracion mientras
-            this.setFocusable(false);
-            this.setEnabled(false);
-            //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
-            JFrame ventanaConfig = this;
-            //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
-            ventana.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    ventanaConfig.setEnabled(true);
-                    ventanaConfig.setFocusable(true);
-                }
-            });
-            ventana.setVisible(true);
-        }else{
-            //en caso de no tener nungun profesor para modificar tira un mensaje de error
-            JOptionPane.showMessageDialog(this,"Por favor seleccione el profesor que desea modificar","Error",JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_modificarProfesorActionPerformed
-
-    private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
-        //crea una nueva ventana formulario para cargar los datos del profesor
-        JFrame ventana = new FormularioProfesor(conexion,carreras);
-        //centra la nueva pestaña y la posiciona por encima de todas
-        ventana.setLocationRelativeTo(this);
-        ventana.setAlwaysOnTop(true);
-
-        //desactiva la pestaña de configuracion mientras
-        this.setFocusable(false);
-        this.setEnabled(false);
-        //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
-        JFrame ventanaConfig = this;
-        //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
-        ventana.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                ventanaConfig.setEnabled(true);
-                ventanaConfig.setFocusable(true);
-            }
-        });
-        ventana.setVisible(true);
-    }//GEN-LAST:event_agregarProfesorActionPerformed
-
-    private void agregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCarreraActionPerformed
-        //crea una ventana de formulario salon vacia
-        JFrame ventana = new FormularioCarrera(conexion);
-        //centra la nueva pestaña y la posiciona por encima de todas
-        ventana.setLocationRelativeTo(this);
-        ventana.setAlwaysOnTop(true);
-
-        //desactiva la pestaña de configuracion mientras
-        this.setFocusable(false);
-        this.setEnabled(false);
-        //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
-        JFrame ventanaConfig = this;
-        //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
-        ventana.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                ventanaConfig.setEnabled(true);
-                ventanaConfig.setFocusable(true);
-            }
-        });
-        ventana.setVisible(true);
-    }//GEN-LAST:event_agregarCarreraActionPerformed
 
     private void modificarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarSalonActionPerformed
         //su hay algun elemento de la tabla seleccionado se ejecuta el if
@@ -382,6 +321,7 @@ public class Configuracion extends javax.swing.JFrame {
                 public void windowClosed(WindowEvent e) {
                     ventanaConfig.setEnabled(true);
                     ventanaConfig.setFocusable(true);
+                    tablaSalones.updateUI();
                 }
             });
             ventana.setVisible(true);
@@ -409,10 +349,47 @@ public class Configuracion extends javax.swing.JFrame {
             public void windowClosed(WindowEvent e) {
                 ventanaConfig.setEnabled(true);
                 ventanaConfig.setFocusable(true);
+                tablaSalones.updateUI();
             }
         });
         ventana.setVisible(true);
     }//GEN-LAST:event_agregarSalonActionPerformed
+
+    private void eliminarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCarreraActionPerformed
+        if(0 == JOptionPane.showConfirmDialog(this,"¿Desea proceder?","Confirmación",JOptionPane.YES_NO_OPTION)){
+            for(Carrera carrera: carreras){
+                if(carrera.getId_carrera() == (int)tablaCarreras.getValueAt(tablaCarreras.getSelectedRow(),0)){
+                    carrera.borrarCarrera();
+                    tablaCarreras.updateUI();
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_eliminarCarreraActionPerformed
+
+    private void agregarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCarreraActionPerformed
+        //crea una ventana de formulario salon vacia
+        JFrame ventana = new FormularioCarrera(conexion);
+        //centra la nueva pestaña y la posiciona por encima de todas
+        ventana.setLocationRelativeTo(this);
+        ventana.setAlwaysOnTop(true);
+
+        //desactiva la pestaña de configuracion mientras
+        this.setFocusable(false);
+        this.setEnabled(false);
+        //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
+        JFrame ventanaConfig = this;
+        //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ventanaConfig.setEnabled(true);
+                ventanaConfig.setFocusable(true);
+                tablaCarreras.updateUI();
+            }
+        });
+        ventana.setVisible(true);
+    }//GEN-LAST:event_agregarCarreraActionPerformed
 
     private void modificarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarCarreraActionPerformed
         //su hay algun elemento de la tabla seleccionado se ejecuta el if
@@ -436,6 +413,7 @@ public class Configuracion extends javax.swing.JFrame {
                 public void windowClosed(WindowEvent e) {
                     ventanaConfig.setEnabled(true);
                     ventanaConfig.setFocusable(true);
+                    tablaCarreras.updateUI();
                 }
             });
             ventana.setVisible(true);
@@ -445,9 +423,61 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modificarCarreraActionPerformed
 
-    private void eliminarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCarreraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eliminarCarreraActionPerformed
+    private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
+        //crea una nueva ventana formulario para cargar los datos del profesor
+        JFrame ventana = new FormularioProfesor(conexion,carreras);
+        //centra la nueva pestaña y la posiciona por encima de todas
+        ventana.setLocationRelativeTo(this);
+        ventana.setAlwaysOnTop(true);
+
+        //desactiva la pestaña de configuracion mientras
+        this.setFocusable(false);
+        this.setEnabled(false);
+        //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
+        JFrame ventanaConfig = this;
+        //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ventanaConfig.setEnabled(true);
+                ventanaConfig.setFocusable(true);
+                tabProfesores.updateUI();
+            }
+        });
+        ventana.setVisible(true);
+    }//GEN-LAST:event_agregarProfesorActionPerformed
+
+    private void modificarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarProfesorActionPerformed
+        //su hay algun elemento de la tabla seleccionado se ejecuta el if
+        if(tablaProfesores.getSelectedRow() != -1) {
+            //crea una nueva instancia de formulario profesor y le pasa los datos del profesor a modificar
+            Profesor profesor = profesores.get(tablaProfesores.getSelectedRow());
+            JFrame ventana = new FormularioProfesor(conexion, profesor, carreras);
+
+            //centra la nueva pestaña y la posiciona por encima de todas
+            ventana.setLocationRelativeTo(this);
+            ventana.setAlwaysOnTop(true);
+
+            //desactiva la pestaña de configuracion mientras
+            this.setFocusable(false);
+            this.setEnabled(false);
+            //por temas de scope tengo que hacer esto, sino no puedo rreferenciar a la pestaña de configuracion dentro del windowadapter
+            JFrame ventanaConfig = this;
+            //esto hace que cuando se cierre la ventana formulario, la pantalla de configuracion recupere el foco
+            ventana.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    ventanaConfig.setEnabled(true);
+                    ventanaConfig.setFocusable(true);
+                    tabProfesores.updateUI();
+                }
+            });
+            ventana.setVisible(true);
+        }else{
+            //en caso de no tener nungun profesor para modificar tira un mensaje de error
+            JOptionPane.showMessageDialog(this,"Por favor seleccione el profesor que desea modificar","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_modificarProfesorActionPerformed
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -478,6 +508,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton eliminarCarrera;
     private javax.swing.JButton eliminarProfesor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton modificarCarrera;
     private javax.swing.JButton modificarProfesor;

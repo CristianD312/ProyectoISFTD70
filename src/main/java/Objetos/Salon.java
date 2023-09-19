@@ -260,4 +260,15 @@ public class Salon {
             e.printStackTrace();
         }
     }
+    public void borrarSalon(){
+        try{
+            PreparedStatement consulta = conexion.prepareStatement("DELETE FROM `salones` WHERE id_salon = ?; DELETE FROM `accesorios` WHERE fk_salon = ?");
+            consulta.setInt(1,id_salon);
+            consulta.setInt(2,id_salon);
+            consulta.executeUpdate();
+            consulta.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
