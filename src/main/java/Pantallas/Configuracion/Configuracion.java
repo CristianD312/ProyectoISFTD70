@@ -93,9 +93,11 @@ public class Configuracion extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
+        tablaSalones.setAutoCreateRowSorter(true);
         tablaSalones.setModel(new TablaSalones(salones));
         tablaSalonesScroll.setViewportView(tablaSalones);
 
@@ -142,6 +144,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         panelDePestañas.addTab("Salones", tabSalones);
 
+        tablaProfesores.setAutoCreateRowSorter(true);
         tablaProfesores.setModel(new TablaProfesores(profesores));
         tablaProfesoresScroll.setViewportView(tablaProfesores);
 
