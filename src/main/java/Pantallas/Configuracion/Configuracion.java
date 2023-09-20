@@ -732,7 +732,6 @@ public class Configuracion extends javax.swing.JFrame {
         this.setContentPane(new pantallaConfig2());
         this.revalidate();
         this.repaint();
-
         //SwingUtilities.updateComponentTreeUI(this);
     }//GEN-LAST:event_botonInterfazActionPerformed
 
