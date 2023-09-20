@@ -28,6 +28,7 @@ public class parametrosDeConfiguracion {
             setUsuarioSQL("root");
             setPassSQL("");
             setRutaBackup("/example");
+            setInterfazConfiguracion("config2");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -47,6 +48,9 @@ public class parametrosDeConfiguracion {
     public static String getRutaBackup(){
         return configuracion.getProperty("rutaBackup");
     }
+    public static String getInterfazConfiguracion(){
+        return configuracion.getProperty("interfazConfig");
+    }
     public static void setTema(String tema){
             configuracion.setProperty("tema",tema);
             guardarCambios();
@@ -65,6 +69,10 @@ public class parametrosDeConfiguracion {
     }
     public static void setRutaBackup(String ruta){
         configuracion.setProperty("rutaBackup",ruta);
+        guardarCambios();
+    }
+    public static void setInterfazConfiguracion(String interfazConfiguracion){
+        configuracion.setProperty("interfazConfig",interfazConfiguracion);
         guardarCambios();
     }
     public static void guardarCambios(){

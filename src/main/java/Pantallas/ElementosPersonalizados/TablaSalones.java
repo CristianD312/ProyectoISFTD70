@@ -64,8 +64,4 @@ public class TablaSalones extends AbstractTableModel {
                 return null;
         }
     }
-
-    public Salon getObjectAt(int index) {
-        return salones.get(index);
-    }
 }

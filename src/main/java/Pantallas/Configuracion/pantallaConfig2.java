@@ -5,13 +5,19 @@
 package Pantallas.Configuracion;
 
 import Logica.Conexion;
+import Logica.parametrosDeConfiguracion;
 import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Salon;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -27,24 +33,42 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     /**
      * Creates new form pantallaConfig2
      */
-    public pantallaConfig2() {
-        conexion = new Conexion();
-        //le da la conexion a cada uno de los objetos para que puedan crear un arraylist de si mismos reflejando la base de datos
-        Carrera.setConexion(conexion.getConexion());
-        Profesor.setConexion(conexion.getConexion());
-        Salon.setConexion(conexion.getConexion());
-        //Carga los datos en el array interno de la clase
-        Carrera.cargarDatos();
-        Profesor.cargarDatos();
-        Salon.cargarDatos();
+    public pantallaConfig2(JRootPane pantalla) {
         //relaciona el array interno de la clase con los array de la pantalla configuracion (estan sincronizados, cualquier cambien en unoo afecta el otro)
         profesores = Profesor.getProfesores();
         carreras = Carrera.getCarreras();
         salones = Salon.getSalones();
         //carga de componentes
         initComponents();
+
+        if(parametrosDeConfiguracion.getTema().equals("Oscuro")){
+            ponerTemaOscuro();
+            botonTema.setText("Tema Claro");
+        } else if (parametrosDeConfiguracion.getTema().equals("Claro")) {
+            ponerTemaClaro();
+            botonTema.setText("Tema Oscuro");
+        }
+        pantalla.revalidate();
+        pantalla.repaint();
         cambiarVisibilidad(false);
     }
+    private void ponerTemaOscuro(){
+        try {
+            UIManager.setLookAndFeel(new FlatMonokaiProIJTheme());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void ponerTemaClaro(){
+        try {
+            UIManager.setLookAndFeel(new FlatMaterialLighterIJTheme());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void cambiarVisibilidad(boolean bool){
         jLabel6.setVisible(bool);
         jLabel4.setVisible(bool);
@@ -110,7 +134,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         nombreAgregarSalon = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         nombreModificar = new javax.swing.JTextField();
-        comboboxSalones = new javax.swing.JComboBox<>();
+        comboboxSalones = new javax.swing.JComboBox<Salon>();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -146,12 +170,28 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         carreraModificar = new javax.swing.JButton();
         carreraGuardar = new javax.swing.JButton();
         jLayeredPane4 = new javax.swing.JLayeredPane();
+        tabConfiguracion = new javax.swing.JLayeredPane();
+        botonTema = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        bdURL = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        bdUser = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        bdPass = new javax.swing.JPasswordField();
+        guardarBD = new javax.swing.JButton();
+        hacerBackup = new javax.swing.JButton();
+        restaurarDesdeBackup = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        botonInterfaz = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(600, 400));
 
         jLabel1.setText("Agregar");
 
-        comboboxTamanoAgregar.setModel(new DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
+        comboboxTamanoAgregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
 
         TVAgregar.setText("Televisor");
         TVAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +225,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel4.setText("Tamaño");
 
-        comboboxTamanoModificar.setModel(new DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
+        comboboxTamanoModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
         comboboxTamanoModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboboxTamanoModificarActionPerformed(evt);
@@ -222,7 +262,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel6.setText("Nombre");
 
-        comboboxSalones.setModel(new DefaultComboBoxModel<Salon>(salones.toArray(new Salon[0])));
+        comboboxSalones.setModel(new javax.swing.DefaultComboBoxModel<>(salones.toArray(new Salon[0])));
 
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(comboboxTamanoAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -261,7 +301,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,7 +414,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel11.setText("Carrera");
 
-        comboboxCarrerasAgregar.setModel(new DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
+        comboboxCarrerasAgregar.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
 
         guardarProfesor.setText("Guardar");
 
@@ -386,7 +426,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel15.setText("Carrera");
 
-        combobocCarrerasModificar.setModel(new DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
+        combobocCarrerasModificar.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
 
         modificarProfesor.setText("Modificar");
 
@@ -394,7 +434,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel17.setText("Profesor");
 
-        comboboxProfesores.setModel(new DefaultComboBoxModel<>(profesores.toArray(new Profesor[0])));
+        comboboxProfesores.setModel(new javax.swing.DefaultComboBoxModel<>(profesores.toArray(new Profesor[0])));
 
         jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -440,7 +480,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addComponent(guardarProfesor)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dniProfesorModificar)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -507,7 +547,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                         .addComponent(combobocCarrerasModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(modificarProfesor)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         Salones.addTab("Profesores", jLayeredPane2);
@@ -518,7 +558,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel20.setText("Nombre de la carrera:");
 
-        comboboxCarreras.setModel(new DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
+        comboboxCarreras.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
 
         jLabel21.setText("Carrera");
 
@@ -548,7 +588,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
                         .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,20 +634,164 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 .addComponent(nombreCarreraModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(carreraModificar)
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(322, Short.MAX_VALUE))
         );
 
         Salones.addTab("Carreras", jLayeredPane3);
+
+        botonTema.setText("Tema  Oscuro");
+        botonTema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTemaActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Opciones Graficas:");
+
+        jLabel24.setText("Base de datos:");
+
+        jLabel25.setText("URL");
+
+        jLabel26.setText("Usuario");
+
+        jLabel27.setText("Contraseña");
+
+        guardarBD.setText("Guardar");
+        guardarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarBDActionPerformed(evt);
+            }
+        });
+
+        hacerBackup.setText("Respaldar base de datos");
+        hacerBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hacerBackupActionPerformed(evt);
+            }
+        });
+
+        restaurarDesdeBackup.setText("Restaurar desde respaldo");
+        restaurarDesdeBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restaurarDesdeBackupActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setText("Datos de conexión:");
+
+        jLabel29.setText("Copia de respaldo");
+
+        botonInterfaz.setText("Cambiar interfaz");
+        botonInterfaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInterfazActionPerformed(evt);
+            }
+        });
+
+        tabConfiguracion.setLayer(botonTema, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel23, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel24, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel25, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(bdURL, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel26, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(bdUser, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel27, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(bdPass, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(guardarBD, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(hacerBackup, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(restaurarDesdeBackup, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel28, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(jLabel29, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(botonInterfaz, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
+        tabConfiguracion.setLayout(tabConfiguracionLayout);
+        tabConfiguracionLayout.setHorizontalGroup(
+            tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                        .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel27)
+                                .addComponent(jLabel26)
+                                .addComponent(jLabel24)
+                                .addComponent(jLabel25)
+                                .addComponent(bdURL)
+                                .addComponent(bdUser)
+                                .addComponent(bdPass, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel28))
+                        .addGap(18, 18, 18)
+                        .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botonTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonInterfaz)))
+                    .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(guardarBD))
+                    .addComponent(restaurarDesdeBackup)
+                    .addComponent(jLabel29)
+                    .addComponent(hacerBackup))
+                .addContainerGap(390, Short.MAX_VALUE))
+        );
+        tabConfiguracionLayout.setVerticalGroup(
+            tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabConfiguracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonTema)
+                    .addComponent(jLabel28))
+                .addGap(4, 4, 4)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bdURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonInterfaz))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel26)
+                .addGap(18, 18, 18)
+                .addComponent(bdUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bdPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(guardarBD)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel29)
+                .addGap(18, 18, 18)
+                .addComponent(hacerBackup)
+                .addGap(18, 18, 18)
+                .addComponent(restaurarDesdeBackup)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+
+        jLayeredPane4.setLayer(tabConfiguracion, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
         jLayeredPane4Layout.setHorizontalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
+            .addGap(0, 774, Short.MAX_VALUE)
+            .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane4Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(tabConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
+            .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane4Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(tabConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         Salones.addTab("Configuracion", jLayeredPane4);
@@ -616,7 +800,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Salones, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+            .addComponent(Salones)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -643,6 +827,66 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboboxTamanoModificarActionPerformed
 
+    private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
+        if(botonTema.getText().equals("Tema Oscuro")){
+            ponerTemaOscuro();
+            parametrosDeConfiguracion.setTema("Oscuro");
+            botonTema.setText("Tema Claro");
+        }else {
+            ponerTemaClaro();
+            parametrosDeConfiguracion.setTema("Claro");
+            botonTema.setText("Tema Oscuro");
+        }
+    }//GEN-LAST:event_botonTemaActionPerformed
+
+    private void guardarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBDActionPerformed
+        if(!(bdURL.getText().equals("")||bdUser.getText().equals(""))){
+            parametrosDeConfiguracion.setURL(bdURL.getText());
+            parametrosDeConfiguracion.setUsuarioSQL(bdUser.getText());
+            parametrosDeConfiguracion.setPassSQL(bdPass.getPassword().toString());
+        }else{
+            JOptionPane.showMessageDialog(this,"Por favor rellene todos los campos para actualizar la base de datos","error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_guardarBDActionPerformed
+
+    private void hacerBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hacerBackupActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int seleccion = chooser.showOpenDialog(null);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File carpetaSeleccionada = chooser.getSelectedFile();
+            conexion.hacerBackup(carpetaSeleccionada.getAbsolutePath());
+        }
+    }//GEN-LAST:event_hacerBackupActionPerformed
+
+    private void restaurarDesdeBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarDesdeBackupActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                Pattern patron = Pattern.compile("\\w+\\.sql$");
+                return patron.matcher(file.getName()).find();
+            }
+
+            @Override
+            public String getDescription() {
+                return "Archivos SQL (*.sql)";
+            }
+        });
+        int seleccion = chooser.showOpenDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File carpetaSeleccionada = chooser.getSelectedFile();
+            System.out.println(carpetaSeleccionada.getAbsolutePath());
+            conexion.restaurarDesdeBackup(carpetaSeleccionada.getAbsolutePath());
+        }
+    }//GEN-LAST:event_restaurarDesdeBackupActionPerformed
+
+    private void botonInterfazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInterfazActionPerformed
+        this.getRootPane().setContentPane(new pantallaConfig1(this.getRootPane()));
+        parametrosDeConfiguracion.setInterfazConfiguracion("config1");
+    }//GEN-LAST:event_botonInterfazActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox HDMIAgregar;
@@ -656,6 +900,11 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     private javax.swing.JTextField apellidoProfesorModificar;
     private javax.swing.JCheckBox audioAgregar;
     private javax.swing.JCheckBox audioModificar;
+    private javax.swing.JPasswordField bdPass;
+    private javax.swing.JTextField bdURL;
+    private javax.swing.JTextField bdUser;
+    private javax.swing.JButton botonInterfaz;
+    private javax.swing.JButton botonTema;
     private javax.swing.JButton carreraGuardar;
     private javax.swing.JButton carreraModificar;
     private javax.swing.JComboBox<Carrera> combobocCarrerasModificar;
@@ -669,7 +918,9 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     private javax.swing.JCheckBox conversorModificar;
     private javax.swing.JTextField dniProfesorAgregar;
     private javax.swing.JTextField dniProfesorModificar;
+    private javax.swing.JButton guardarBD;
     private javax.swing.JButton guardarProfesor;
+    private javax.swing.JButton hacerBackup;
     private javax.swing.JCheckBox interlockAgregar;
     private javax.swing.JCheckBox interlockModificar;
     private javax.swing.JLabel jLabel1;
@@ -687,6 +938,13 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -708,7 +966,9 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     private javax.swing.JTextField nombreProfesorModificar;
     private javax.swing.JCheckBox proyectorAgregar;
     private javax.swing.JCheckBox proyectorModificar;
+    private javax.swing.JButton restaurarDesdeBackup;
     private javax.swing.JButton salonGuardar;
     private javax.swing.JButton salonModificar;
+    private javax.swing.JLayeredPane tabConfiguracion;
     // End of variables declaration//GEN-END:variables
 }

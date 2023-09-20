@@ -3,35 +3,34 @@ package Logica;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
+
 
 
 public class Conexion {
-    private String URL = "jdbc:mysql://localhost:3306/reservas";
-    private String USR = "root";
-    private String PSSWD = "";
-    Connection conexion;
-    public Conexion(){
-        conectar();
-    }
-    public Conexion(String URL, String user, String password){
-        this.URL = URL;
-        USR = user;
-        PSSWD = password;
-        this.conectar();
-    }
-    private void conectar(){
+    private static String URL = "jdbc:mysql://localhost:3306/reservas";
+    private static String USR = "root";
+    private static String PSSWD = "";
+    private static Connection conexion;
+    private static void conectar(){
+        parametrosDeConfiguracion.cargarParametros();
+        USR = parametrosDeConfiguracion.getUsuarioSQL();
+        URL = "jdbc:mysql://"+parametrosDeConfiguracion.getURL();
+        PSSWD = parametrosDeConfiguracion.getPassSQL();
         try {
-            this.conexion = DriverManager.getConnection(URL, USR, PSSWD);
+            conexion = DriverManager.getConnection(URL, USR, PSSWD);
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    public Connection getConexion() {return conexion;}
+    public static Connection getConexion() {
+        if(conexion == null){
+            conectar();
+        }
+        return conexion;
+    }
     // De acá en adelante es un despelote, pero anda
-    public void hacerBackup(String destino) {
+    public static void hacerBackup(String destino) {
         String archivoDestino;
         String comando;
         try {
@@ -56,7 +55,7 @@ public class Conexion {
             e.printStackTrace();
         }
     }
-    public void restaurarDesdeBackup(String archivoSQL){
+    public static void restaurarDesdeBackup(String archivoSQL){
         try {
             //Esta consulta SI O SI en este orden, no funca sino
             String[] consultas = new String[]{"DROP TABLE IF EXISTS accesorios;",

@@ -41,8 +41,5 @@ public class TablaProfesores extends AbstractTableModel {
                 return null;
         }
     }
-    public Profesor getObjectAt(int index){
-        return profesores.get(index);
-    }
 
 }

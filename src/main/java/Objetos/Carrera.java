@@ -1,5 +1,7 @@
 package Objetos;
 
+import Logica.Conexion;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class Carrera {
         this.nombre = nombre;
     }
     public static void cargarDatos(){
+        setConexion();
         try {
             carreras.clear();
             Statement consulta = conexion.createStatement();
@@ -30,8 +33,8 @@ public class Carrera {
         return carreras;
     }
     //configura la conexion
-    public static void setConexion(Connection conexion) {
-        Carrera.conexion = conexion;
+    private static void setConexion(){
+        conexion = Conexion.getConexion();
     }
 
     public int getId_carrera() {

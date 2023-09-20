@@ -13,20 +13,17 @@ import javax.swing.*;
  * @author dario
  */
 public class FormularioCarrera extends javax.swing.JFrame {
-    Conexion conexion;
     Carrera carrera;
     /**
      * Creates new form ModificarProfesor
      */
-    public FormularioCarrera(Conexion conexion, Carrera carrera) {
-        this.conexion = conexion;
+    public FormularioCarrera(Carrera carrera) {
         this.carrera = carrera;
         initComponents();
         nombreCarrera.setText(carrera.getNombre());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public FormularioCarrera(Conexion conexion){
-        this.conexion = conexion;
+    public FormularioCarrera(){
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }

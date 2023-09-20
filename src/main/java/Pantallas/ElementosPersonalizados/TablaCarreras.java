@@ -41,7 +41,4 @@ public class TablaCarreras extends AbstractTableModel {
                 return null;
         }
     }
-    public Carrera getItem(int index) {
-        return carreras.get(index);
-    }
 }

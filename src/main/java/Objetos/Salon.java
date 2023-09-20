@@ -1,5 +1,7 @@
 package Objetos;
 
+import Logica.Conexion;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ public class Salon {
     }
     //carga todos los salones en la base de datos en el arraylist "salones"
     public static void cargarDatos(){
+        setConexion();
         try{
             salones.clear();
             ResultSet RS = conexion.prepareStatement("SELECT * FROM salones INNER JOIN accesorios ON fk_salon = salones.id_salon").executeQuery();
@@ -51,8 +54,8 @@ public class Salon {
         return salones;
     }
     //configura la conexion
-    public static void setConexion(Connection conexion) {
-        Salon.conexion = conexion;
+    private static void setConexion(){
+        conexion = Conexion.getConexion();
     }
 
     //Getters

@@ -1,6 +1,8 @@
 package Objetos;
 
 
+import Logica.Conexion;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class Profesor {
     }
     //Clase estatica que carga todos los profesores de la base de datos en el arraylist "profesores"
     public static void cargarDatos(){
+        setConexion();
         try {
             profesores.clear();
             Statement consulta = conexion.createStatement();
@@ -46,8 +49,8 @@ public class Profesor {
         return profesores;
     }
     //configura la conexion
-    public static void setConexion(Connection con){
-        conexion = con;
+    private static void setConexion(){
+        conexion = Conexion.getConexion();
     }
     //Permite cargar profesores nuevos
     public static void addProfesor(Profesor profesor){

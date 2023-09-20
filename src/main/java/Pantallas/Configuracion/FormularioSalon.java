@@ -14,13 +14,11 @@ import javax.swing.*;
  * @author dario
  */
 public class FormularioSalon extends javax.swing.JFrame {
-    Conexion conexion;
     Salon salon;
     /**
      * Creates new form ModificarProfesor
      */
-    public FormularioSalon(Conexion conexion, Salon salon) {
-        this.conexion = conexion;
+    public FormularioSalon(Salon salon) {
         this.salon = salon;
         initComponents();
         // en caso de usar este constructor estoy modificando un salon, el siguiente codigo carga los datos del mismo dentro de las checkbox:
@@ -37,9 +35,8 @@ public class FormularioSalon extends javax.swing.JFrame {
             //cuando apretas la "x" cierra unicamente la ventana del formulario
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public FormularioSalon(Conexion conexion) {
+    public FormularioSalon() {
         //en caso de utilizar este constructor se esta cargando un salon nuevo y carga el formulario sin nada selecciondo
-        this.conexion = conexion;
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
