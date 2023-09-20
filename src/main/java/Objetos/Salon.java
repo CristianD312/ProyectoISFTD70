@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class Salon {
     private int id_salon;
-    private boolean tamano;
+    private String tamano;
     private boolean proyector;
     private boolean TV;
     private boolean cableVGA;
@@ -23,7 +23,7 @@ public class Salon {
     
     public Salon(){}
 
-    public Salon(int id_salon, boolean tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
+    public Salon(int id_salon, String tamano, boolean proyector, boolean TV, boolean cableVGA, boolean cableHDMI, boolean interlock220V, boolean cableAudio, boolean conversor, String observacion) {
         this.id_salon = id_salon;
         this.tamano = tamano;
         this.proyector = proyector;
@@ -44,7 +44,7 @@ public class Salon {
         this.id_salon = id_salon;
     }
 
-    public boolean isTamano() {
+    public String getTamano() {
         return tamano;
     }
 
@@ -76,17 +76,7 @@ public class Salon {
         return conversor;
     }
 
-    public void setTamano(Connection con, boolean tamano) {
-        try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
-            consulta.setBoolean(1,tamano);
-            consulta.setInt(2,id_salon);
-            consulta.close();
-            con.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
+    public void setTamano(String tamano) {
         this.tamano = tamano;
     }
 
