@@ -1,9 +1,11 @@
 package Objetos;
 
+import Pantallas.PantallaReserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logica.Conexion;
 
 public class Reserva {
@@ -128,7 +130,7 @@ public class Reserva {
         try {
             String sql = "INSERT INTO `reservas`(`id_reserva`, `fk_usuario`, `fk_salon`, `fecha_reserva`, `horario`, `carrera`, `profesor`) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conect.getConn().prepareStatement(sql);
-            statement.setInt(1, 1);
+            statement.setInt(1, 3);
             statement.setInt(2, reserva.getSalon().getId_salon());
             statement.setString(3, reserva.getFechaSalon());
             statement.setString(4, reserva.getHorarioSalon());
@@ -142,6 +144,8 @@ public class Reserva {
             JOptionPane.showMessageDialog(null, "Error al guardar la reserva: "+e.toString());
         }
     }
+  
+  
     
 
     

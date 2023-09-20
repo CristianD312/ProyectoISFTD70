@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import logica.Conexion;
 
 public class Profesor {
-    private Integer dni;
+    private int dni;
     private String nombre;
     private String apellido;
     private Carrera carrera;
@@ -19,7 +19,7 @@ public class Profesor {
         this.carrera = carrera;
     }
 
-    public Integer getDni() {
+    public int getDni() {
         return dni;
     }
 
@@ -40,6 +40,7 @@ public class Profesor {
     }
 
     public void setNombre(Connection con, String nombre) {
+        
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
             consulta.setString(1,nombre);
