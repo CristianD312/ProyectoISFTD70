@@ -11,6 +11,7 @@ import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Reserva;
 import Objetos.Salon;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +43,7 @@ public class PantallaReserva extends javax.swing.JFrame {
             cargarCarrerasBOX(carrerasBox);
             cargarProfesoresBOX(profesorBox);
             mostrarReservas();
-            UIManager.setLookAndFeel( new FlatLightLaf() );
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
         } catch( Exception ex ) {
             
         }
@@ -578,6 +579,7 @@ public class PantallaReserva extends javax.swing.JFrame {
                tamañoText.setText(tamaño);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar el tamaño del salon: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
