@@ -36,6 +36,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         cargarSalonesBOX(salonesBox);
         cargarCarrerasBOX(carrerasBox);
         cargarProfesoresBOX(profesorBox);
+        mostrarReservas();
         
         
     }
@@ -63,7 +64,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAccesorios = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaReservas = new javax.swing.JTable();
         diaBox = new com.toedter.calendar.JDateChooser();
         mostrarAccesorios = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -142,7 +143,7 @@ public class PantallaReserva extends javax.swing.JFrame {
             tablaAccesorios.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -161,7 +162,7 @@ public class PantallaReserva extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tablaReservas);
 
         mostrarAccesorios.setText("Mostrar");
         mostrarAccesorios.addActionListener(new java.awt.event.ActionListener() {
@@ -349,30 +350,10 @@ public class PantallaReserva extends javax.swing.JFrame {
         
         
         ComboBoxItemProfes selectItem = (ComboBoxItemProfes) profesorBox.getSelectedItem();
-        String conversionProfesorElegido=selectItem.toString();
-        conversionProfesorElegido=conversionProfesorElegido.trim();
-        try {
-            String sql = "SELECT dni, nombre, apellido FROM `profesores`";
-            java.sql.Statement statement = conect.getConn().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while(resultSet.next()){
-                int dnis = resultSet.getInt("dni");
-                String nombreProfe = resultSet.getString("nombre");
-                String apellidoProfe = resultSet.getString("apellido");
-                
-            }
-            
-            
-        } catch (Exception e) {
-        }
-        
-        int profesorElegido = Integer.parseInt(conversionProfesorElegido);
-        try {
-            JOptionPane.showMessageDialog(null, "El numero de ID del profe es "+profesorElegido);
-        } catch (Exception e) {
-        }
-        
-        
+        int prof = selectItem.getDni();
+        //String conversionProfesorElegido=selectItem.toString();
+        //conversionProfesorElegido=conversionProfesorElegido.trim();
+        //int profesorElegido = Integer.parseInt(conversionProfesorElegido);
         
         Date dia=diaBox.getDate();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -389,7 +370,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         carrera.setId_carrera(carreraElegida);
         
         Profesor profe = new Profesor();
-        profe.setDni(profesorElegido);
+        profe.setDni(prof);
         
         Reserva reservacion = new Reserva();
         reservacion.setSalon( nuevoSalon);
@@ -398,10 +379,6 @@ public class PantallaReserva extends javax.swing.JFrame {
         reservacion.setFechaSalon(fecha);
         reservacion.setProfesor( profe);
         reservacion.crearReservas(reservacion);
-        
-        
-        
-        
         
     }//GEN-LAST:event_reservarActionPerformed
 
@@ -545,6 +522,41 @@ public class PantallaReserva extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+    
+    private void mostrarReservas(){
+      DefaultTableModel tReservas = new DefaultTableModel();
+      tReservas.addColumn("ID Reserva");
+      tReservas.addColumn("Usuario");
+      tReservas.addColumn("Salón");
+      tReservas.addColumn("Fecha");
+      tReservas.addColumn("Horario");
+      tReservas.addColumn("Carrera");
+      tReservas.addColumn("Profesor");
+      tablaReservas.setModel(tReservas);
+      
+      String [] datosReserva = new String[7];
+      Conexion conect = new Conexion(null);
+      conect.conectar();
+      try {
+          String sql = "SELECT * FROM `reservas`;";
+          PreparedStatement statement = conect.getConn().prepareStatement(sql);
+          ResultSet resultSet = statement.executeQuery(sql);
+          while(resultSet.next()){
+              datosReserva[0] = resultSet.getString(1);
+              datosReserva[1] = resultSet.getString(2);
+              datosReserva[2] = resultSet.getString(3);
+              datosReserva[3] = resultSet.getString(4);
+              datosReserva[4] = resultSet.getString(5);
+              datosReserva[5] = resultSet.getString(6);
+              datosReserva[6] = resultSet.getString(7);
+              tReservas.addRow(datosReserva);
+          }
+          resultSet.close(); statement.close();
+          tablaReservas.setModel(tReservas);
+      } catch (Exception e) {
+      }
+      
+  }
     /**
      * @param args the command line arguments
      */
@@ -570,7 +582,6 @@ public class PantallaReserva extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton mostrarAccesorios;
     private javax.swing.JTextField observacionEscrita;
     private javax.swing.JComboBox<String> profesorBox;
@@ -578,6 +589,7 @@ public class PantallaReserva extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> salonesBox;
     private javax.swing.JMenu soporteAyuda;
     private javax.swing.JTable tablaAccesorios;
+    private javax.swing.JTable tablaReservas;
     // End of variables declaration//GEN-END:variables
 
     
