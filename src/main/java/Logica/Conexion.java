@@ -44,10 +44,10 @@ public class Conexion {
             Process proceso = Runtime.getRuntime().exec(comando);
             System.out.println(proceso.waitFor());
             }else{
+
                 archivoDestino = destino+"/backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+".sql";
                 comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas > "+archivoDestino;
-                System.out.println(archivoDestino);
-                System.out.println(comando);
+                System.out.println(destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql");
                 System.out.println("HACIENDO BACKUP EN LINUX");
                 Process process = Runtime.getRuntime().exec(new String[]{"bash","-c",comando});
                 System.out.println(process.waitFor());
