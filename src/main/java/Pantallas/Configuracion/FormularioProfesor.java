@@ -17,15 +17,13 @@ import java.util.Objects;
  * @author dario
  */
 public class FormularioProfesor extends javax.swing.JFrame {
-    Conexion conexion;
     Profesor profesor;
 
     ArrayList<Carrera> carreras;
     /**
      * Creates new form ModificarProfesor
      */
-    public FormularioProfesor(Conexion conexion, Profesor profesor, ArrayList<Carrera> carreras) {
-        this.conexion = conexion;
+    public FormularioProfesor(Profesor profesor, ArrayList<Carrera> carreras) {
         this.profesor = profesor;
         this.carreras = carreras;
         initComponents();
@@ -35,8 +33,7 @@ public class FormularioProfesor extends javax.swing.JFrame {
         comboboxCarreras.setSelectedItem(profesor.getCarrera());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public FormularioProfesor(Conexion conexion, ArrayList<Carrera> carreras){
-        this.conexion = conexion;
+    public FormularioProfesor(ArrayList<Carrera> carreras){
         this.carreras = carreras;
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
