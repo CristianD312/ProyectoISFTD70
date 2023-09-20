@@ -1,12 +1,12 @@
 
 package Logica;
 
-public class ComboBoxItem {
+public class ComboBoxItemCarreras {
     
     private int id;
     private String nombre;
 
-    public ComboBoxItem(int id, String nombre) {
+    public ComboBoxItemCarreras(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

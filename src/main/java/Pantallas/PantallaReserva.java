@@ -5,7 +5,8 @@
 package Pantallas;
 
 import Logica.ComboBoxItemProfes;
-import Logica.ComboBoxItem;
+import Logica.ComboBoxItemCarreras;
+import Logica.ComboBoxItemSalones;
 import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Reserva;
@@ -338,17 +339,21 @@ public class PantallaReserva extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarObservacionActionPerformed
-        Object numeroSalon = salonesBox.getSelectedItem();
-        cargarObservaciones(numeroSalon);
+        ComboBoxItemSalones seleccionarSalon = (ComboBoxItemSalones) salonesBox.getSelectedItem();
+        int salonElegido = seleccionarSalon.getId();
+        
+        cargarObservaciones(salonElegido);
         String vacia = "";
         observacionEscrita.setText(vacia);
 
     }//GEN-LAST:event_guardarObservacionActionPerformed
 
     private void mostrarAccesoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarAccesoriosActionPerformed
-        Object numeroSalon = salonesBox.getSelectedItem();
-        mostrarAccesorios(numeroSalon);
-        mostrarObservaciones(numeroSalon);
+        ComboBoxItemSalones seleccionarSalon = (ComboBoxItemSalones) salonesBox.getSelectedItem();
+        int salonElegido = seleccionarSalon.getId();
+        
+        mostrarAccesorios(salonElegido);
+        mostrarObservaciones(salonElegido);
 
     }//GEN-LAST:event_mostrarAccesoriosActionPerformed
 
@@ -357,35 +362,19 @@ public class PantallaReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_salonesBoxActionPerformed
 
     private void reservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservarActionPerformed
-        Conexion conect = new Conexion(null);
-        conect.conectar();
-        Connection conn = null;
+       
+        ComboBoxItemSalones seleccionarSalon = (ComboBoxItemSalones) salonesBox.getSelectedItem();
+        int salonElegido = seleccionarSalon.getId();
         
-        Object salon = salonesBox.getSelectedItem();
-        String conversionSalonElegido = salon.toString();
-        conversionSalonElegido = conversionSalonElegido.trim();
-        int salonElegido = Integer.parseInt(conversionSalonElegido);
-        
-        ComboBoxItem selectedItem = (ComboBoxItem) carrerasBox.getSelectedItem();
-        String conversionCarreraElegida=selectedItem.toString();
-        conversionCarreraElegida = conversionCarreraElegida.trim();
-        int carreraElegida = Integer.parseInt(conversionSalonElegido);
-         try {
-            JOptionPane.showMessageDialog(null, "El numero de carrera es "+carreraElegida);
-        } catch (Exception e) {
-        }
-        
+        ComboBoxItemCarreras selectedItem = (ComboBoxItemCarreras) carrerasBox.getSelectedItem();
+        int carreraElegida = selectedItem.getId();
         
         ComboBoxItemProfes selectItem = (ComboBoxItemProfes) profesorBox.getSelectedItem();
         int prof = selectItem.getDni();
-        //String conversionProfesorElegido=selectItem.toString();
-        //conversionProfesorElegido=conversionProfesorElegido.trim();
-        //int profesorElegido = Integer.parseInt(conversionProfesorElegido);
         
         Date dia=diaBox.getDate();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = formato.format(dia);
-        
         
         Object horario=horarioBox.getSelectedItem();
         String horarioElegido=horario.toString();
@@ -456,8 +445,9 @@ public class PantallaReserva extends javax.swing.JFrame {
             while(resultSet.next()){
                 int numSalones = resultSet.getInt("id_salon");
                 String nombreSalon = resultSet.getString("nombre_salon");
-                String opciones = numSalones + " " + nombreSalon;
-                salonesBox.addItem(opciones);
+                //String opciones = numSalones + " " + nombreSalon;
+                //salonesBox.addItem(opciones);
+                salonesBox.addItem(new ComboBoxItemSalones(numSalones, nombreSalon));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los salones: "+e.toString());
@@ -475,7 +465,7 @@ public class PantallaReserva extends javax.swing.JFrame {
                 int idCarrera = resultSet.getInt("id_carrera");
                 String nombreCarrera = resultSet.getString("nombre_carrera");
                 //String opciones = idCarrera + " " + nombreCarrera;
-                carrerasBox.addItem(new ComboBoxItem(idCarrera, nombreCarrera));
+                carrerasBox.addItem(new ComboBoxItemCarreras(idCarrera, nombreCarrera));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar las carreras: "+e.toString());
@@ -575,7 +565,7 @@ public class PantallaReserva extends javax.swing.JFrame {
       conect.conectar();
       
       try {
-        String sql = "SELECT reservas.id_reserva, usuarios.nombre, salones.id_salon, reservas.fecha_reserva, reservas.horario, carreras.nombre_carrera, profesores.nombre, profesores.apellido\n" +
+        String sql = "SELECT reservas.id_reserva, usuarios.nombre, salones.id_salon, salones.nombre_salon, reservas.fecha_reserva, reservas.horario, carreras.nombre_carrera, profesores.nombre, profesores.apellido\n" +
         "FROM `reservas` \n" +
         "INNER JOIN usuarios ON reservas.fk_usuario=usuarios.ID_usuario\n" +
         "INNER JOIN salones ON reservas.fk_salon=salones.id_salon\n" +
@@ -586,11 +576,11 @@ public class PantallaReserva extends javax.swing.JFrame {
         while(resultSet.next()){
               datosReserva[0] = resultSet.getString(1);
               datosReserva[1] = resultSet.getString(2);
-              datosReserva[2] = resultSet.getString(3);
-              datosReserva[3] = resultSet.getString(4);
-              datosReserva[4] = resultSet.getString(5);
-              datosReserva[5] = resultSet.getString(6);
-              datosReserva[6] = resultSet.getString(7)+" "+resultSet.getString(8);
+              datosReserva[2] = resultSet.getString(3)+" "+resultSet.getString(4);
+              datosReserva[3] = resultSet.getString(5);
+              datosReserva[4] = resultSet.getString(6);
+              datosReserva[5] = resultSet.getString(7);
+              datosReserva[6] = resultSet.getString(8)+" "+resultSet.getString(9);
               tReservas.addRow(datosReserva);
           }
         resultSet.close(); statement.close();
