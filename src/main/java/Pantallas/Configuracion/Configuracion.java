@@ -14,10 +14,12 @@ import Pantallas.ElementosPersonalizados.TablaSalones;
 import com.formdev.flatlaf.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -87,7 +89,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        panelDePestanas = new javax.swing.JTabbedPane();
+        panelDePestañas = new javax.swing.JTabbedPane();
         tabSalones = new javax.swing.JLayeredPane();
         tablaSalonesScroll = new javax.swing.JScrollPane();
         tablaSalones = new javax.swing.JTable();
@@ -111,14 +113,14 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        bdURL = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        bdUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        bdPass = new javax.swing.JPasswordField();
+        guardarBD = new javax.swing.JButton();
+        hacerBackup = new javax.swing.JButton();
+        restaurarDesdeBackup = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -126,7 +128,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelDePestanas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        panelDePestañas.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         tablaSalones.setAutoCreateRowSorter(true);
         tablaSalones.setModel(new TablaSalones(salones));
@@ -134,10 +136,18 @@ public class Configuracion extends javax.swing.JFrame {
         tablaSalonesScroll.setViewportView(tablaSalones);
 
         modificarSalon.setText("Modificar");
-        modificarSalon.addActionListener(this::modificarSalonActionPerformed);
+        modificarSalon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarSalonActionPerformed(evt);
+            }
+        });
 
         agregarSalon.setText("Agregar");
-        agregarSalon.addActionListener(this::agregarSalonActionPerformed);
+        agregarSalon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarSalonActionPerformed(evt);
+            }
+        });
 
         tabSalones.setLayer(tablaSalonesScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabSalones.setLayer(modificarSalon, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -166,7 +176,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelDePestanas.addTab("Salones", tabSalones);
+        panelDePestañas.addTab("Salones", tabSalones);
 
         tablaProfesores.setAutoCreateRowSorter(true);
         tablaProfesores.setModel(new TablaProfesores(profesores));
@@ -175,13 +185,25 @@ public class Configuracion extends javax.swing.JFrame {
         tablaProfesoresScroll.setViewportView(tablaProfesores);
 
         modificarProfesor.setText("Modificar");
-        modificarProfesor.addActionListener(this::modificarProfesorActionPerformed);
+        modificarProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarProfesorActionPerformed(evt);
+            }
+        });
 
         agregarProfesor.setText("Agregar");
-        agregarProfesor.addActionListener(this::agregarProfesorActionPerformed);
+        agregarProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarProfesorActionPerformed(evt);
+            }
+        });
 
         eliminarProfesor.setText("Eliminar");
-        eliminarProfesor.addActionListener(this::eliminarProfesorActionPerformed);
+        eliminarProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarProfesorActionPerformed(evt);
+            }
+        });
 
         tabProfesores.setLayer(tablaProfesoresScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabProfesores.setLayer(modificarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -214,7 +236,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
-        panelDePestanas.addTab("Profesores", tabProfesores);
+        panelDePestañas.addTab("Profesores", tabProfesores);
 
         tablaCarreras.setModel(new TablaCarreras(carreras)
         );
@@ -223,13 +245,25 @@ public class Configuracion extends javax.swing.JFrame {
         tablaCarrerasScroll.setViewportView(tablaCarreras);
 
         modificarCarrera.setText("Modificar");
-        modificarCarrera.addActionListener(this::modificarCarreraActionPerformed);
+        modificarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarCarreraActionPerformed(evt);
+            }
+        });
 
         agregarCarrera.setText("Agregar");
-        agregarCarrera.addActionListener(this::agregarCarreraActionPerformed);
+        agregarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarCarreraActionPerformed(evt);
+            }
+        });
 
         eliminarCarrera.setText("Eliminar");
-        eliminarCarrera.addActionListener(this::eliminarCarreraActionPerformed);
+        eliminarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarCarreraActionPerformed(evt);
+            }
+        });
 
         tabCarreras.setLayer(tablaCarrerasScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabCarreras.setLayer(modificarCarrera, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -262,43 +296,66 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelDePestanas.addTab("Carreras", tabCarreras);
+        panelDePestañas.addTab("Carreras", tabCarreras);
 
-        botonTema.addActionListener(this::botonTemaActionPerformed);
+        botonTema.setText("Tema  Oscuro");
+        botonTema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTemaActionPerformed(evt);
+            }
+        });
 
         cambiarInterfaz.setText("Cambiar Interfaz");
-        cambiarInterfaz.addActionListener(this::cambiarInterfazActionPerformed);
+        cambiarInterfaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarInterfazActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Opciones Graficas:");
 
         jLabel2.setText("Base de datos:");
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("URL");
 
         jLabel5.setText("Usuario");
 
         jLabel6.setText("Contraseña");
 
-        jButton2.setText("Guardar");
+        guardarBD.setText("Guardar");
+        guardarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarBDActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Respaldar base de datos");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
+        hacerBackup.setText("Respaldar base de datos");
+        hacerBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hacerBackupActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Restaurar desde respaldo");
+        restaurarDesdeBackup.setText("Restaurar desde respaldo");
+        restaurarDesdeBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restaurarDesdeBackupActionPerformed(evt);
+            }
+        });
 
         tabConfiguracion.setLayer(botonTema, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(cambiarInterfaz, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        tabConfiguracion.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(bdURL, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        tabConfiguracion.setLayer(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(bdUser, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        tabConfiguracion.setLayer(jPasswordField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        tabConfiguracion.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        tabConfiguracion.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        tabConfiguracion.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(bdPass, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(guardarBD, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(hacerBackup, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(restaurarDesdeBackup, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
         tabConfiguracion.setLayout(tabConfiguracionLayout);
@@ -306,7 +363,7 @@ public class Configuracion extends javax.swing.JFrame {
             tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabConfiguracionLayout.createSequentialGroup()
                 .addGap(229, 229, 229)
-                .addComponent(jButton2)
+                .addComponent(guardarBD)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(tabConfiguracionLayout.createSequentialGroup()
                 .addContainerGap()
@@ -320,13 +377,13 @@ public class Configuracion extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+                    .addComponent(bdURL)
+                    .addComponent(bdUser)
+                    .addComponent(bdPass, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(hacerBackup)
+                    .addComponent(restaurarDesdeBackup))
                 .addGap(185, 185, 185))
         );
         tabConfiguracionLayout.setVerticalGroup(
@@ -340,36 +397,36 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cambiarInterfaz)
                     .addComponent(jLabel4)
-                    .addComponent(jButton3))
+                    .addComponent(hacerBackup))
                 .addGap(18, 18, 18)
                 .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonTema)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(bdURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(restaurarDesdeBackup))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bdUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bdPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(guardarBD)
                 .addContainerGap(204, Short.MAX_VALUE))
         );
 
-        panelDePestanas.addTab("Configuración", tabConfiguracion);
+        panelDePestañas.addTab("Configuración", tabConfiguracion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDePestanas)
+            .addComponent(panelDePestañas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDePestanas)
+            .addComponent(panelDePestañas)
         );
 
         pack();
@@ -600,8 +657,6 @@ public class Configuracion extends javax.swing.JFrame {
 
     private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
         if(botonTema.getText().equals("Tema Oscuro")){
-            System.out.println(botonTema.getText());
-            System.out.println("Tema Oscuro");
             ponerTemaOscuro();
             parametrosDeConfiguracion.setTema("Oscuro");
             botonTema.setText("Tema Claro");
@@ -612,17 +667,47 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonTemaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void hacerBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hacerBackupActionPerformed
         JFileChooser chooser = new JFileChooser();
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
                 int seleccion = chooser.showOpenDialog(null);
-
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     File carpetaSeleccionada = chooser.getSelectedFile();
-                    System.out.println("Carpeta seleccionada: " + carpetaSeleccionada.getAbsolutePath());
+                    conexion.hacerBackup(carpetaSeleccionada.getAbsolutePath());
                 }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_hacerBackupActionPerformed
+
+    private void guardarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBDActionPerformed
+        if(!(bdURL.getText().equals("")||bdUser.getText().equals(""))){
+            parametrosDeConfiguracion.setURL(bdURL.getText());
+            parametrosDeConfiguracion.setUsuarioSQL(bdUser.getText());
+            parametrosDeConfiguracion.setPassSQL(bdPass.getPassword().toString());
+        }else{
+            JOptionPane.showMessageDialog(this,"Por favor rellene todos los campos para actualizar la base de datos","error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_guardarBDActionPerformed
+
+    private void restaurarDesdeBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarDesdeBackupActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                Pattern patron = Pattern.compile("\\w+\\.sql$");
+                return patron.matcher(file.getName()).find();
+            }
+
+            @Override
+            public String getDescription() {
+                return "Archivos SQL (*.sql)";
+            }
+        });
+        int seleccion = chooser.showOpenDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File carpetaSeleccionada = chooser.getSelectedFile();
+            conexion.restaurarDesdeBackup(carpetaSeleccionada.getAbsolutePath());
+        }
+    }//GEN-LAST:event_restaurarDesdeBackupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -640,27 +725,27 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton agregarCarrera;
     private javax.swing.JButton agregarProfesor;
     private javax.swing.JButton agregarSalon;
+    private javax.swing.JPasswordField bdPass;
+    private javax.swing.JTextField bdURL;
+    private javax.swing.JTextField bdUser;
     private javax.swing.JButton botonTema;
     private javax.swing.JToggleButton cambiarInterfaz;
     private javax.swing.JButton eliminarCarrera;
     private javax.swing.JButton eliminarProfesor;
+    private javax.swing.JButton guardarBD;
+    private javax.swing.JButton hacerBackup;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JButton modificarCarrera;
     private javax.swing.JButton modificarProfesor;
     private javax.swing.JButton modificarSalon;
-    private javax.swing.JTabbedPane panelDePestanas;
+    private javax.swing.JTabbedPane panelDePestañas;
+    private javax.swing.JButton restaurarDesdeBackup;
     private javax.swing.JLayeredPane tabCarreras;
     private javax.swing.JLayeredPane tabConfiguracion;
     private javax.swing.JLayeredPane tabProfesores;

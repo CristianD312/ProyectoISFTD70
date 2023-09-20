@@ -8,6 +8,8 @@ import Logica.Conexion;
 import Objetos.Profesor;
 import Pantallas.Configuracion.Configuracion;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +19,6 @@ import java.util.ArrayList;
 public class main {
 
     public static void main(String[] args) {
-       new Configuracion().setVisible(true);
+
     }
 }
