@@ -17,6 +17,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -127,6 +128,7 @@ public class Configuracion extends javax.swing.JFrame {
         restaurarDesdeBackup = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        botonInterfaz = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -346,6 +348,13 @@ public class Configuracion extends javax.swing.JFrame {
 
         jLabel8.setText("Copia de respaldo");
 
+        botonInterfaz.setText("Cambiar interfaz");
+        botonInterfaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInterfazActionPerformed(evt);
+            }
+        });
+
         tabConfiguracion.setLayer(botonTema, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -360,6 +369,7 @@ public class Configuracion extends javax.swing.JFrame {
         tabConfiguracion.setLayer(restaurarDesdeBackup, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         tabConfiguracion.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        tabConfiguracion.setLayer(botonInterfaz, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout tabConfiguracionLayout = new javax.swing.GroupLayout(tabConfiguracion);
         tabConfiguracion.setLayout(tabConfiguracionLayout);
@@ -382,7 +392,8 @@ public class Configuracion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botonTema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonInterfaz)))
                     .addGroup(tabConfiguracionLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(guardarBD))
@@ -402,10 +413,12 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(botonTema))
-                .addGap(1, 1, 1)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel4)
-                .addGap(23, 23, 23)
-                .addComponent(bdURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bdURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonInterfaz))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
@@ -422,7 +435,7 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(hacerBackup)
                 .addGap(18, 18, 18)
                 .addComponent(restaurarDesdeBackup)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         panelDePestañas.addTab("Configuración", tabConfiguracion);
@@ -715,6 +728,14 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_restaurarDesdeBackupActionPerformed
 
+    private void botonInterfazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInterfazActionPerformed
+        this.setContentPane(new pantallaConfig2());
+        this.revalidate();
+        this.repaint();
+
+        //SwingUtilities.updateComponentTreeUI(this);
+    }//GEN-LAST:event_botonInterfazActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -734,6 +755,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPasswordField bdPass;
     private javax.swing.JTextField bdURL;
     private javax.swing.JTextField bdUser;
+    private javax.swing.JButton botonInterfaz;
     private javax.swing.JButton botonTema;
     private javax.swing.JButton eliminarCarrera;
     private javax.swing.JButton eliminarProfesor;
