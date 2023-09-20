@@ -30,23 +30,23 @@ public class Conexion {
     }
 
     public Connection getConexion() {return conexion;}
-
+    // De acá en adelante es un despelote, pero anda
     public void hacerBackup(String destino) {
         String archivoDestino;
         String comando;
         try {
             if(System.getProperty("os.name").toLowerCase().contains("win")){
+                System.out.println(destino);
                 archivoDestino = destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql";
-                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas > "+archivoDestino;
+                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas --result-file=\""+archivoDestino+"\"" : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas --result-file=\""+archivoDestino+"\"";
                 System.out.println(archivoDestino);
                 System.out.println(comando);
                 System.out.println("HACIENDO BACKUP EN WINDOWS");
-            Process proceso = Runtime.getRuntime().exec(comando);
-            System.out.println(proceso.waitFor());
+                Process proceso = Runtime.getRuntime().exec(comando);
+                System.out.println(proceso.waitFor());
             }else{
-
                 archivoDestino = destino+"/backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+".sql";
-                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas > "+archivoDestino;
+                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas  > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas > "+archivoDestino;
                 System.out.println(destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql");
                 System.out.println("HACIENDO BACKUP EN LINUX");
                 Process process = Runtime.getRuntime().exec(new String[]{"bash","-c",comando});
@@ -70,13 +70,17 @@ public class Conexion {
                 PreparedStatement consulta = conexion.prepareStatement(drop);
                 consulta.executeUpdate();
             }
+            System.out.println("Limpio todo");
 
             try {
-                String comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h 127.0.0.1 reservas < "+archivoSQL : "mysql -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas < "+archivoSQL;
+                String comando;
                 if(System.getProperty("os.name").toLowerCase().contains("win")){
+                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h 127.0.0.1 reservas -e \"source "+archivoSQL+"\"" : "mysql -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas -e \"source "+archivoSQL+"\"";
                     Process proceso = Runtime.getRuntime().exec(comando);
                     System.out.println(proceso.waitFor());
+                    System.out.println("en teoria lo cargo todo");
                 }else{
+                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h 127.0.0.1 reservas < "+archivoSQL : "mysql -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas < "+archivoSQL;
                     Process process = Runtime.getRuntime().exec(new String[]{"bash","-c",comando});
                     System.out.println(process.waitFor());
                 }

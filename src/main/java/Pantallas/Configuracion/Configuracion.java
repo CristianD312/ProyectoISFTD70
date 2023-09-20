@@ -62,6 +62,9 @@ public class Configuracion extends javax.swing.JFrame {
             ponerTemaClaro();
             botonTema.setText("Tema Oscuro");
         }
+        tablaProfesores.setFocusable(false);
+        tablaSalones.setFocusable(false);
+        tablaCarreras.setFocusable(false);
     }
     private void ponerTemaOscuro(){
         try {
