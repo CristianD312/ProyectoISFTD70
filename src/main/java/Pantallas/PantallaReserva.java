@@ -11,6 +11,7 @@ import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Reserva;
 import Objetos.Salon;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Conexion;
 import java.util.Date;
+import javax.swing.UIManager;
 import javax.swing.table.TableModel;
 
 
@@ -34,11 +36,17 @@ public class PantallaReserva extends javax.swing.JFrame {
      * Creates new form PantallaReserva
      */
     public PantallaReserva() {
-        initComponents();
-        cargarSalonesBOX(salonesBox);
-        cargarCarrerasBOX(carrerasBox);
-        cargarProfesoresBOX(profesorBox);
-        mostrarReservas();
+        try {
+            initComponents();
+            cargarSalonesBOX(salonesBox);
+            cargarCarrerasBOX(carrerasBox);
+            cargarProfesoresBOX(profesorBox);
+            mostrarReservas();
+            UIManager.setLookAndFeel( new FlatLightLaf() );
+        } catch( Exception ex ) {
+            
+        }
+        
         
         
     }
@@ -576,7 +584,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         while(resultSet.next()){
               datosReserva[0] = resultSet.getString(1);
               datosReserva[1] = resultSet.getString(2);
-              datosReserva[2] = resultSet.getString(3)+" "+resultSet.getString(4);
+              datosReserva[2] = resultSet.getString(3)+"- "+resultSet.getString(4);
               datosReserva[3] = resultSet.getString(5);
               datosReserva[4] = resultSet.getString(6);
               datosReserva[5] = resultSet.getString(7);
@@ -602,18 +610,10 @@ public class PantallaReserva extends javax.swing.JFrame {
             statement.setInt(1, idReserva); 
             statement.executeUpdate();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar la reserva: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al eliminar la reserva: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
          
-         
     }
-      
-  
-    /**
-     * @param args the command line arguments
-     */
-  
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizarReservas;
     private javax.swing.JComboBox<String> carrerasBox;
