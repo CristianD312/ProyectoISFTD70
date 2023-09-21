@@ -1,8 +1,12 @@
 package Objetos;
 
+import Logica.ComboBoxItemProfes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import logica.Conexion;
 
 public class Profesor {
@@ -77,5 +81,24 @@ public class Profesor {
             e.printStackTrace();
         }
         this.carrera = carrera;
+    }
+    
+    public void cargarProfesoresBOX(JComboBox profesorBox){
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            String sql = "SELECT dni, nombre, apellido FROM `profesores`";
+            java.sql.Statement statement = conect.getConn().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                int dnis = resultSet.getInt("dni");
+                String nombresProfes = resultSet.getString("nombre");
+                String apellidosProfes = resultSet.getString("apellido");
+                profesorBox.addItem(new ComboBoxItemProfes(dnis, nombresProfes, apellidosProfes));
+                
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los profesores: "+e.toString());
+        }
     }
 }

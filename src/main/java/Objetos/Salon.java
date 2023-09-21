@@ -1,5 +1,6 @@
 package Objetos;
 
+import Logica.ComboBoxItemSalones;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import javax.swing.JComboBox;
 import logica.Conexion;
 import Pantallas.PantallaReserva;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Salon {
     private int id_salon;
@@ -178,6 +180,26 @@ public class Salon {
         this.observacion = observacion;
     }
     
+    public void cargarSalonesBOX(JComboBox salonesBox){
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            String sql = "SELECT id_salon, nombre_salon FROM `salones`";
+            java.sql.Statement statement = conect.getConn().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                int numSalones = resultSet.getInt("id_salon");
+                String nombreSalon = resultSet.getString("nombre_salon");
+                //String opciones = numSalones + " " + nombreSalon;
+                //salonesBox.addItem(opciones);
+                salonesBox.addItem(new ComboBoxItemSalones(numSalones, nombreSalon));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los salones: "+e.toString());
+        }
+        
+    }
+    
     public static void guardarObservacion (Salon observa){
         Conexion conect = new Conexion(null);
         conect.conectar(); 
@@ -194,6 +216,26 @@ public class Salon {
             JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
         }
     }
+    
+    public void mostrarObservaciones(int numSalon, JTextField observacionEscrita){ 
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            String sql = "SELECT `id_salon`, `nombre_salon`, `tamaño`, `observaciones` FROM `salones` WHERE `id_salon` ="+numSalon;
+            java.sql.Statement statement = conect.getConn().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                String observacion = resultSet.getString("observaciones");
+                observacionEscrita.setText(observacion);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
+        }
+    }
+    
+    
+    
+    
     
     
 }
