@@ -1,8 +1,12 @@
 package Objetos;
 
+import Logica.ComboBoxItemCarreras;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import logica.Conexion;
 
 public class Carrera {
@@ -42,5 +46,23 @@ public class Carrera {
             e.printStackTrace();
         }
         this.nombre = nombre;
+    }
+    
+    public void cargarCarrerasBOX(JComboBox carrerasBox){
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            String sql = "SELECT id_carrera, nombre_carrera FROM `carreras`";
+            java.sql.Statement statement = conect.getConn().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                int idCarrera = resultSet.getInt("id_carrera");
+                String nombreCarrera = resultSet.getString("nombre_carrera");
+                //String opciones = idCarrera + " " + nombreCarrera;
+                carrerasBox.addItem(new ComboBoxItemCarreras(idCarrera, nombreCarrera));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar las carreras: "+e.toString());
+        }
     }
 }

@@ -3,8 +3,10 @@ package Objetos;
 import Pantallas.PantallaReserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import logica.Conexion;
 
@@ -145,6 +147,64 @@ public class Reserva {
         }
     }
   
+  public void mostrarReservas(JTable tablaReservas){
+      DefaultTableModel tReservas = new DefaultTableModel();
+      tReservas.addColumn("ID Reserva");
+      tReservas.addColumn("Usuario");
+      tReservas.addColumn("Salón");
+      tReservas.addColumn("Fecha");
+      tReservas.addColumn("Horario");
+      tReservas.addColumn("Carrera");
+      tReservas.addColumn("Profesor");
+      tablaReservas.setModel(tReservas);
+      
+      String [] datosReserva = new String[7];
+      Conexion conect = new Conexion(null);
+      conect.conectar();
+      
+      try {
+        String sql = "SELECT reservas.id_reserva, usuarios.nombre, salones.id_salon, salones.nombre_salon, reservas.fecha_reserva, reservas.horario, carreras.nombre_carrera, profesores.nombre, profesores.apellido\n" +
+        "FROM `reservas` \n" +
+        "INNER JOIN usuarios ON reservas.fk_usuario=usuarios.ID_usuario\n" +
+        "INNER JOIN salones ON reservas.fk_salon=salones.id_salon\n" +
+        "INNER JOIN carreras ON reservas.carrera=carreras.id_carrera\n" +
+        "INNER JOIN profesores ON reservas.profesor=profesores.dni;";
+        PreparedStatement statement = conect.getConn().prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next()){
+              datosReserva[0] = resultSet.getString(1);
+              datosReserva[1] = resultSet.getString(2);
+              datosReserva[2] = resultSet.getString(3)+"- "+resultSet.getString(4);
+              datosReserva[3] = resultSet.getString(5);
+              datosReserva[4] = resultSet.getString(6);
+              datosReserva[5] = resultSet.getString(7);
+              datosReserva[6] = resultSet.getString(8)+" "+resultSet.getString(9);
+              tReservas.addRow(datosReserva);
+          }
+        resultSet.close(); statement.close();
+        tablaReservas.setModel(tReservas);
+        
+      } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, "Error al mostrar las reservas correctamente: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
+  
+    public void eliminarReservas(JTable tablaReservas){
+         int filaSelecionada = tablaReservas.getSelectedRow();
+         String conversionIdReserva = (String) tablaReservas.getValueAt(filaSelecionada, 0);
+         int idReserva = Integer.parseInt(conversionIdReserva);
+         Conexion conect = new Conexion(null);
+        conect.conectar();
+        try {
+            String sql = "DELETE FROM `reservas` WHERE id_reserva = ?;";
+            PreparedStatement statement = conect.getConn().prepareStatement(sql);
+            statement.setInt(1, idReserva); 
+            statement.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la reserva: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+         
+    }
   
     
 
