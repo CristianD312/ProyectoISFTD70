@@ -52,9 +52,12 @@ public class pantallaConfig1 extends javax.swing.JPanel {
             ponerTemaClaro();
             botonTema.setText("Tema Oscuro");
         }
-
+        tabCarreras.updateUI();
+        tablaSalones.updateUI();
+        tablaProfesores.updateUI();
         pantalla.revalidate();
         pantalla.repaint();
+
         //carga de componentes
     }
     private void ponerTemaOscuro(){
@@ -513,7 +516,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
                 }
             }
             if(profe != null) {
-                JFrame ventana = new FormularioProfesor(profe, carreras);
+                JFrame ventana = new FormularioProfesor(profe);
 
                 //centra la nueva pestaña y la posiciona por encima de todas
                 ventana.setLocationRelativeTo(this);
@@ -543,7 +546,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
 
     private void agregarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProfesorActionPerformed
         //crea una nueva ventana formulario para cargar los datos del profesor
-        JFrame ventana = new FormularioProfesor(carreras);
+        JFrame ventana = new FormularioProfesor();
         //centra la nueva pestaña y la posiciona por encima de todas
         ventana.setLocationRelativeTo(this);
         ventana.setAlwaysOnTop(true);

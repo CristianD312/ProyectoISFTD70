@@ -9,7 +9,6 @@ import Logica.parametrosDeConfiguracion;
 import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Salon;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
@@ -24,8 +23,6 @@ import java.util.regex.Pattern;
  * @author dario
  */
 public class pantallaConfig2 extends javax.swing.JPanel {
-
-    private Conexion conexion;
     private ArrayList<Profesor> profesores;
     private ArrayList<Salon> salones;
     private ArrayList<Carrera> carreras;
@@ -51,6 +48,14 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         pantalla.revalidate();
         pantalla.repaint();
         cambiarVisibilidad(false);
+        comboboxTamanoModificar.setSelectedItem(null);
+        comboboxProfesores.setSelectedItem(null);
+        comboboxSalones.setSelectedItem(null);
+        comboboxCarrerasModificarProfesor.setSelectedItem(null);
+        comboboxTamanoAgregar.setSelectedItem(null);
+        comboboxCarreras.setSelectedItem(null);
+        comboboxCarrerasAgregar.setSelectedItem(null);
+
     }
     private void ponerTemaOscuro(){
         try {
@@ -89,7 +94,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         dniProfesorModificar.setVisible(bool);
         nombreProfesorModificar.setVisible(bool);
         apellidoProfesorModificar.setVisible(bool);
-        combobocCarrerasModificar.setVisible(bool);
+        comboboxCarrerasModificarProfesor.setVisible(bool);
         modificarProfesor.setVisible(bool);
         jLabel22.setVisible(bool);
         nombreCarreraModificar.setVisible(bool);
@@ -153,7 +158,8 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         apellidoProfesorModificar = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        combobocCarrerasModificar = new javax.swing.JComboBox<>();
+        comboboxCarrerasModificarProfesor = new javax.swing.JComboBox<Carrera>(
+        );
         modificarProfesor = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -191,14 +197,9 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel1.setText("Agregar");
 
-        comboboxTamanoAgregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
+        comboboxTamanoAgregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeño", "Mediano", "Grande" }));
 
         TVAgregar.setText("Televisor");
-        TVAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TVAgregarActionPerformed(evt);
-            }
-        });
 
         VGAAgregar.setText("Cable VGA");
 
@@ -225,21 +226,11 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel4.setText("Tamaño");
 
-        comboboxTamanoModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
-        comboboxTamanoModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboboxTamanoModificarActionPerformed(evt);
-            }
-        });
+        comboboxTamanoModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Pequeño", "Mediano", "Grande" }));
 
         proyectorModificar.setText("Proyector");
 
         TVModificar.setText("Televisor");
-        TVModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TVModificarActionPerformed(evt);
-            }
-        });
 
         VGAModificar.setText("Cable VGA");
 
@@ -263,6 +254,11 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         jLabel6.setText("Nombre");
 
         comboboxSalones.setModel(new javax.swing.DefaultComboBoxModel<>(salones.toArray(new Salon[0])));
+        comboboxSalones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboboxSalonesActionPerformed(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(comboboxTamanoAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -301,7 +297,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,6 +413,11 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         comboboxCarrerasAgregar.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
 
         guardarProfesor.setText("Guardar");
+        guardarProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarProfesorActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Nombre");
 
@@ -426,15 +427,25 @@ public class pantallaConfig2 extends javax.swing.JPanel {
 
         jLabel15.setText("Carrera");
 
-        combobocCarrerasModificar.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
+        comboboxCarrerasModificarProfesor.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
 
         modificarProfesor.setText("Modificar");
+        modificarProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarProfesorActionPerformed(evt);
+            }
+        });
 
         jLabel16.setText("Modificar");
 
         jLabel17.setText("Profesor");
 
         comboboxProfesores.setModel(new javax.swing.DefaultComboBoxModel<>(profesores.toArray(new Profesor[0])));
+        comboboxProfesores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboboxProfesoresActionPerformed(evt);
+            }
+        });
 
         jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -453,7 +464,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         jLayeredPane2.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(apellidoProfesorModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(combobocCarrerasModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(comboboxCarrerasModificarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(modificarProfesor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -480,7 +491,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addComponent(guardarProfesor)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dniProfesorModificar)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -489,7 +500,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(apellidoProfesorModificar)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(combobocCarrerasModificar, 0, 260, Short.MAX_VALUE)
+                    .addComponent(comboboxCarrerasModificarProfesor, 0, 260, Short.MAX_VALUE)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(modificarProfesor))
@@ -544,10 +555,10 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combobocCarrerasModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboboxCarrerasModificarProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(modificarProfesor)))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         Salones.addTab("Profesores", jLayeredPane2);
@@ -559,14 +570,29 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         jLabel20.setText("Nombre de la carrera:");
 
         comboboxCarreras.setModel(new javax.swing.DefaultComboBoxModel<>(carreras.toArray(new Carrera[0])));
+        comboboxCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboboxCarrerasActionPerformed(evt);
+            }
+        });
 
         jLabel21.setText("Carrera");
 
         jLabel22.setText("Nombre");
 
         carreraModificar.setText("Modificar");
+        carreraModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carreraModificarActionPerformed(evt);
+            }
+        });
 
         carreraGuardar.setText("Guardar");
+        carreraGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carreraGuardarActionPerformed(evt);
+            }
+        });
 
         jLayeredPane3.setLayer(jLabel18, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(nombreCarreraAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -588,7 +614,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane3Layout.createSequentialGroup()
                         .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,7 +660,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 .addComponent(nombreCarreraModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(carreraModificar)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addContainerGap(352, Short.MAX_VALUE))
         );
 
         Salones.addTab("Carreras", jLayeredPane3);
@@ -777,7 +803,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         jLayeredPane4.setLayout(jLayeredPane4Layout);
         jLayeredPane4Layout.setHorizontalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 774, Short.MAX_VALUE)
+            .addGap(0, 840, Short.MAX_VALUE)
             .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane4Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -786,7 +812,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
             .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane4Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -800,32 +826,54 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Salones)
+            .addComponent(Salones, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Salones)
+            .addComponent(Salones, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TVAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TVAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TVAgregarActionPerformed
-
     private void salonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salonGuardarActionPerformed
+        new Salon(-1,nombreAgregarSalon.getText(),
+                comboboxTamanoAgregar.getSelectedItem().toString(),
+                "",
+                interlockAgregar.isSelected(),
+                VGAAgregar.isSelected(),
+                HDMIAgregar.isSelected(),
+                audioAgregar.isSelected(),
+                conversorAgregar.isSelected(),
+                TVAgregar.isSelected(),
+                proyectorAgregar.isSelected());
+
+        comboboxSalones.setModel(new DefaultComboBoxModel<>(salones.toArray(new Salon[0])));
+        comboboxSalones.setSelectedItem(null);
     }//GEN-LAST:event_salonGuardarActionPerformed
 
-    private void TVModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TVModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TVModificarActionPerformed
 
     private void salonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salonModificarActionPerformed
-        // TODO add your handling code here:
+
+        if(comboboxSalones.getSelectedItem() != null){
+
+            Salon salon = (Salon) comboboxSalones.getSelectedItem();
+
+            salon.setTamano(comboboxTamanoModificar.getSelectedItem().toString());
+            salon.setProyector(proyectorModificar.isSelected());
+            salon.setTV(TVModificar.isSelected());
+            salon.setCableHDMI(HDMIModificar.isSelected());
+            salon.setCableVGA(VGAModificar.isSelected());
+            salon.setInterlock220V(interlockModificar.isSelected());
+            salon.setCableAudio(audioModificar.isSelected());
+            salon.setConversor(conversorModificar.isSelected());
+            salon.setObservaciones("");
+            salon.setNombre(nombreModificar.getText());
+
+            cambiarVisibilidad(false);
+            comboboxSalones.setSelectedItem(null);
+        }
+
     }//GEN-LAST:event_salonModificarActionPerformed
 
-    private void comboboxTamanoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxTamanoModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboboxTamanoModificarActionPerformed
 
     private void botonTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTemaActionPerformed
         if(botonTema.getText().equals("Tema Oscuro")){
@@ -843,7 +891,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         if(!(bdURL.getText().equals("")||bdUser.getText().equals(""))){
             parametrosDeConfiguracion.setURL(bdURL.getText());
             parametrosDeConfiguracion.setUsuarioSQL(bdUser.getText());
-            parametrosDeConfiguracion.setPassSQL(bdPass.getPassword().toString());
+            parametrosDeConfiguracion.setPassSQL(new String(bdPass.getPassword()));
         }else{
             JOptionPane.showMessageDialog(this,"Por favor rellene todos los campos para actualizar la base de datos","error",JOptionPane.ERROR_MESSAGE);
         }
@@ -855,11 +903,12 @@ public class pantallaConfig2 extends javax.swing.JPanel {
         int seleccion = chooser.showOpenDialog(null);
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File carpetaSeleccionada = chooser.getSelectedFile();
-            conexion.hacerBackup(carpetaSeleccionada.getAbsolutePath());
+            Conexion.hacerBackup(carpetaSeleccionada.getAbsolutePath());
         }
     }//GEN-LAST:event_hacerBackupActionPerformed
 
     private void restaurarDesdeBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarDesdeBackupActionPerformed
+
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.addChoosableFileFilter(new FileFilter() {
@@ -874,18 +923,125 @@ public class pantallaConfig2 extends javax.swing.JPanel {
                 return "Archivos SQL (*.sql)";
             }
         });
+
         int seleccion = chooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File carpetaSeleccionada = chooser.getSelectedFile();
             System.out.println(carpetaSeleccionada.getAbsolutePath());
-            conexion.restaurarDesdeBackup(carpetaSeleccionada.getAbsolutePath());
+            Conexion.restaurarDesdeBackup(carpetaSeleccionada.getAbsolutePath());
         }
+
     }//GEN-LAST:event_restaurarDesdeBackupActionPerformed
 
     private void botonInterfazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInterfazActionPerformed
+
         this.getRootPane().setContentPane(new pantallaConfig1(this.getRootPane()));
+
         parametrosDeConfiguracion.setInterfazConfiguracion("config1");
+
     }//GEN-LAST:event_botonInterfazActionPerformed
+
+    private void comboboxSalonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxSalonesActionPerformed
+
+        if(comboboxSalones.getSelectedItem() != null){
+
+            cambiarVisibilidad(true);
+
+            Salon salon =(Salon)comboboxSalones.getSelectedItem();
+
+            HDMIModificar.setSelected(salon.isCableHDMI());
+            VGAModificar.setSelected(salon.isCableVGA());
+            TVModificar.setSelected(salon.isTV());
+            proyectorModificar.setSelected(salon.isProyector());
+            conversorModificar.setSelected(salon.isConversor());
+            audioModificar.setSelected(salon.isCableAudio());
+            interlockModificar.setSelected(salon.isInterlock220V());
+            nombreModificar.setText(salon.getNombre());
+            comboboxTamanoModificar.setSelectedItem(salon.getTamano());
+        }
+
+    }//GEN-LAST:event_comboboxSalonesActionPerformed
+
+    private void comboboxProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxProfesoresActionPerformed
+
+        if(comboboxProfesores.getSelectedItem() != null){
+            cambiarVisibilidad(true);
+
+            Profesor profesor = (Profesor)comboboxProfesores.getSelectedItem();
+
+            comboboxCarrerasModificarProfesor.setSelectedItem(profesor.getCarrera());
+            dniProfesorModificar.setText(profesor.getDni().toString());
+            nombreProfesorModificar.setText(profesor.getNombre());
+            apellidoProfesorModificar.setText(profesor.getApellido());
+        }
+
+    }//GEN-LAST:event_comboboxProfesoresActionPerformed
+
+    private void comboboxCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxCarrerasActionPerformed
+
+        if(comboboxCarreras.getSelectedItem() != null){
+            cambiarVisibilidad(true);
+
+            nombreCarreraModificar.setText(((Carrera)comboboxCarreras.getSelectedItem()).getNombre());
+
+        }
+
+    }//GEN-LAST:event_comboboxCarrerasActionPerformed
+
+    private void guardarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarProfesorActionPerformed
+
+        new Profesor(Integer.parseInt(dniProfesorAgregar.getText()),
+                nombreProfesorAgregar.getText(),
+                apellidoProfesorAgregar.getText(),
+                (Carrera) comboboxCarrerasAgregar.getSelectedItem()).cargarDatosProfesor();
+
+        dniProfesorAgregar.setText("");
+        nombreProfesorAgregar.setText("");
+        apellidoProfesorAgregar.setText("");
+        comboboxCarrerasAgregar.setSelectedItem(null);
+
+        comboboxProfesores.setModel(new DefaultComboBoxModel<>(profesores.toArray(new Profesor[0])));
+        comboboxProfesores.setSelectedItem(null);
+
+    }//GEN-LAST:event_guardarProfesorActionPerformed
+
+    private void modificarProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarProfesorActionPerformed
+        Profesor profesor = (Profesor) comboboxProfesores.getSelectedItem();
+
+        profesor.setDni(Integer.parseInt(dniProfesorModificar.getText()));
+        profesor.setNombre(nombreProfesorModificar.getText());
+        profesor.setApellido(apellidoProfesorModificar.getText());
+        profesor.setCarrera((Carrera) comboboxCarrerasModificarProfesor.getSelectedItem());
+
+        cambiarVisibilidad(false);
+        comboboxProfesores.setSelectedItem(null);
+
+
+    }//GEN-LAST:event_modificarProfesorActionPerformed
+
+    private void carreraGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carreraGuardarActionPerformed
+
+        new Carrera(-1,nombreCarreraAgregar.getText());
+        nombreCarreraAgregar.setText("");
+
+        Carrera [] carreras1 = carreras.toArray(new Carrera[0]);
+        comboboxCarreras.setModel(new DefaultComboBoxModel<>(carreras1));
+        comboboxCarrerasAgregar.setModel(new DefaultComboBoxModel<>(carreras1));
+        comboboxCarrerasModificarProfesor.setModel(new DefaultComboBoxModel<>(carreras1));
+
+    }//GEN-LAST:event_carreraGuardarActionPerformed
+
+    private void carreraModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carreraModificarActionPerformed
+        if(comboboxCarreras.getSelectedItem() !=null){
+
+            Carrera carrera = (Carrera) comboboxCarreras.getSelectedItem();
+            carrera.setNombre(nombreCarreraModificar.getText());
+
+            nombreCarreraModificar.setText("");
+            cambiarVisibilidad(false);
+
+        }
+    }//GEN-LAST:event_carreraModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -907,7 +1063,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     private javax.swing.JButton botonTema;
     private javax.swing.JButton carreraGuardar;
     private javax.swing.JButton carreraModificar;
-    private javax.swing.JComboBox<Carrera> combobocCarrerasModificar;
+    private javax.swing.JComboBox<Carrera> comboboxCarrerasModificarProfesor;
     private javax.swing.JComboBox<Carrera> comboboxCarreras;
     private javax.swing.JComboBox<Carrera> comboboxCarrerasAgregar;
     private javax.swing.JComboBox<Profesor> comboboxProfesores;

@@ -4,7 +4,6 @@
  */
 package Pantallas.Configuracion;
 
-import Logica.Conexion;
 import Objetos.Salon;
 
 import javax.swing.*;
