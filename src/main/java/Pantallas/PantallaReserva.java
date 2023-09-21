@@ -92,7 +92,9 @@ public class PantallaReserva extends javax.swing.JFrame {
         soporteAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 743));
 
+        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
         jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -379,7 +381,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         
         Salon salon = new Salon();
         
-        mostrarAccesorios(salonElegido);
+        salon.mostrarAccesorios(salonElegido, tablaAccesorios, tamañoText);
         salon.mostrarObservaciones(salonElegido, observacionEscrita);
 
     }//GEN-LAST:event_mostrarAccesoriosActionPerformed
@@ -434,90 +436,19 @@ public class PantallaReserva extends javax.swing.JFrame {
 
     private void actualizarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarReservasActionPerformed
         Reserva reservacion = new Reserva();
+        
         reservacion.mostrarReservas(tablaReservas);
     }//GEN-LAST:event_actualizarReservasActionPerformed
 
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
         Reserva reservacion = new Reserva();
+        
         reservacion.eliminarReservas(tablaReservas);
         reservacion.mostrarReservas(tablaReservas);
         
     }//GEN-LAST:event_eliminarReservaActionPerformed
     
-    private void mostrarAccesorios(int numSalon){
-        DefaultTableModel tAccesorios = new DefaultTableModel();
-        tAccesorios.addColumn("Accesorios");
-        tAccesorios.addColumn("Si/No");
-        //tAccesorios.addColumn("No");
-        tablaAccesorios.setModel(tAccesorios);
-        
-        ArrayList<Object> datosBooleanosProyector = new ArrayList<>();
-        ArrayList<Object> datosBooleanosTV = new ArrayList<>();
-        ArrayList<Object> datosBooleanosVGA = new ArrayList<>();
-        ArrayList<Object> datosBooleanosHDMI = new ArrayList<>();
-        ArrayList<Object> datosBooleanosI220V = new ArrayList<>();
-        ArrayList<Object> datosBooleanosAUDIO = new ArrayList<>();
-        ArrayList<Object> datosBooleanosASEÑAL = new ArrayList<>();
-        
-        String verdadero = "Si";
-        String falso = "No";
-        
-        Conexion conect = new Conexion(null);
-        conect.conectar();
-        try {
-            String sql = "SELECT * FROM `accesorios` WHERE `fk_salon` ="+numSalon;
-            java.sql.Statement statement = conect.getConn().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while(resultSet.next()){
-                
-                 datosBooleanosProyector.add("Proyector"); // Nombre del accesorio, puedes cambiarlo según tu base de datos
-                 datosBooleanosProyector.add(resultSet.getInt("proyector") == 1 ? verdadero : falso); // 1 para "Si", 0 para "No"
-                 
-                 datosBooleanosTV.add("TV");
-                 datosBooleanosTV.add(resultSet.getInt("tv") == 1 ? verdadero : falso);
-                 
-                 datosBooleanosVGA.add("Cable VGA");
-                 datosBooleanosVGA.add(resultSet.getInt("vga") == 1 ? verdadero : falso);
-                 
-                 datosBooleanosHDMI.add("Cable HDMI");
-                 datosBooleanosHDMI.add(resultSet.getInt("hdmi") == 1 ? verdadero : falso);
-                 
-                 datosBooleanosI220V.add("Cable Interlock 220V");
-                 datosBooleanosI220V.add(resultSet.getInt("interlock") == 1 ? verdadero : falso);
-                 
-                 datosBooleanosAUDIO.add("Cable Audio");
-                 datosBooleanosAUDIO.add(resultSet.getInt("audio") == 1 ? verdadero : falso);
-                 
-                 datosBooleanosASEÑAL.add("Adaptador de Señal");
-                 datosBooleanosASEÑAL.add(resultSet.getInt("adp_conversor") == 1 ? verdadero : falso);
-                
-                tAccesorios.addRow(datosBooleanosProyector.toArray());
-                tAccesorios.addRow(datosBooleanosTV.toArray());
-                tAccesorios.addRow(datosBooleanosVGA.toArray());
-                tAccesorios.addRow(datosBooleanosHDMI.toArray());
-                tAccesorios.addRow(datosBooleanosI220V.toArray());
-                tAccesorios.addRow(datosBooleanosAUDIO.toArray());
-                tAccesorios.addRow(datosBooleanosASEÑAL.toArray());
-            }
-        } catch (Exception e) {
-        }
-        
-        
-        try {
-            String sql = "SELECT `tamaño` FROM `salones` WHERE `id_salon` ="+numSalon+";";
-            java.sql.Statement statement = conect.getConn().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while(resultSet.next()){
-               String tamaño = resultSet.getString("tamaño");
-               tamañoText.setText(tamaño);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar el tamaño del salon: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     
-    
-   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizarReservas;
     private javax.swing.JComboBox<String> carrerasBox;
