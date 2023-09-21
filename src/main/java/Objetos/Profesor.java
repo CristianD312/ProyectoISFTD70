@@ -5,6 +5,7 @@ import Logica.Conexion;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Profesor {
     //elemento estatico que guarda todas las instancias de la clase:
@@ -40,6 +41,7 @@ public class Profesor {
                 profesores.add(new Profesor(RS.getInt(1),RS.getString(2),RS.getString(3),carrera));
             }
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -74,12 +76,14 @@ public class Profesor {
     }
     //setters del objeto que se sincronizan con la base de datos
     public void setDni(Integer dni) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
             consulta.setInt(1,dni);
             consulta.setInt(2,this.dni);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -87,24 +91,28 @@ public class Profesor {
     }
 
     public void setNombre( String nombre) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,dni);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         this.nombre = nombre;
     }
     public void setApellido(String apellido) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET Apellido = ? where dni = ?");
             consulta.setString(1,apellido);
             consulta.setInt(2,dni);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -112,12 +120,14 @@ public class Profesor {
     }
 
     public void setCarrera(Carrera carrera) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE profesores SET fk_id_carrera = ? where dni = ?");
             consulta.setInt(1, carrera.getId_carrera());
             consulta.setInt(2,dni);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -125,6 +135,7 @@ public class Profesor {
     }
     //en caso de que el profesor no exista en la base de datos este metodo lo carga
     public void cargarDatosProfesor(){
+        setConexion();
         try {
             PreparedStatement consultaExistencia = conexion.prepareStatement("SELECT EXISTS (SELECT 1 FROM profesores WHERE dni = ?)");
             consultaExistencia.setInt(1,dni);
@@ -141,8 +152,10 @@ public class Profesor {
                 cargaDeDatos.setInt(4,carrera.getId_carrera());
                 cargaDeDatos.executeUpdate();
                 cargaDeDatos.close();
+                profesores.add(this);
             }
             consultaExistencia.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -150,16 +163,27 @@ public class Profesor {
     }
 
     public void borrarProfesor(){
+        setConexion();
         try {
             PreparedStatement consulta = conexion.prepareStatement("DELETE FROM `profesores` WHERE dni = ?");
             consulta.setInt(1,dni);
             consulta.executeUpdate();
             consulta.close();
             profesores.remove(this);
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profesor profesor = (Profesor) o;
+        return Objects.equals(dni, profesor.dni);
+    }
+
 
     @Override
     public String toString() {

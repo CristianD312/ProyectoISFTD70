@@ -23,9 +23,9 @@ public class FormularioProfesor extends javax.swing.JFrame {
     /**
      * Creates new form ModificarProfesor
      */
-    public FormularioProfesor(Profesor profesor, ArrayList<Carrera> carreras) {
+    public FormularioProfesor(Profesor profesor) {
         this.profesor = profesor;
-        this.carreras = carreras;
+        this.carreras = Carrera.getCarreras();
         initComponents();
         dniProfesor.setText(profesor.getDni().toString());
         nombreProfesor.setText(profesor.getNombre());
@@ -33,8 +33,8 @@ public class FormularioProfesor extends javax.swing.JFrame {
         comboboxCarreras.setSelectedItem(profesor.getCarrera());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    public FormularioProfesor(ArrayList<Carrera> carreras){
-        this.carreras = carreras;
+    public FormularioProfesor(){
+        this.carreras = Carrera.getCarreras();
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }

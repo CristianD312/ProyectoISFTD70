@@ -4,6 +4,7 @@ import Logica.Conexion;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Salon {
     //elemento estatico que guarda todas las instacias de salon:
@@ -34,17 +35,18 @@ public class Salon {
         this.conversor = conversor;
         this.nombre = nombre;
         this.observaciones = observaciones;
+        cargarSalon();
     }
     //carga todos los salones en la base de datos en el arraylist "salones"
     public static void cargarDatos(){
-        setConexion();
         try{
+            setConexion();
             salones.clear();
             ResultSet RS = conexion.prepareStatement("SELECT * FROM salones INNER JOIN accesorios ON fk_salon = salones.id_salon").executeQuery();
             while (RS.next()){
                 salones.add(new Salon(RS.getInt(1),RS.getString(2), RS.getString(3), RS.getString(4),RS.getBoolean(6),RS.getBoolean(7),RS.getBoolean(8),RS.getBoolean(9),RS.getBoolean(10),RS.getBoolean(11),RS.getBoolean(12)));
             }
-
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -105,12 +107,14 @@ public class Salon {
 
     //setters que se sincronizan con la base de datos
     public void setTamano(String tamano) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET Tamaño = ? WHERE id_salon = ?");
             consulta.setString(1,tamano);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -119,12 +123,14 @@ public class Salon {
     }
 
     public void setProyector(boolean proyector) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET proyector = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,proyector);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -132,12 +138,14 @@ public class Salon {
     }
 
     public void setTV( boolean TV) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET tv = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,TV);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -145,12 +153,14 @@ public class Salon {
     }
 
     public void setCableVGA(boolean cableVGA) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET vga = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableVGA);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -158,12 +168,14 @@ public class Salon {
     }
 
     public void setCableHDMI(boolean cableHDMI) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET hdmi = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableHDMI);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -171,36 +183,42 @@ public class Salon {
     }
 
     public void setInterlock220V(boolean interlock220V) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET interlock = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,interlock220V);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         this.interlock220V = interlock220V;
     }
     public void setCableAudio(boolean cableAudio) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET audio = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,cableAudio);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         this.cableAudio = cableAudio;
     }
     public void setConversor(boolean conversor) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE accesorios SET adp_conversor = ? WHERE fk_salon = ?");
             consulta.setBoolean(1,conversor);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -208,12 +226,14 @@ public class Salon {
     }
 
     public void setNombre(String nombre) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET nombre_salon = ? WHERE id_salon = ?");
             consulta.setString(1,nombre);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -221,12 +241,14 @@ public class Salon {
     }
 
     public void setObservaciones(String observaciones) {
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("UPDATE salones SET observaciones = ? WHERE id_salon = ?");
             consulta.setString(1,observaciones);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -235,6 +257,7 @@ public class Salon {
 
     //en caso de que el salon no exista en la base de datos (requiere que se le cargue el valor -1 en id_salon) lo carga
     public void cargarSalon(){
+        setConexion();
         try {
             if(id_salon.equals(-1)){
                 PreparedStatement cargaDeDatos = conexion.prepareStatement("INSERT INTO `salones`(`nombre_salon`, `tamaño`, `observaciones`) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -259,22 +282,34 @@ public class Salon {
                 cargaDeDatos.executeUpdate();
                 cargaDeDatos.close();
                 salones.add(this);
+                conexion.close();
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
-    public void borrarSalon(){
+    public void borrarSalon(){ //tentativo, no implementado
+        setConexion();
         try{
             PreparedStatement consulta = conexion.prepareStatement("DELETE FROM `salones` WHERE id_salon = ?; DELETE FROM `accesorios` WHERE fk_salon = ?");
             consulta.setInt(1,id_salon);
             consulta.setInt(2,id_salon);
             consulta.executeUpdate();
             consulta.close();
+            conexion.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Salon salon = (Salon) o;
+        return Objects.equals(id_salon, salon.id_salon);
+    }
+
 
     @Override
     public String toString() {

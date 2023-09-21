@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Conexion {
-    private static String URL = "jdbc:mysql://localhost:3306/reservas";
-    private static String USR = "root";
-    private static String PSSWD = "";
+    private static String URL;
+    private static String USR;
+    private static String PSSWD;
     private static Connection conexion;
     private static void conectar(){
         parametrosDeConfiguracion.cargarParametros();
@@ -24,10 +24,18 @@ public class Conexion {
     }
 
     public static Connection getConexion() {
-        if(conexion == null){
-            conectar();
+        try {
+            if(conexion == null){
+                conectar();
+            }
+            if(conexion.isClosed()) {
+                conectar();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        return conexion;
+            return conexion;
+
     }
     // De acá en adelante es un despelote, pero anda
     public static void hacerBackup(String destino) {

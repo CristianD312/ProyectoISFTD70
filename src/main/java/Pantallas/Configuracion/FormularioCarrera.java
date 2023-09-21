@@ -80,6 +80,7 @@ public class FormularioCarrera extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -89,8 +90,7 @@ public class FormularioCarrera extends javax.swing.JFrame {
             carrera.setNombre(nombreCarrera.getText());
             }else{
             //caso contrario estoy agregando un profesor, por lo tanto creo uno nuevo y lo subo a la base de datos
-            Carrera carreraACargar = new Carrera(-1,nombreCarrera.getText());
-            carreraACargar.cargarDatosCarrera();
+            new Carrera(-1,nombreCarrera.getText());
         }
         //cierra la ventana sin cerrar el programa entero
         this.dispose();

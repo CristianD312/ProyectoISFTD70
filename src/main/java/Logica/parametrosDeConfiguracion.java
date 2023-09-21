@@ -28,7 +28,7 @@ public class parametrosDeConfiguracion {
             setUsuarioSQL("root");
             setPassSQL("");
             setRutaBackup("/example");
-            setInterfazConfiguracion("config2");
+            setInterfazConfiguracion("config1");
         }catch (Exception e){
             e.printStackTrace();
         }

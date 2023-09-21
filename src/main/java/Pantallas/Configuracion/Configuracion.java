@@ -3,26 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Pantallas.Configuracion;
-import Logica.Conexion;
-import Logica.parametrosDeConfiguracion;
-import Objetos.Carrera;
-import Objetos.Profesor;
-import Objetos.Salon;
-import Pantallas.ElementosPersonalizados.TablaCarreras;
-import Pantallas.ElementosPersonalizados.TablaProfesores;
-import Pantallas.ElementosPersonalizados.TablaSalones;
-import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.intellijthemes.*;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
+import Logica.parametrosDeConfiguracion;
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
+
 
 /**
  *
@@ -36,9 +21,8 @@ public class Configuracion extends javax.swing.JFrame {
      */
 
     public Configuracion() {
-        UIManager.put( "Button.arc", 20 );
+        UIManager.put( "Button.arc", 20 );//esto hace que los botones sean redondeados
         initComponents();
-
     }
 
 
@@ -50,12 +34,15 @@ public class Configuracion extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        //Este if verifica que interfaz es la preferida por el usuario leyendo el archivo de configuracion y la ejecuta
+
         if(parametrosDeConfiguracion.getInterfazConfiguracion().equals("config1")){
             setContentPane(new pantallaConfig1(this.getRootPane()));
         }else{
             setContentPane(new pantallaConfig2(this.getRootPane()));
+            this.setPreferredSize(new Dimension(800,500));
         }
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         pack();
     }// </editor-fold>//GEN-END:initComponents
