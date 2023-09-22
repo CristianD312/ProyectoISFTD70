@@ -533,7 +533,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
                     public void windowClosed(WindowEvent e) {
                         ventanaConfig.setEnabled(true);
                         ventanaConfig.setFocusable(true);
-                        tabProfesores.updateUI();
+                        tablaProfesores.updateUI();
                     }
                 });
                 ventana.setVisible(true);
@@ -562,7 +562,8 @@ public class pantallaConfig1 extends javax.swing.JPanel {
             public void windowClosed(WindowEvent e) {
                 ventanaConfig.setEnabled(true);
                 ventanaConfig.setFocusable(true);
-                tabProfesores.updateUI();
+                tablaProfesores.updateUI();
+
             }
         });
         ventana.setVisible(true);
