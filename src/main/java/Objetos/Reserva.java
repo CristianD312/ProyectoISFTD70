@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import logica.Conexion;
 
 public class Reserva {
@@ -158,6 +159,8 @@ public class Reserva {
       tReservas.addColumn("Profesor");
       tablaReservas.setModel(tReservas);
       
+      TableRowSorter<DefaultTableModel> ordenarTabla = new TableRowSorter<>(tReservas);
+      tablaReservas.setRowSorter(ordenarTabla);
       String [] datosReserva = new String[7];
       Conexion conect = new Conexion(null);
       conect.conectar();
@@ -183,7 +186,7 @@ public class Reserva {
           }
         resultSet.close(); statement.close();
         tablaReservas.setModel(tReservas);
-        
+       
       } catch (Exception e) {
           JOptionPane.showMessageDialog(null, "Error al mostrar las reservas correctamente: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
       }
