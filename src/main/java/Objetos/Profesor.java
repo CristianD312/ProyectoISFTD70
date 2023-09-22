@@ -54,10 +54,6 @@ public class Profesor {
     private static void setConexion(){
         conexion = Conexion.getConexion();
     }
-    //Permite cargar profesores nuevos
-    public static void addProfesor(Profesor profesor){
-        profesores.add(profesor);
-    }
     //getters de el objeto
     public Integer getDni() {
         return dni;
