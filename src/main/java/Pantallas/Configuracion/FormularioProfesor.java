@@ -139,7 +139,6 @@ public class FormularioProfesor extends javax.swing.JFrame {
             //caso contrario estoy agregando un profesor, por lo tanto creo uno nuevo y lo subo a la base de datos
             profesor = new Profesor(Integer.parseInt(dniProfesor.getText()),nombreProfesor.getText(),apellidoProfesor.getText(),(Carrera) Objects.requireNonNull(comboboxCarreras.getSelectedItem()));
             profesor.cargarDatosProfesor();
-            Profesor.addProfesor(profesor);
         }
         //cierra la ventana sin cerrar el programa entero
         this.dispose();
