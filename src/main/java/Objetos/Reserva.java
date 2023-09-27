@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import logica.Conexion;
+import Logica.Conexion;
 
 public class Reserva {
     
@@ -48,11 +48,11 @@ public class Reserva {
     }
 
     public void setUsuario(Usuario usuario) {
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try{
             String sql = "UPDATE reservas SET usuario = ? WHERE id_reservas = ?";
-            PreparedStatement consulta = conect.getConn().prepareStatement(sql);
+            PreparedStatement consulta = conect.getConexion().prepareStatement(sql);
             consulta.setInt(1,usuario.getId_usuario());
             consulta.setInt(2,id_reserva);
         }catch (SQLException e){
@@ -66,11 +66,11 @@ public class Reserva {
     }
 
     public void setSalon( Salon salon) {
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try{
             String sql = "UPDATE reservas SET salon = ? WHERE id_reservas = ?";
-            PreparedStatement consulta = conect.getConn().prepareStatement(sql);
+            PreparedStatement consulta = conect.getConexion().prepareStatement(sql);
             consulta.setInt(1,salon.getId_salon());
             consulta.setInt(2,id_reserva);
         }catch (SQLException e){
@@ -100,11 +100,11 @@ public class Reserva {
     }
 
     public void setCarrera(Carrera carrera) {
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar();
         try{
             String sql = "UPDATE reservas SET carrera = ? WHERE id_reservas = ?";
-            PreparedStatement consulta = conect.getConn().prepareStatement(sql);
+            PreparedStatement consulta = conect.getConexion().prepareStatement(sql);
             consulta.setString(1,carrera.getNombre());
             consulta.setInt(2,id_reserva);
         }catch (SQLException e){
@@ -118,11 +118,11 @@ public class Reserva {
     }
 
     public void setProfesor(Profesor profesor) {
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar();
         try{
             String sql = "UPDATE reservas SET profesor = ? WHERE id_reservas = ?";
-            PreparedStatement consulta = conect.getConn().prepareStatement(sql);
+            PreparedStatement consulta = conect.getConexion().prepareStatement(sql);
             consulta.setInt(1,profesor.getDni());
             consulta.setInt(2,id_reserva);
         }catch (SQLException e){
@@ -133,11 +133,11 @@ public class Reserva {
 
   public void crearReservas(Reserva reserva){
         
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             String sql = "INSERT INTO `reservas`(`id_reserva`, `fk_usuario`, `fk_salon`, `fecha_reserva`, `horario`, `carrera`, `profesor`) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = conect.getConn().prepareStatement(sql);
+            PreparedStatement statement = conect.getConexion().prepareStatement(sql);
             statement.setInt(1, reserva.getUsuario().getId_usuario());
             statement.setInt(2, reserva.getSalon().getId_salon());
             statement.setString(3, reserva.getFechaSalon());
@@ -167,7 +167,7 @@ public class Reserva {
       TableRowSorter<DefaultTableModel> ordenarTabla = new TableRowSorter<>(tReservas);
       tablaReservas.setRowSorter(ordenarTabla);
       String [] datosReserva = new String[7];
-      Conexion conect = new Conexion(null);
+      Conexion conect = new Conexion();
       conect.conectar();
       
       try {
@@ -177,7 +177,7 @@ public class Reserva {
         "INNER JOIN salones ON reservas.fk_salon=salones.id_salon\n" +
         "INNER JOIN carreras ON reservas.carrera=carreras.id_carrera\n" +
         "INNER JOIN profesores ON reservas.profesor=profesores.dni;";
-        PreparedStatement statement = conect.getConn().prepareStatement(sql);
+        PreparedStatement statement = conect.getConexion().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery(sql);
         while(resultSet.next()){
               datosReserva[0] = resultSet.getString(1);
@@ -201,11 +201,11 @@ public class Reserva {
          int filaSelecionada = tablaReservas.getSelectedRow();
          String conversionIdReserva = (String) tablaReservas.getValueAt(filaSelecionada, 0);
          int idReserva = Integer.parseInt(conversionIdReserva);
-         Conexion conect = new Conexion(null);
+         Conexion conect = new Conexion();
         conect.conectar();
         try {
             String sql = "DELETE FROM `reservas` WHERE id_reserva = ?;";
-            PreparedStatement statement = conect.getConn().prepareStatement(sql);
+            PreparedStatement statement = conect.getConexion().prepareStatement(sql);
             statement.setInt(1, idReserva); 
             statement.executeUpdate();
         } catch (Exception e) {

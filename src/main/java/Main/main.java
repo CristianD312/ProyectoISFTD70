@@ -4,9 +4,9 @@
 
 package Main;
 
-import Pantallas.PantallaReserva;
+
 import Pantallas.PantallaLogin;
-import logica.Conexion;
+import Logica.Conexion;
 
 /**
  *
@@ -15,7 +15,7 @@ import logica.Conexion;
 public class main {
 
     public static void main(String[] args) {
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             PantallaLogin login = new PantallaLogin();

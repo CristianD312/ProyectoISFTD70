@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import logica.Conexion;
+import Logica.Conexion;
 
 public class Carrera {
     private int id_carrera;
@@ -33,11 +33,11 @@ public class Carrera {
     }
 
     public void setNombre() {
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try{
             String sql = "UPDATE carreras SET nombre_carrera = ? WHERE id_carrera = ?";
-            PreparedStatement consulta = conect.getConn().prepareStatement(sql);
+            PreparedStatement consulta = conect.getConexion().prepareStatement(sql);
             consulta.setString(1,nombre);
             consulta.setInt(2,id_carrera);
             consulta.executeUpdate();
@@ -49,11 +49,11 @@ public class Carrera {
     }
     
     public void cargarCarrerasBOX(JComboBox carrerasBox){
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             String sql = "SELECT id_carrera, nombre_carrera FROM `carreras`";
-            java.sql.Statement statement = conect.getConn().createStatement();
+            java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 int idCarrera = resultSet.getInt("id_carrera");

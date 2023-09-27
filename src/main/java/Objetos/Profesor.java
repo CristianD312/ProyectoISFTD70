@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import logica.Conexion;
+import Logica.Conexion;
 
 public class Profesor {
     private int dni;
@@ -84,11 +84,11 @@ public class Profesor {
     }
     
     public void cargarProfesoresBOX(JComboBox profesorBox){
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             String sql = "SELECT dni, nombre, apellido FROM `profesores`";
-            java.sql.Statement statement = conect.getConn().createStatement();
+            java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 int dnis = resultSet.getInt("dni");

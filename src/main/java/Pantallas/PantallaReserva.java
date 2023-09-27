@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import logica.Conexion;
+import Logica.Conexion;
 import java.util.Date;
 import javax.swing.UIManager;
 import javax.swing.table.TableModel;

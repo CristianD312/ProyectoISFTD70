@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
-import logica.Conexion;
+import Logica.Conexion;
 import Pantallas.PantallaReserva;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -184,11 +184,11 @@ public class Salon {
     }
     
     public void cargarSalonesBOX(JComboBox salonesBox){
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             String sql = "SELECT id_salon, nombre_salon FROM `salones`";
-            java.sql.Statement statement = conect.getConn().createStatement();
+            java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 int numSalones = resultSet.getInt("id_salon");
@@ -204,11 +204,11 @@ public class Salon {
     }
     
     public static void guardarObservacion (Salon observa){
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             String sql ="UPDATE `salones` SET `observaciones`= ? WHERE `id_salon` = ?";
-            PreparedStatement statement = conect.getConn().prepareStatement(sql);
+            PreparedStatement statement = conect.getConexion().prepareStatement(sql);
             statement.setString(1, observa.getObservacion());
             statement.setInt(2, observa.getId_salon());
             statement.executeUpdate();
@@ -221,11 +221,11 @@ public class Salon {
     }
     
     public void mostrarObservaciones(int numSalon, JTextField observacionEscrita){ 
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar(); 
         try {
             String sql = "SELECT `id_salon`, `nombre_salon`, `tamaño`, `observaciones` FROM `salones` WHERE `id_salon` ="+numSalon;
-            java.sql.Statement statement = conect.getConn().createStatement();
+            java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 String observacion = resultSet.getString("observaciones");
@@ -254,11 +254,11 @@ public class Salon {
         String verdadero = "Si";
         String falso = "No";
         
-        Conexion conect = new Conexion(null);
+        Conexion conect = new Conexion();
         conect.conectar();
         try {
             String sql = "SELECT * FROM `accesorios` WHERE `fk_salon` ="+numSalon;
-            java.sql.Statement statement = conect.getConn().createStatement();
+            java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 
@@ -297,7 +297,7 @@ public class Salon {
         
         try {
             String sql = "SELECT `tamaño` FROM `salones` WHERE `id_salon` ="+numSalon+";";
-            java.sql.Statement statement = conect.getConn().createStatement();
+            java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                String tamaño = resultSet.getString("tamaño");

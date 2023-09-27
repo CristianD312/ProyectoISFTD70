@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import logica.Conexion;
+import Logica.Conexion;
 
 
 public class PantallaLogin extends javax.swing.JFrame {

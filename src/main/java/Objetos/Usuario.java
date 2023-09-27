@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import logica.Conexion;
+import Logica.Conexion;
 
 public class Usuario {
 
@@ -85,12 +85,12 @@ public class Usuario {
     }
     
     public void obtenerUsuario(String user, String password){
-       Conexion conexion = new Conexion(null);
-        conexion.conectar();
+       Conexion conect = new Conexion();
+        conect.conectar();
         try {
-            String query="SELECT *FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
-            Statement st= conexion.conectar().createStatement();
-            ResultSet rs=st.executeQuery(query);
+            String sql="SELECT *FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
+            PreparedStatement st = conect.getConexion().prepareStatement(sql);
+            ResultSet rs=st.executeQuery(sql);
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Ingreso correcto");
                 
