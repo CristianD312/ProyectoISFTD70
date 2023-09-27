@@ -92,7 +92,7 @@ public class Usuario {
             Statement st= conexion.conectar().createStatement();
             ResultSet rs=st.executeQuery(query);
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "EL USUARIO ESTA EN LA BASE DE DATOS");
+                JOptionPane.showMessageDialog(null, "Ingreso correcto");
                 
                     int id = rs.getInt("ID_usuario");
                     PantallaReserva reservar = new PantallaReserva();

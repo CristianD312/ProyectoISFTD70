@@ -413,12 +413,6 @@ public class PantallaReserva extends javax.swing.JFrame {
         
         String username = usuarioBox.getText();
         
-        Usuario user = new Usuario();
-        user.setNombre(username);
-        user.setId_usuario(idUsuario);
-        
-        
-        
         //OBTENER DIA DEL JDATE Y DARLE FORMATO
         Date dia=diaBox.getDate();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -428,7 +422,11 @@ public class PantallaReserva extends javax.swing.JFrame {
         Object horario=horarioBox.getSelectedItem();
         String horarioElegido=horario.toString();
         
-        //CREACION DE OBJETOS SALON, CARRERA Y PROFESOR PARA SETEAR SU INFORMACION
+        //CREACION DE OBJETOS USUARIO, SALON, CARRERA Y PROFESOR PARA SETEAR SU INFORMACION
+        Usuario user = new Usuario();
+        user.setNombre(username);
+        user.setId_usuario(idUsuario);
+        
         Salon nuevoSalon = new Salon();
         nuevoSalon.setId_salon(salonElegido);
         

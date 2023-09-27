@@ -18,7 +18,6 @@ public class main {
         Conexion conect = new Conexion(null);
         conect.conectar(); 
         try {
-            
             PantallaLogin login = new PantallaLogin();
             login.setVisible(true);
             login.setLocationRelativeTo(null);
