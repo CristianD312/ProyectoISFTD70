@@ -38,11 +38,16 @@ public class PantallaReserva extends javax.swing.JFrame {
      * Creates new form PantallaReserva
      */
     private String usuario;
-    
+    private int idUsuario;
     public void setUsuario(String usuario){
         usuarioBox.setText(usuario);
-        this.usuario = this.usuario;
+        this.usuario = usuario;
     }
+    
+    public void setIDUsuario(int idUsuario){
+        this.idUsuario = idUsuario;
+    }
+    
     public PantallaReserva() {
         try {
             
@@ -410,6 +415,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         
         Usuario user = new Usuario();
         user.setNombre(username);
+        user.setId_usuario(idUsuario);
         
         
         

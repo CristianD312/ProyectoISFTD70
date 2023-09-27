@@ -1,8 +1,16 @@
 package Objetos;
 
+import Pantallas.PantallaLogin;
+import Pantallas.PantallaReserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import logica.Conexion;
 
 public class Usuario {
 
@@ -76,11 +84,29 @@ public class Usuario {
         this.dni = dni;
     }
     
-    public void obtenerUsuario(Usuario usuario){
-        
+    public void obtenerUsuario(String user, String password){
+       Conexion conexion = new Conexion(null);
+        conexion.conectar();
         try {
-            
-        } catch (Exception e) {
+            String query="SELECT *FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
+            Statement st= conexion.conectar().createStatement();
+            ResultSet rs=st.executeQuery(query);
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "EL USUARIO ESTA EN LA BASE DE DATOS");
+                
+                    int id = rs.getInt("ID_usuario");
+                    PantallaReserva reservar = new PantallaReserva();
+                    reservar.setVisible(true);
+                    reservar.setLocationRelativeTo(null);
+                    reservar.setUsuario(user);
+                    reservar.setIDUsuario(id);
+                
+                
+            }else{
+                 JOptionPane.showMessageDialog(null, "EL USUARIO NO EXISTE EN LA BASE DE DATOS");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

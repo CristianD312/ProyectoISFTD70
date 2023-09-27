@@ -99,26 +99,8 @@ public class PantallaLogin extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         String user=txtUsuario.getText();
         String password=String.valueOf(txtPassword.getPassword());
-        Conexion conexion = new Conexion(null);
-        conexion.conectar();
-        try {
-            
-            String query="SELECT * FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
-            Statement st= conexion.conectar().createStatement();
-
-            ResultSet rs=st.executeQuery(query);
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "EL USUARIO ESTA EN LA BASE DE DATOS");
-                PantallaReserva reservar = new PantallaReserva();
-                reservar.setVisible(true);
-                reservar.setLocationRelativeTo(null);
-                reservar.setUsuario(user);
-            }else{
-                 JOptionPane.showMessageDialog(this, "EL USUARIO NO EXISTE EN LA BASE DE DATOS");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Usuario us = new Usuario();
+        us.obtenerUsuario(user, password);
     }//GEN-LAST:event_btnIniciarActionPerformed
     
        
