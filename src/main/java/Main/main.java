@@ -5,6 +5,7 @@
 package Main;
 
 import Pantallas.PantallaReserva;
+import Pantallas.PantallaLogin;
 import logica.Conexion;
 
 /**
@@ -17,9 +18,10 @@ public class main {
         Conexion conect = new Conexion(null);
         conect.conectar(); 
         try {
-            PantallaReserva reservar = new PantallaReserva();
-            reservar.setVisible(true);
-            reservar.setLocationRelativeTo(null);
+            
+            PantallaLogin login = new PantallaLogin();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
         } catch (Exception e) {
         }
         
