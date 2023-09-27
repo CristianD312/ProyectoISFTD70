@@ -1,5 +1,6 @@
 package Objetos;
 
+import Pantallas.PantallaLogin;
 import Pantallas.PantallaReserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,9 +47,12 @@ public class Reserva {
         return usuario;
     }
 
-    public void setUsuario(Connection conn, Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
         try{
-            PreparedStatement consulta = conn.prepareStatement("UPDATE reservas SET usuario = ? WHERE id_reservas = ?");
+            String sql = "UPDATE reservas SET usuario = ? WHERE id_reservas = ?";
+            PreparedStatement consulta = conect.getConn().prepareStatement(sql);
             consulta.setInt(1,usuario.getId_usuario());
             consulta.setInt(2,id_reserva);
         }catch (SQLException e){
@@ -128,12 +132,13 @@ public class Reserva {
     }
 
   public void crearReservas(Reserva reserva){
+        
         Conexion conect = new Conexion(null);
         conect.conectar(); 
         try {
             String sql = "INSERT INTO `reservas`(`id_reserva`, `fk_usuario`, `fk_salon`, `fecha_reserva`, `horario`, `carrera`, `profesor`) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conect.getConn().prepareStatement(sql);
-            statement.setInt(1, 3);
+            statement.setInt(1, reserva.getUsuario().getId_usuario());
             statement.setInt(2, reserva.getSalon().getId_salon());
             statement.setString(3, reserva.getFechaSalon());
             statement.setString(4, reserva.getHorarioSalon());
@@ -208,6 +213,8 @@ public class Reserva {
         }
          
     }
+    
+    
   
     
 

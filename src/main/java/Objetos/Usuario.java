@@ -10,7 +10,11 @@ public class Usuario {
     private String nombre;
     private String password;
     private String dni;
-      
+     
+    
+    public Usuario(){
+        
+    }
 
     public Usuario(int id_usuario, String nombre, String password, String dni) {
         this.id_usuario = id_usuario;
@@ -21,7 +25,7 @@ public class Usuario {
     }
 
     public int getId_usuario() {
-
+        
         return id_usuario;
     }
 
@@ -33,16 +37,7 @@ public class Usuario {
         return nombre;
     }
 
-    public void setNombre(Connection con, String nombre) {
-        try {
-            PreparedStatement consulta = con.prepareStatement("UPDATE usuarios SET nombre = ? where id_usuario = ?");
-            consulta.setString(1, nombre);
-            consulta.setInt(2, id_usuario);
-            consulta.executeUpdate();
-            consulta.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -80,5 +75,13 @@ public class Usuario {
         }
         this.dni = dni;
     }
-
+    
+    public void obtenerUsuario(Usuario usuario){
+        
+        try {
+            
+        } catch (Exception e) {
+        }
+        
+    }
 }

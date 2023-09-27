@@ -3,6 +3,7 @@ package Pantallas;
 
 
 
+import Objetos.Usuario;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -20,7 +21,7 @@ public class PantallaLogin extends javax.swing.JFrame {
     //Conexion conexion;
     public PantallaLogin() {
         initComponents();
-        ImageIcon img = new ImageIcon("C:/Users/usuario/OneDrive/Documentos/NetBeansProjects/ProyectoISFTD70-master/src/main/java/Main/login.png");
+        ImageIcon img = new ImageIcon("D:/Mobi/Documents/GitHub/ProyectoISFTD70/src/main/java/login.png");
         lblLogo.setIcon(img);
         this.setTitle("LOGIN");
         this.setLocationRelativeTo(null);
@@ -96,12 +97,13 @@ public class PantallaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-       Conexion conexion = new Conexion(null);
-       conexion.conectar();
+        String user=txtUsuario.getText();
+        String password=String.valueOf(txtPassword.getPassword());
+        Conexion conexion = new Conexion(null);
+        conexion.conectar();
         try {
-            String user=txtUsuario.getText();
-            String password=String.valueOf(txtPassword.getPassword());
-            String query="SELECT *FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
+            
+            String query="SELECT * FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
             Statement st= conexion.conectar().createStatement();
 
             ResultSet rs=st.executeQuery(query);
@@ -110,17 +112,16 @@ public class PantallaLogin extends javax.swing.JFrame {
                 PantallaReserva reservar = new PantallaReserva();
                 reservar.setVisible(true);
                 reservar.setLocationRelativeTo(null);
+                reservar.setUsuario(user);
             }else{
                  JOptionPane.showMessageDialog(this, "EL USUARIO NO EXISTE EN LA BASE DE DATOS");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
     }//GEN-LAST:event_btnIniciarActionPerformed
-
+    
+       
     /**
      * @param args the command line arguments
      */
