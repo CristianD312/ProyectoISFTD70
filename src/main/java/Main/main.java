@@ -4,6 +4,10 @@
 
 package Main;
 
+import Pantallas.PantallaReserva;
+import Pantallas.PantallaLogin;
+import logica.Conexion;
+
 /**
  *
  * @author dario
@@ -11,6 +15,15 @@ package Main;
 public class main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Conexion conect = new Conexion(null);
+        conect.conectar(); 
+        try {
+            
+            PantallaLogin login = new PantallaLogin();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+        } catch (Exception e) {
+        }
+        
     }
 }
