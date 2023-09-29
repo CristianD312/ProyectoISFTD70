@@ -7,6 +7,9 @@ package Pantallas.Configuracion;
 import Logica.parametrosDeConfiguracion;
 import javax.swing.*;
 import java.awt.*;
+import Objetos.Carrera;
+import Objetos.Profesor;
+import Objetos.Salon;
 
 
 /**
@@ -16,12 +19,16 @@ import java.awt.*;
 
 public class Configuracion extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form NewJFrame
      */
 
     public Configuracion() {
-        UIManager.put( "Button.arc", 20 );//esto hace que los botones sean redondeados
+        //UIManager.put( "Button.arc", 20 );//esto hace que los botones sean redondeados
+        Carrera.cargarDatos();
+        Profesor.cargarDatos();
+        Salon.cargarDatos();
         initComponents();
     }
 

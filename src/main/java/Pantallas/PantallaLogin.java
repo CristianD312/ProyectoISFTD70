@@ -103,7 +103,17 @@ public class PantallaLogin extends javax.swing.JFrame {
         String user=txtUsuario.getText();
         String password=String.valueOf(txtPassword.getPassword());
         Usuario us = new Usuario();
-        us.obtenerUsuario(user, password);
+        int id = us.obtenerUsuario(user, password);
+        if(id!=-1){
+                    dispose();
+                    PantallaReserva reservar = new PantallaReserva();
+                    reservar.setVisible(true);
+                    reservar.setLocationRelativeTo(null);
+                    reservar.setUsuario(user);
+                    reservar.setIDUsuario(id);
+        }else{
+            
+        }
     }//GEN-LAST:event_btnIniciarActionPerformed
     
        

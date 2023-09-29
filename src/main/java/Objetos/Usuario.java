@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Logica.Conexion;
+import javax.swing.JFrame;
 
 public class Usuario {
 
@@ -84,9 +85,10 @@ public class Usuario {
         this.dni = dni;
     }
     
-    public void obtenerUsuario(String user, String password){
+    public int obtenerUsuario(String user, String password){
        Conexion conect = new Conexion();
         conect.conectar();
+        int id = -1;
         try {
             String sql="SELECT *FROM usuarios WHERE nombre='"+user+"'";
             PreparedStatement st = conect.getConexion().prepareStatement(sql);
@@ -96,13 +98,10 @@ public class Usuario {
                 String pass = rs.getString("contraseña");
                 
                 if (password.equals(pass)) {
-                    JOptionPane.showMessageDialog(null, "Iniciando sesion...");
-                    int id = rs.getInt("ID_usuario");
-                    PantallaReserva reservar = new PantallaReserva();
-                    reservar.setVisible(true);
-                    reservar.setLocationRelativeTo(null);
-                    reservar.setUsuario(user);
-                    reservar.setIDUsuario(id);
+                    
+                    
+                    id = rs.getInt("ID_usuario");
+                    
                     rs.close();
                     st.close();
                 } else {
@@ -118,6 +117,6 @@ public class Usuario {
         } catch (SQLException ex) {
             Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+      return id;
     }
 }

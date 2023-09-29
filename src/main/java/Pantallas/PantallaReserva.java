@@ -23,7 +23,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Logica.Conexion;
+import Pantallas.Configuracion.Configuracion;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.table.TableModel;
 
@@ -47,6 +51,9 @@ public class PantallaReserva extends javax.swing.JFrame {
     public void setIDUsuario(int idUsuario){
         this.idUsuario = idUsuario;
     }
+    public static Carrera carrerita = new Carrera ();
+    public static Salon saloncito = new Salon ();
+    public static Profesor profesores = new Profesor();
     
     public PantallaReserva() {
         try {
@@ -54,11 +61,11 @@ public class PantallaReserva extends javax.swing.JFrame {
             Reserva reservacion = new Reserva();
             Carrera carrera = new Carrera();
             Salon salon = new Salon();
-            Profesor profesores = new Profesor();
+            //Profesor profesores = new Profesor();
             
             initComponents();
-            salon.cargarSalonesBOX(salonesBox);
-            carrera.cargarCarrerasBOX(carrerasBox);
+            saloncito.cargarSalonesBOX(salonesBox);
+            carrerita.cargarCarrerasBOX(carrerasBox);
             profesores.cargarProfesoresBOX(profesorBox);
             reservacion.mostrarReservas(tablaReservas);
             UIManager.setLookAndFeel( new FlatDarkLaf() );
@@ -101,13 +108,13 @@ public class PantallaReserva extends javax.swing.JFrame {
         tamañoText = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         usuarioBox = new javax.swing.JTextField();
+        Configuracion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1270, 720));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("RESERVACIONES");
@@ -236,6 +243,13 @@ public class PantallaReserva extends javax.swing.JFrame {
 
         usuarioBox.setEditable(false);
 
+        Configuracion.setText("Configuración");
+        Configuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfiguracionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -280,13 +294,16 @@ public class PantallaReserva extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(actualizarReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(eliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                        .addComponent(eliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Configuracion))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 890, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(91, 91, 91))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +317,8 @@ public class PantallaReserva extends javax.swing.JFrame {
                     .addComponent(actualizarReservas)
                     .addComponent(eliminarReserva)
                     .addComponent(jLabel11)
-                    .addComponent(usuarioBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usuarioBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Configuracion))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -375,7 +393,7 @@ public class PantallaReserva extends javax.swing.JFrame {
         String observ = observacionEscrita.getText();
         Salon observacionCargar = new Salon();
         
-        observacionCargar.setObservacion(observ);
+        observacionCargar.setObservaciones(observ);
         observacionCargar.setId_salon(salonElegido);
         
         Salon.guardarObservacion(observacionCargar);
@@ -465,9 +483,40 @@ public class PantallaReserva extends javax.swing.JFrame {
         reservacion.mostrarReservas(tablaReservas);
         
     }//GEN-LAST:event_eliminarReservaActionPerformed
+
+    private void ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiguracionActionPerformed
+        //desabilita la ventana de reservas para cualquier interaccion
+        this.setEnabled(false);
+        //crea la pantalla config y hace que siempre este por encima
+        Configuracion config = new Configuracion();
+        config.setAlwaysOnTop(true);
+        config.setVisible(true);
+        config.setLocationRelativeTo(this);
+        config.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //por temas de scope, es necesario bajar la pantalla reservas a una variable local para poder utilizarla aa continuacion
+        PantallaReserva ventana = this;
+        
+        //habilita nuevamente la pantalla de reservas al cerrar la configuracion
+        config.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ventana.setEnabled(true);
+                ventana.toFront();
+                
+                salonesBox.removeAllItems();
+                profesorBox.removeAllItems();
+                carrerasBox.removeAllItems();
+                
+                saloncito.cargarSalonesBOX(salonesBox);
+                carrerita.cargarCarrerasBOX(carrerasBox);
+                profesores.cargarProfesoresBOX(profesorBox);
+            }
+        });
+    }//GEN-LAST:event_ConfiguracionActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Configuracion;
     private javax.swing.JButton actualizarReservas;
     private javax.swing.JComboBox<String> carrerasBox;
     private com.toedter.calendar.JDateChooser diaBox;
