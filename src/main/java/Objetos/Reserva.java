@@ -146,7 +146,7 @@ public class Reserva {
             statement.setInt(6, reserva.getProfesor().getDni());
             statement.executeUpdate();
             statement.close();
-            JOptionPane.showMessageDialog(null, "Anduvo todo flama perro");
+            JOptionPane.showMessageDialog(null, "Reserva creada con exito");
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al guardar la reserva: "+e.toString());
@@ -208,6 +208,7 @@ public class Reserva {
             PreparedStatement statement = conect.getConexion().prepareStatement(sql);
             statement.setInt(1, idReserva); 
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Reserva eliminada correctamente");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la reserva: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }

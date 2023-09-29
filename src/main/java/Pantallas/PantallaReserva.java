@@ -366,7 +366,7 @@ public class PantallaReserva extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void guardarObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarObservacionActionPerformed
         ComboBoxItemSalones seleccionarSalon = (ComboBoxItemSalones) salonesBox.getSelectedItem();
         int salonElegido = seleccionarSalon.getId();

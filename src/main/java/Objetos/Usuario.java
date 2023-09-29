@@ -88,22 +88,30 @@ public class Usuario {
        Conexion conect = new Conexion();
         conect.conectar();
         try {
-            String sql="SELECT *FROM usuarios WHERE nombre='"+user+"' and contraseña='"+password+"'";
+            String sql="SELECT *FROM usuarios WHERE nombre='"+user+"'";
             PreparedStatement st = conect.getConexion().prepareStatement(sql);
             ResultSet rs=st.executeQuery(sql);
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Ingreso correcto");
+
+                String pass = rs.getString("contraseña");
                 
+                if (password.equals(pass)) {
+                    JOptionPane.showMessageDialog(null, "Iniciando sesion...");
                     int id = rs.getInt("ID_usuario");
                     PantallaReserva reservar = new PantallaReserva();
                     reservar.setVisible(true);
                     reservar.setLocationRelativeTo(null);
                     reservar.setUsuario(user);
                     reservar.setIDUsuario(id);
-                
-                
-            }else{
-                 JOptionPane.showMessageDialog(null, "EL USUARIO NO EXISTE EN LA BASE DE DATOS");
+                    rs.close();
+                    st.close();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+                    rs.close();
+                    st.close();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo encontrar al usuario");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);

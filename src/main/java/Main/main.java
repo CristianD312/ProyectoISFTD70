@@ -8,10 +8,7 @@ package Main;
 import Pantallas.PantallaLogin;
 import Logica.Conexion;
 
-/**
- *
- * @author dario
- */
+
 public class main {
 
     public static void main(String[] args) {
