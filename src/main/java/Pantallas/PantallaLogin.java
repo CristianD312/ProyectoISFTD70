@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import Logica.Conexion;
+import java.net.URL;
 
 
 public class PantallaLogin extends javax.swing.JFrame {
@@ -21,10 +22,12 @@ public class PantallaLogin extends javax.swing.JFrame {
     //Conexion conexion;
     public PantallaLogin() {
         initComponents();
-        ImageIcon img = new ImageIcon("D:/Mobi/Documents/GitHub/ProyectoISFTD70/src/main/java/Recursos/login.png");
-        lblLogo.setIcon(img);
+        URL imageUrl = PantallaLogin.class.getResource("/Recursos/login.png");
+        ImageIcon img = new ImageIcon();
+        //lblLogo.setIcon(img);
         this.setTitle("LOGIN");
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.setResizable(false);
         
     }

@@ -87,7 +87,8 @@ public class Profesor {
         Conexion conect = new Conexion();
         conect.conectar(); 
         try {
-            String sql = "SELECT dni, nombre, apellido FROM `profesores`";
+            String sql = "SELECT dni, nombre, apellido FROM profesores\n" +
+"ORDER BY nombre ASC;";
             java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){

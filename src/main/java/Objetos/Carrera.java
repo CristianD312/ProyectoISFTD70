@@ -52,7 +52,7 @@ public class Carrera {
         Conexion conect = new Conexion();
         conect.conectar(); 
         try {
-            String sql = "SELECT id_carrera, nombre_carrera FROM `carreras`";
+            String sql = "SELECT id_carrera, nombre_carrera FROM `carreras` WHERE id_carrera != 999;";
             java.sql.Statement statement = conect.getConexion().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
