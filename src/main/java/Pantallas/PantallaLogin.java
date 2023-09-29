@@ -22,9 +22,8 @@ public class PantallaLogin extends javax.swing.JFrame {
     //Conexion conexion;
     public PantallaLogin() {
         initComponents();
-        URL imageUrl = PantallaLogin.class.getResource("/Recursos/login.png");
-        ImageIcon img = new ImageIcon();
-        //lblLogo.setIcon(img);
+        ImageIcon img = new ImageIcon("src\\main\\java\\Recursos\\login.png");
+        lblLogo.setIcon(img);
         this.setTitle("LOGIN");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
