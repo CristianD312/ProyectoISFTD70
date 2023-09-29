@@ -97,6 +97,8 @@ public class Profesor {
                 profesorBox.addItem(new ComboBoxItemProfes(dnis, nombresProfes, apellidosProfes));
                 
             }
+            statement.close();
+            resultSet.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los profesores: "+e.toString());
         }

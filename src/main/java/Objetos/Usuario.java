@@ -113,6 +113,8 @@ public class Usuario {
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo encontrar al usuario");
             }
+            st.close();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }

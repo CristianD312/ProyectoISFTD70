@@ -197,6 +197,8 @@ public class Salon {
                 //salonesBox.addItem(opciones);
                 salonesBox.addItem(new ComboBoxItemSalones(numSalones, nombreSalon));
             }
+            statement.close();
+            resultSet.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los salones: "+e.toString());
         }
@@ -214,6 +216,7 @@ public class Salon {
             statement.executeUpdate();
             statement.close();
             JOptionPane.showMessageDialog(null, "Observacion cargada con exito");
+            statement.close();
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
@@ -231,6 +234,8 @@ public class Salon {
                 String observacion = resultSet.getString("observaciones");
                 observacionEscrita.setText(observacion);
             }
+            statement.close();
+            resultSet.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
         }
@@ -291,10 +296,10 @@ public class Salon {
                 tAccesorios.addRow(datosBooleanosAUDIO.toArray());
                 tAccesorios.addRow(datosBooleanosASEÑAL.toArray());
             }
+            statement.close();
+            resultSet.close();
         } catch (Exception e) {
         }
-        
-        
         try {
             String sql = "SELECT `tamaño` FROM `salones` WHERE `id_salon` ="+numSalon+";";
             java.sql.Statement statement = conect.getConexion().createStatement();
@@ -303,6 +308,8 @@ public class Salon {
                String tamaño = resultSet.getString("tamaño");
                tamañoText.setText(tamaño);
             }
+            statement.close();
+            resultSet.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar el tamaño del salon: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }

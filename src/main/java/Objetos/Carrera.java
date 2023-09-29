@@ -61,6 +61,8 @@ public class Carrera {
                 //String opciones = idCarrera + " " + nombreCarrera;
                 carrerasBox.addItem(new ComboBoxItemCarreras(idCarrera, nombreCarrera));
             }
+            statement.close();
+            resultSet.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar las carreras: "+e.toString());
         }

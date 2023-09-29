@@ -209,6 +209,8 @@ public class Reserva {
             statement.setInt(1, idReserva); 
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Reserva eliminada correctamente");
+            statement.close();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la reserva: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
