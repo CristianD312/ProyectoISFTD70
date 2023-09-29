@@ -21,10 +21,11 @@ public class PantallaLogin extends javax.swing.JFrame {
     //Conexion conexion;
     public PantallaLogin() {
         initComponents();
-        ImageIcon img = new ImageIcon("D:/Mobi/Documents/GitHub/ProyectoISFTD70/src/main/java/login.png");
+        ImageIcon img = new ImageIcon("D:/Mobi/Documents/GitHub/ProyectoISFTD70/src/main/java/Recursos/login.png");
         lblLogo.setIcon(img);
         this.setTitle("LOGIN");
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         
     }
 

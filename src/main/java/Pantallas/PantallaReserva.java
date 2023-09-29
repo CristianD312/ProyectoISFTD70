@@ -62,6 +62,7 @@ public class PantallaReserva extends javax.swing.JFrame {
             profesores.cargarProfesoresBOX(profesorBox);
             reservacion.mostrarReservas(tablaReservas);
             UIManager.setLookAndFeel( new FlatDarkLaf() );
+            this.setResizable(false);
         } catch( Exception ex ) {
             
         }
