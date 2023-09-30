@@ -12,6 +12,7 @@ import Objetos.Salon;
 import Pantallas.ElementosPersonalizados.TablaCarreras;
 import Pantallas.ElementosPersonalizados.TablaProfesores;
 import Pantallas.ElementosPersonalizados.TablaSalones;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
@@ -70,7 +71,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
     }
     private void ponerTemaClaro(){
         try {
-            UIManager.setLookAndFeel(new FlatMaterialLighterIJTheme());
+            UIManager.setLookAndFeel( new FlatLightLaf() );
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             e.printStackTrace();
