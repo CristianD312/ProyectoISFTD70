@@ -24,7 +24,9 @@ public class parametrosDeConfiguracion {
         try {
             configuracion = new Properties();
             setTema("Claro");
-            setURL("localhost:3306/reservas");
+            setURL("127.0.0.1");
+            setPuerto("3306");
+            setBD("reservas");
             setUsuarioSQL("root");
             setPassSQL("");
             setRutaBackup("/example");
@@ -51,6 +53,12 @@ public class parametrosDeConfiguracion {
     public static String getInterfazConfiguracion(){
         return configuracion.getProperty("interfazConfig");
     }
+    public static String getBD(){
+        return configuracion.getProperty("BD");
+    }
+    public static String getPuerto(){
+        return configuracion.getProperty("Puerto");
+    }
     public static void setTema(String tema){
             configuracion.setProperty("tema",tema);
             guardarCambios();
@@ -73,6 +81,14 @@ public class parametrosDeConfiguracion {
     }
     public static void setInterfazConfiguracion(String interfazConfiguracion){
         configuracion.setProperty("interfazConfig",interfazConfiguracion);
+        guardarCambios();
+    }
+    public static void setBD(String BD){
+        configuracion.setProperty("BD",BD);
+        guardarCambios();
+    }
+    public static void setPuerto(String puerto){
+        configuracion.setProperty("Puerto",puerto);
         guardarCambios();
     }
     public static void guardarCambios(){

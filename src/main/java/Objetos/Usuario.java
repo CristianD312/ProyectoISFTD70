@@ -86,12 +86,10 @@ public class Usuario {
     }
     
     public int obtenerUsuario(String user, String password){
-       Conexion conect = new Conexion();
-        conect.conectar();
         int id = -1;
         try {
             String sql="SELECT *FROM usuarios WHERE nombre='"+user+"'";
-            PreparedStatement st = conect.getConexion().prepareStatement(sql);
+            PreparedStatement st = Conexion.getConexion().prepareStatement(sql);
             ResultSet rs=st.executeQuery(sql);
             if (rs.next()) {
 

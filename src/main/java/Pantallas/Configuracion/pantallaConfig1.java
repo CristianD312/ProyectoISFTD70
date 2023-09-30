@@ -63,7 +63,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
     }
     private void ponerTemaOscuro(){
         try {
-            UIManager.setLookAndFeel(new FlatMonokaiProIJTheme());
+            UIManager.setLookAndFeel(new FlatLightLaf());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,6 +126,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
 
         tablaSalones.setAutoCreateRowSorter(true);
         tablaSalones.setModel(new TablaSalones(salones));
+        tablaSalones.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaSalones.setShowVerticalLines(true);
         tablaSalonesScroll.setViewportView(tablaSalones);
 
@@ -175,6 +176,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
         tablaProfesores.setAutoCreateRowSorter(true);
         tablaProfesores.setModel(new TablaProfesores(profesores));
         tablaProfesores.setFillsViewportHeight(true);
+        tablaProfesores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaProfesores.setShowVerticalLines(true);
         tablaProfesoresScroll.setViewportView(tablaProfesores);
 
@@ -235,6 +237,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
         tablaCarreras.setModel(new TablaCarreras(carreras)
         );
         tablaCarreras.setFillsViewportHeight(true);
+        tablaCarreras.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaCarreras.setShowVerticalLines(true);
         tablaCarrerasScroll.setViewportView(tablaCarreras);
 
@@ -430,15 +433,12 @@ public class pantallaConfig1 extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDePestañas, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
+            .addComponent(panelDePestañas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDePestañas, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+            .addComponent(panelDePestañas)
         );
-        tablaProfesores.setFocusable(false);
-        tablaSalones.setFocusable(false);
-        tablaCarreras.setFocusable(false);
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarSalonActionPerformed

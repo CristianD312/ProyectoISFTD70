@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Conexion {
     private static String URL;
+    private static String PORT;
+    private static String BD;
     private static String USR;
     private static String PSSWD;
     private static Connection conexion;
@@ -15,10 +17,12 @@ public class Conexion {
     public static void conectar(){
         parametrosDeConfiguracion.cargarParametros();
         USR = parametrosDeConfiguracion.getUsuarioSQL();
-        URL = "jdbc:mysql://"+parametrosDeConfiguracion.getURL();
+        URL = parametrosDeConfiguracion.getURL();
+        PORT = parametrosDeConfiguracion.getPuerto();
+        BD = parametrosDeConfiguracion.getBD();
         PSSWD = parametrosDeConfiguracion.getPassSQL();
         try {
-            conexion = DriverManager.getConnection(URL, USR, PSSWD);
+            conexion = DriverManager.getConnection("jdbc:mysql://"+URL+":"+PORT+"/"+BD, USR, PSSWD);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -35,7 +39,7 @@ public class Conexion {
         }catch (SQLException e){
             e.printStackTrace();
         }
-            return conexion;
+        return conexion;
 
     }
     // De acá en adelante es un despelote, pero anda
@@ -46,7 +50,7 @@ public class Conexion {
             if(System.getProperty("os.name").toLowerCase().contains("win")){
                 System.out.println(destino);
                 archivoDestino = destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql";
-                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas --result-file=\""+archivoDestino+"\"" : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas --result-file=\""+archivoDestino+"\"";
+                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"" : "mysqldump -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"";
                 System.out.println(archivoDestino);
                 System.out.println(comando);
                 System.out.println("HACIENDO BACKUP EN WINDOWS");
@@ -54,8 +58,8 @@ public class Conexion {
                 System.out.println(proceso.waitFor());
             }else{
                 archivoDestino = destino+"/backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+".sql";
-                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h 127.0.0.1 reservas  > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas > "+archivoDestino;
-                System.out.println(destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql");
+                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h "+URL+" "+BD+" > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" > "+archivoDestino;
+                System.out.println(comando);
                 System.out.println("HACIENDO BACKUP EN LINUX");
                 Process process = Runtime.getRuntime().exec(new String[]{"bash","-c",comando});
                 System.out.println(process.waitFor());
@@ -65,6 +69,7 @@ public class Conexion {
         }
     }
     public static void restaurarDesdeBackup(String archivoSQL){
+        conectar();
         try {
             //Esta consulta SI O SI en este orden, no funca sino
             String[] consultas = new String[]{"DROP TABLE IF EXISTS accesorios;",
@@ -83,12 +88,12 @@ public class Conexion {
             try {
                 String comando;
                 if(System.getProperty("os.name").toLowerCase().contains("win")){
-                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h 127.0.0.1 reservas -e \"source "+archivoSQL+"\"" : "mysql -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas -e \"source "+archivoSQL+"\"";
+                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h "+URL+" "+BD+" -e \"source "+archivoSQL+"\"" : "mysql -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" -e \"source "+archivoSQL+"\"";
                     Process proceso = Runtime.getRuntime().exec(comando);
                     System.out.println(proceso.waitFor());
                     System.out.println("en teoria lo cargo todo");
                 }else{
-                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h 127.0.0.1 reservas < "+archivoSQL : "mysql -u "+USR+" -p "+PSSWD+" -h 127.0.0.1 reservas < "+archivoSQL;
+                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h "+URL+" "+BD+" < "+archivoSQL : "mysql -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" < "+archivoSQL;
                     Process process = Runtime.getRuntime().exec(new String[]{"bash","-c",comando});
                     System.out.println(process.waitFor());
                 }

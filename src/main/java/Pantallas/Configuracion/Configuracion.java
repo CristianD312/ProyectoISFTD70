@@ -25,10 +25,10 @@ public class Configuracion extends javax.swing.JFrame {
      */
 
     public Configuracion() {
-        //UIManager.put( "Button.arc", 20 );//esto hace que los botones sean redondeados
         Carrera.cargarDatos();
         Profesor.cargarDatos();
         Salon.cargarDatos();
+        this.setTitle("Configuración");
         initComponents();
     }
 
