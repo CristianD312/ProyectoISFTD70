@@ -12,6 +12,7 @@ import Objetos.Salon;
 import Pantallas.ElementosPersonalizados.TablaCarreras;
 import Pantallas.ElementosPersonalizados.TablaProfesores;
 import Pantallas.ElementosPersonalizados.TablaSalones;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
@@ -63,7 +64,7 @@ public class pantallaConfig1 extends javax.swing.JPanel {
     }
     private void ponerTemaOscuro(){
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -674,9 +675,17 @@ public class pantallaConfig1 extends javax.swing.JPanel {
 
     private void guardarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBDActionPerformed
         if(!(bdURL.getText().equals("")||bdUser.getText().equals(""))){
-            parametrosDeConfiguracion.setURL(bdURL.getText());
+            String[] s = bdURL.getText().split("/");
+            parametrosDeConfiguracion.setBD(s[s.length-1]);
+            String[] t = s[0].split(":");
+            parametrosDeConfiguracion.setURL(t[0]);
+            parametrosDeConfiguracion.setPuerto(t[1]);
             parametrosDeConfiguracion.setUsuarioSQL(bdUser.getText());
-            parametrosDeConfiguracion.setPassSQL(bdPass.getPassword().toString());
+            System.out.println(bdPass.getText());
+            parametrosDeConfiguracion.setPassSQL(bdPass.getText());
+            bdURL.setText("");
+            bdUser.setText("");
+            bdPass.setText("");
         }else{
             JOptionPane.showMessageDialog(this,"Por favor rellene todos los campos para actualizar la base de datos","error",JOptionPane.ERROR_MESSAGE);
         }

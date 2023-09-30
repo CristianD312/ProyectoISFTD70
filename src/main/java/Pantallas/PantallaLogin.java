@@ -3,30 +3,24 @@ package Pantallas;
 
 
 
+import Logica.parametrosDeConfiguracion;
 import Objetos.Usuario;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
-import java.sql.SQLException;
+import javax.swing.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import Logica.Conexion;
-
-import java.net.URL;
-import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import com.formdev.flatlaf.*;
 
 
 public class PantallaLogin extends javax.swing.JFrame {
 
     //Conexion conexion;
-    public PantallaLogin() throws UnsupportedLookAndFeelException{
+    public PantallaLogin(){
+        if(parametrosDeConfiguracion.getTema().equals("Oscuro")){
+            ponerTemaOscuro();
+        } else if (parametrosDeConfiguracion.getTema().equals("Claro")) {
+            ponerTemaClaro();
+        }
         initComponents();
-        UIManager.setLookAndFeel(new FlatLightLaf());
         ImageIcon img = new ImageIcon("src\\main\\java\\Recursos\\login.png");
         lblLogo.setIcon(img);
         this.setTitle("LOGIN");
@@ -35,7 +29,22 @@ public class PantallaLogin extends javax.swing.JFrame {
         this.setResizable(false);
         
     }
-
+    private void ponerTemaOscuro(){
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void ponerTemaClaro(){
+        try {
+            UIManager.setLookAndFeel( new FlatLightLaf() );
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

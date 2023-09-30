@@ -4,9 +4,7 @@
  */
 package Pantallas;
 
-import Logica.ComboBoxItemProfes;
-import Logica.ComboBoxItemCarreras;
-import Logica.ComboBoxItemSalones;
+import Logica.*;
 import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Reserva;
@@ -19,16 +17,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import Logica.Conexion;
+
 import Pantallas.Configuracion.Configuracion;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
 import javax.swing.table.TableModel;
 
 
@@ -510,11 +505,32 @@ public class PantallaReserva extends javax.swing.JFrame {
                 saloncito.cargarSalonesBOX(salonesBox);
                 carrerita.cargarCarrerasBOX(carrerasBox);
                 profesores.cargarProfesoresBOX(profesorBox);
+
+                if(parametrosDeConfiguracion.getTema().equals("Oscuro")){
+                    ponerTemaOscuro();
+                } else if (parametrosDeConfiguracion.getTema().equals("Claro")) {
+                    ponerTemaClaro();
+                }
             }
         });
     }//GEN-LAST:event_ConfiguracionActionPerformed
-    
-    
+
+    private void ponerTemaOscuro(){
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void ponerTemaClaro(){
+        try {
+            UIManager.setLookAndFeel( new FlatLightLaf() );
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Configuracion;
     private javax.swing.JButton actualizarReservas;

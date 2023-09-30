@@ -23,6 +23,7 @@ public class Conexion {
         PSSWD = parametrosDeConfiguracion.getPassSQL();
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://"+URL+":"+PORT+"/"+BD, USR, PSSWD);
+            System.out.println("jdbc:mysql://"+URL+":"+PORT+"/"+BD);
         }catch (SQLException e){
             e.printStackTrace();
         }
