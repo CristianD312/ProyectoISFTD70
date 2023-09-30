@@ -42,6 +42,10 @@ public class Profesor {
     public void setDni(int dni) {
         this.dni = dni;
     }
+    
+    public void isDni(Integer dni){
+        this.dni = dni;
+    }
 
     public void setNombre(Connection con, String nombre) {
         

@@ -129,6 +129,7 @@ public class FormularioProfesor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //su el profesor es diferente de null, es decir que estou modificando un profesor existente ejecuta el codigo para modificarlo
+        
         if(profesor!=null) {
             profesor.setDni(Integer.parseInt(dniProfesor.getText()));
             profesor.setNombre(nombreProfesor.getText());
