@@ -5,7 +5,6 @@
 package Pantallas.Configuracion;
 
 import Logica.parametrosDeConfiguracion;
-import javax.swing.*;
 import java.awt.*;
 import Objetos.Carrera;
 import Objetos.Profesor;

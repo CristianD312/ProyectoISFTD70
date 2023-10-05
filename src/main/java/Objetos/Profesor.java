@@ -197,12 +197,11 @@ public class Profesor {
     }
     
     public void cargarProfesoresBOX(JComboBox profesorBox){
-        Conexion conect = new Conexion();
-        conect.conectar(); 
+        setConexion();
         try {
             String sql = "SELECT dni, nombre, apellido FROM profesores\n" +
-"ORDER BY nombre ASC;";
-            java.sql.Statement statement = conect.getConexion().createStatement();
+                         "ORDER BY nombre ASC;";
+            java.sql.Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 int dnis = resultSet.getInt("dni");
@@ -211,8 +210,9 @@ public class Profesor {
                 profesorBox.addItem(new ComboBoxItemProfes(dnis, nombresProfes, apellidosProfes));
                 
             }
-            statement.close();
             resultSet.close();
+            statement.close();
+            conexion.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los profesores: "+e.toString());
         }

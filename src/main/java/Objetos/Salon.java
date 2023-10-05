@@ -330,11 +330,10 @@ public class Salon {
     }
     
     public void cargarSalonesBOX(JComboBox salonesBox){
-        Conexion conect = new Conexion();
-        conect.conectar(); 
+        setConexion();
         try {
             String sql = "SELECT id_salon, nombre_salon FROM `salones`";
-            java.sql.Statement statement = conect.getConexion().createStatement();
+            java.sql.Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 int numSalones = resultSet.getInt("id_salon");
@@ -345,6 +344,7 @@ public class Salon {
             }
             statement.close();
             resultSet.close();
+            conexion.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los salones: "+e.toString());
         }
@@ -352,29 +352,27 @@ public class Salon {
     }
     
     public static void guardarObservacion (Salon observa){
-        Conexion conect = new Conexion();
-        conect.conectar(); 
+        setConexion();
         try {
             String sql ="UPDATE `salones` SET `observaciones`= ? WHERE `id_salon` = ?";
-            PreparedStatement statement = conect.getConexion().prepareStatement(sql);
+            PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, observa.getObservaciones());
             statement.setInt(2, observa.getId_salon());
             statement.executeUpdate();
             statement.close();
             JOptionPane.showMessageDialog(null, "Observacion cargada con exito");
             statement.close();
-            
+            conexion.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
         }
     }
     
     public void mostrarObservaciones(int numSalon, JTextField observacionEscrita){ 
-        Conexion conect = new Conexion();
-        conect.conectar(); 
+        setConexion();
         try {
             String sql = "SELECT `id_salon`, `nombre_salon`, `tamaño`, `observaciones` FROM `salones` WHERE `id_salon` ="+numSalon;
-            java.sql.Statement statement = conect.getConexion().createStatement();
+            java.sql.Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 String observacion = resultSet.getString("observaciones");
@@ -382,6 +380,7 @@ public class Salon {
             }
             statement.close();
             resultSet.close();
+            conexion.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al guardar la observacion: "+e.toString());
         }
@@ -405,11 +404,10 @@ public class Salon {
         String verdadero = "Si";
         String falso = "No";
         
-        Conexion conect = new Conexion();
-        conect.conectar();
+        setConexion();
         try {
             String sql = "SELECT * FROM `accesorios` WHERE `fk_salon` ="+numSalon;
-            java.sql.Statement statement = conect.getConexion().createStatement();
+            java.sql.Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 
@@ -444,11 +442,14 @@ public class Salon {
             }
             statement.close();
             resultSet.close();
+            conexion.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
+        setConexion();
         try {
             String sql = "SELECT `tamaño` FROM `salones` WHERE `id_salon` ="+numSalon+";";
-            java.sql.Statement statement = conect.getConexion().createStatement();
+            java.sql.Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                String tamaño = resultSet.getString("tamaño");
@@ -456,6 +457,7 @@ public class Salon {
             }
             statement.close();
             resultSet.close();
+            conexion.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar el tamaño del salon: "+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }

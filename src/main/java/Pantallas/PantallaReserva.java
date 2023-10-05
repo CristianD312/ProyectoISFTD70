@@ -46,23 +46,13 @@ public class PantallaReserva extends javax.swing.JFrame {
     public static Profesor profesores = new Profesor();
     
     public PantallaReserva() {
-        try {
-            
             Reserva reservacion = new Reserva();
-            Carrera carrera = new Carrera();
-            Salon salon = new Salon();
-            //Profesor profesores = new Profesor();
-            
             initComponents();
             saloncito.cargarSalonesBOX(salonesBox);
             carrerita.cargarCarrerasBOX(carrerasBox);
             profesores.cargarProfesoresBOX(profesorBox);
             reservacion.mostrarReservas(tablaReservas);
-            UIManager.setLookAndFeel( new FlatLightLaf() );
             this.setResizable(false);
-        } catch( Exception ex ) {
-         ex.printStackTrace();
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -383,9 +373,9 @@ public class PantallaReserva extends javax.swing.JFrame {
         String observ = observacionEscrita.getText();
         Salon observacionCargar = new Salon();
         
-        observacionCargar.setObservaciones(observ);
         observacionCargar.setId_salon(salonElegido);
-        
+        observacionCargar.setObservaciones(observ);
+
         Salon.guardarObservacion(observacionCargar);
         
         String vacia = "";

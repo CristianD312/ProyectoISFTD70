@@ -126,11 +126,10 @@ public class Carrera {
     }
     
     public void cargarCarrerasBOX(JComboBox carrerasBox){
-        Conexion conect = new Conexion();
-        conect.conectar(); 
+        setConexion();
         try {
             String sql = "SELECT id_carrera, nombre_carrera FROM `carreras` WHERE id_carrera != 0;";
-            java.sql.Statement statement = conect.getConexion().createStatement();
+            java.sql.Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 int idCarrera = resultSet.getInt("id_carrera");
@@ -138,8 +137,9 @@ public class Carrera {
                 //String opciones = idCarrera + " " + nombreCarrera;
                 carrerasBox.addItem(new ComboBoxItemCarreras(idCarrera, nombreCarrera));
             }
-            statement.close();
             resultSet.close();
+            statement.close();
+            conexion.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar las carreras: "+e.toString());
         }
