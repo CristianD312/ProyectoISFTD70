@@ -9,8 +9,8 @@ import Logica.parametrosDeConfiguracion;
 import Objetos.Carrera;
 import Objetos.Profesor;
 import Objetos.Salon;
-import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -59,7 +59,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     }
     private void ponerTemaOscuro(){
         try {
-            UIManager.setLookAndFeel(new FlatMonokaiProIJTheme());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     }
     private void ponerTemaClaro(){
         try {
-            UIManager.setLookAndFeel(new FlatMaterialLighterIJTheme());
+            UIManager.setLookAndFeel(new FlatLightLaf());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             e.printStackTrace();
