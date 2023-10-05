@@ -1,5 +1,6 @@
 package Logica;
 
+import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,10 +24,16 @@ public class Conexion {
         PSSWD = parametrosDeConfiguracion.getPassSQL();
         try {
             conexion = DriverManager.getConnection("jdbc:mysql://"+URL+":"+PORT+"/"+BD, USR, PSSWD);
-            System.out.println("jdbc:mysql://"+URL+":"+PORT+"/"+BD);
+
+            System.out.println("Conectando con"+" jdbc:mysql://"+URL+":"+PORT+"/"+BD+"...");
+
         }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Error conectando a la base de datos","Error de conexión",JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+
+        System.out.println("Conexión Correcta");
+
     }
 
     public static Connection getConexion() {
@@ -52,26 +59,22 @@ public class Conexion {
                 System.out.println(destino);
                 archivoDestino = destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql";
                 comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"" : "mysqldump -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"";
-                System.out.println(archivoDestino);
-                System.out.println(comando);
-                System.out.println("HACIENDO BACKUP EN WINDOWS");
                 Process proceso = Runtime.getRuntime().exec(comando);
-                System.out.println(proceso.waitFor());
             }else{
                 archivoDestino = destino+"/backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+".sql";
                 comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h "+URL+" "+BD+" > "+archivoDestino : "mysqldump -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" > "+archivoDestino;
-                System.out.println(comando);
-                System.out.println("HACIENDO BACKUP EN LINUX");
                 Process process = Runtime.getRuntime().exec(new String[]{"bash","-c",comando});
                 System.out.println(process.waitFor());
             }
         }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Comandos sql no encontrados","Error",JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
     public static void restaurarDesdeBackup(String archivoSQL){
         conectar();
         try {
+            System.out.println("Vaciando BD...");
             //Esta consulta SI O SI en este orden, no funca sino
             String[] consultas = new String[]{"DROP TABLE IF EXISTS accesorios;",
                     "DROP TABLE IF EXISTS reservas;",
@@ -84,7 +87,7 @@ public class Conexion {
                 PreparedStatement consulta = conexion.prepareStatement(drop);
                 consulta.executeUpdate();
             }
-            System.out.println("Limpio todo");
+            System.out.println("BD vacía");
 
             try {
                 String comando;
@@ -99,6 +102,7 @@ public class Conexion {
                     System.out.println(process.waitFor());
                 }
             }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Comandos sql no encontrados","Error",JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         }catch (SQLException e){

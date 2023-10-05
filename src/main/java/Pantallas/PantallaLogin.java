@@ -21,11 +21,10 @@ public class PantallaLogin extends javax.swing.JFrame {
             ponerTemaClaro();
         }
         initComponents();
-        ImageIcon img = new ImageIcon("src\\main\\java\\Recursos\\login.png");
+        ImageIcon img = new ImageIcon("login.png");
         lblLogo.setIcon(img);
-        this.setTitle("LOGIN");
+        this.setTitle("Inicio de sesión");
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
         this.setResizable(false);
         
     }
@@ -120,15 +119,15 @@ public class PantallaLogin extends javax.swing.JFrame {
         String password=String.valueOf(txtPassword.getPassword());
         Usuario us = new Usuario();
         int id = us.obtenerUsuario(user, password);
-        if(id!=-1){
-                    dispose();
-                    PantallaReserva reservar = new PantallaReserva();
-                    reservar.setVisible(true);
-                    reservar.setLocationRelativeTo(null);
-                    reservar.setUsuario(user);
-                    reservar.setIDUsuario(id);
-        }else{
-            
+        txtUsuario.setText("");
+        txtPassword.setText("");
+        if(id!=-1) {
+            dispose();
+            PantallaReserva reservar = new PantallaReserva();
+            reservar.setVisible(true);
+            reservar.setLocationRelativeTo(null);
+            reservar.setUsuario(user);
+            reservar.setIDUsuario(id);
         }
     }//GEN-LAST:event_btnIniciarActionPerformed
     

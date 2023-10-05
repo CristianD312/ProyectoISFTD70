@@ -12,19 +12,14 @@ import Objetos.Salon;
 import Objetos.Usuario;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 import Pantallas.Configuracion.Configuracion;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
-import javax.swing.table.TableModel;
+
 
 
 
@@ -66,7 +61,7 @@ public class PantallaReserva extends javax.swing.JFrame {
             UIManager.setLookAndFeel( new FlatLightLaf() );
             this.setResizable(false);
         } catch( Exception ex ) {
-            
+         ex.printStackTrace();
         }
     }
 

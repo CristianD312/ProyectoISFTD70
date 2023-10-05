@@ -89,7 +89,8 @@ public class Usuario {
         int id = -1;
         try {
             String sql="SELECT *FROM usuarios WHERE nombre='"+user+"'";
-            PreparedStatement st = Conexion.getConexion().prepareStatement(sql);
+            Connection conexion = Conexion.getConexion();
+            PreparedStatement st = conexion.prepareStatement(sql);
             ResultSet rs=st.executeQuery(sql);
             if (rs.next()) {
 
@@ -112,6 +113,7 @@ public class Usuario {
             }
             st.close();
             rs.close();
+            conexion.close();
         } catch (SQLException ex) {
             Logger.getLogger(PantallaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
