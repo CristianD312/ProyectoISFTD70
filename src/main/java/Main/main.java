@@ -4,13 +4,23 @@
 
 package Main;
 
-/**
- *
- * @author dario
- */
+
+import Logica.parametrosDeConfiguracion;
+import Pantallas.PantallaLogin;
+import Logica.Conexion;
+
+
 public class main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        parametrosDeConfiguracion.cargarParametros();
+        try {
+            PantallaLogin login = new PantallaLogin();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }

@@ -1,14 +1,21 @@
 package Objetos;
 
+import Logica.ComboBoxItemProfes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import Logica.Conexion;
 
 public class Profesor {
-    private Integer dni;
+    private int dni;
     private String nombre;
     private String apellido;
     private Carrera carrera;
+    
+    public Profesor (){}
     public Profesor(Integer dni, String nombre, String apellido, Carrera carrera) {
         this.dni = dni;
         this.nombre = nombre;
@@ -16,7 +23,7 @@ public class Profesor {
         this.carrera = carrera;
     }
 
-    public Integer getDni() {
+    public int getDni() {
         return dni;
     }
 
@@ -32,20 +39,16 @@ public class Profesor {
         return carrera;
     }
 
-    public void setDni(Connection con, Integer dni) {
-        try{
-            PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET dni = ? where dni = ?");
-            consulta.setInt(1,dni);
-            consulta.setInt(2,this.dni);
-            consulta.executeUpdate();
-            consulta.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+    
+    public void isDni(Integer dni){
         this.dni = dni;
     }
 
     public void setNombre(Connection con, String nombre) {
+        
         try{
             PreparedStatement consulta = con.prepareStatement("UPDATE profesores SET nombre = ? where dni = ?");
             consulta.setString(1,nombre);
@@ -82,5 +85,44 @@ public class Profesor {
             e.printStackTrace();
         }
         this.carrera = carrera;
+    }
+    
+    public void cargarProfesoresBOX(JComboBox profesorBox){
+        Conexion conect = new Conexion();
+        conect.conectar(); 
+        try {
+            String sql = "SELECT dni, nombre, apellido FROM profesores\n" +
+"ORDER BY nombre ASC;";
+            java.sql.Statement statement = conect.getConexion().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                int dnis = resultSet.getInt("dni");
+                String nombresProfes = resultSet.getString("nombre");
+                String apellidosProfes = resultSet.getString("apellido");
+                profesorBox.addItem(new ComboBoxItemProfes(dnis, nombresProfes, apellidosProfes));
+                
+            }
+            statement.close();
+            resultSet.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los profesores: "+e.toString());
+        }
+    }
+
+    public void borrarProfesor(){
+        try {
+            PreparedStatement consulta = conexion.prepareStatement("DELETE FROM `profesores` WHERE dni = ?");
+            consulta.setInt(1,dni);
+            consulta.executeUpdate();
+            consulta.close();
+            profesores.remove(this);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return apellido+", "+nombre;
     }
 }
