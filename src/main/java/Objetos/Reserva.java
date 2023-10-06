@@ -221,4 +221,31 @@ public class Reserva {
         }
          
     }
+    
+    public static int compararReservas(String horarioElegido, String fechaElegida, int salonElegido){
+        Connection conect = Conexion.getConexion();
+        int reservar = 1; //donde 0 es no reservar
+        try {
+            String sql = "SELECT * FROM `reservas`";
+            PreparedStatement statement = conect.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                String horarioComparar = resultSet.getString("horario");
+                String diaComparar = resultSet.getString("fecha_reserva");
+                int salonComparar = resultSet.getInt("fk_salon");
+                //String salonComparar = resultSet.getString("salon")
+                if((horarioComparar.equals(horarioElegido))&&(diaComparar.equals(fechaElegida))&&(salonComparar==salonElegido)){
+                    JOptionPane.showMessageDialog(null, "El salón seleccionado, ya esta reservado en el dia y el horario que elegiste.", "Error de reservación", JOptionPane.ERROR_MESSAGE);
+                    reservar = 0;
+                }
+            }
+            resultSet.close();
+            statement.close();
+            conect.close();
+            
+        } catch (Exception e) {
+        } return reservar;
+    }
+    
+    
 }

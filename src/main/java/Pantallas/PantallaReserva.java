@@ -413,41 +413,49 @@ public class PantallaReserva extends javax.swing.JFrame {
         String username = usuarioBox.getText();
         
         //OBTENER DIA DEL JDATE Y DARLE FORMATO
-        Date dia=diaBox.getDate();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String fecha = formato.format(dia);
         
-        //OBTENER HORARIO DEL BOX Y GUARDARLO EN UNA STRING
-        Object horario=horarioBox.getSelectedItem();
-        String horarioElegido=horario.toString();
+        if(diaBox.getDate()!=null){
+            Date dia=diaBox.getDate();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String fecha = formato.format(dia);
         
-        //CREACION DE OBJETOS USUARIO, SALON, CARRERA Y PROFESOR PARA SETEAR SU INFORMACION
-        Usuario user = new Usuario();
-        user.setNombre(username);
-        user.setId_usuario(idUsuario);
-        
-        Salon nuevoSalon = new Salon();
-        nuevoSalon.setId_salon(salonElegido);
-        
-        Carrera carrera = new Carrera();
-        carrera.setId_carrera(carreraElegida);
-        
-        Profesor profe = new Profesor();
-        profe.isDni(prof);
-        
-        //CREACION DE LA RESERVA
-        Reserva reservacion = new Reserva();
-        reservacion.setUsuario(user);
-        reservacion.setSalon( nuevoSalon);
-        reservacion.setCarrera(carrera);
-        reservacion.setHorarioSalon(horarioElegido);
-        reservacion.setFechaSalon(fecha);
-        reservacion.setProfesor( profe);
-        
-        reservacion.crearReservas(reservacion);
-        reservacion.mostrarReservas(tablaReservas);
-        
-        
+            //OBTENER HORARIO DEL BOX Y GUARDARLO EN UNA STRING
+            Object horario=horarioBox.getSelectedItem();
+            String horarioElegido=horario.toString();
+
+            int reserva = Reserva.compararReservas(horarioElegido, fecha, salonElegido);
+            if (reserva==1){
+                //CREACION DE OBJETOS USUARIO, SALON, CARRERA Y PROFESOR PARA SETEAR SU INFORMACION
+                Usuario user = new Usuario();
+                user.setNombre(username);
+                user.setId_usuario(idUsuario);
+
+                Salon nuevoSalon = new Salon();
+                nuevoSalon.setId_salon(salonElegido);
+
+                Carrera carrera = new Carrera();
+                carrera.setId_carrera(carreraElegida);
+
+                Profesor profe = new Profesor();
+                profe.isDni(prof);
+
+                //CREACION DE LA RESERVA
+                Reserva reservacion = new Reserva();
+                reservacion.setUsuario(user);
+                reservacion.setSalon( nuevoSalon);
+                reservacion.setCarrera(carrera);
+                reservacion.setHorarioSalon(horarioElegido);
+                reservacion.setFechaSalon(fecha);
+                reservacion.setProfesor( profe);
+
+                reservacion.crearReservas(reservacion);
+                reservacion.mostrarReservas(tablaReservas);
+            } else{
+
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No elegiste una fecha de reservacion", "Error de reserva", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_reservarActionPerformed
 
     private void actualizarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarReservasActionPerformed
