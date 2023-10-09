@@ -58,7 +58,7 @@ public class Conexion {
             if(System.getProperty("os.name").toLowerCase().contains("win")){
                 System.out.println(destino);
                 archivoDestino = destino+"\\backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +".sql";
-                comando = (PSSWD.equals("")) ? "mysqldump -u "+USR+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"" : "mysqldump -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"";
+                comando = (PSSWD.equals("")) ? "C:\\xampp\\mysql\\bin\\mysqldump.exe -u "+USR+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"" : "C:\\xampp\\mysql\\bin\\mysqldump.exe -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" --result-file=\""+archivoDestino+"\"";
                 Process proceso = Runtime.getRuntime().exec(comando);
             }else{
                 archivoDestino = destino+"/backup-"+LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+".sql";
@@ -92,7 +92,7 @@ public class Conexion {
             try {
                 String comando;
                 if(System.getProperty("os.name").toLowerCase().contains("win")){
-                    comando = (PSSWD.equals("")) ? "mysql -u "+USR+" -h "+URL+" "+BD+" -e \"source "+archivoSQL+"\"" : "mysql -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" -e \"source "+archivoSQL+"\"";
+                    comando = (PSSWD.equals("")) ? "C:\\xampp\\mysql\\bin\\mysql.exe -u "+USR+" -h "+URL+" "+BD+" -e \"source "+archivoSQL+"\"" : "C:\\xampp\\mysql\\bin\\mysql.exe -u "+USR+" -p "+PSSWD+" -h "+URL+" "+BD+" -e \"source "+archivoSQL+"\"";
                     Process proceso = Runtime.getRuntime().exec(comando);
                     System.out.println(proceso.waitFor());
                     System.out.println("en teoria lo cargo todo");

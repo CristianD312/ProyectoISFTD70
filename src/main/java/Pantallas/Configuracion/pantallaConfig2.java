@@ -900,7 +900,7 @@ public class pantallaConfig2 extends javax.swing.JPanel {
     private void hacerBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hacerBackupActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int seleccion = chooser.showOpenDialog(null);
+        int seleccion = chooser.showOpenDialog(this);
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             File carpetaSeleccionada = chooser.getSelectedFile();
             Conexion.hacerBackup(carpetaSeleccionada.getAbsolutePath());
