@@ -465,10 +465,13 @@ public class PantallaReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_actualizarReservasActionPerformed
 
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
-        Reserva reservacion = new Reserva();
+        int decision = JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro que deseas eliminar la reserva seleccionada?", "Eliminar Reserva", JOptionPane.YES_NO_OPTION);
+        if (decision==JOptionPane.YES_OPTION) {
+          Reserva reservacion = new Reserva();
+            reservacion.eliminarReservas(tablaReservas);
+            reservacion.mostrarReservas(tablaReservas);  
+        }
         
-        reservacion.eliminarReservas(tablaReservas);
-        reservacion.mostrarReservas(tablaReservas);
         
     }//GEN-LAST:event_eliminarReservaActionPerformed
 

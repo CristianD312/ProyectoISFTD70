@@ -10,7 +10,6 @@ import javax.swing.*;
 
 import com.formdev.flatlaf.*;
 
-
 public class PantallaLogin extends javax.swing.JFrame {
 
     //Conexion conexion;
@@ -20,9 +19,8 @@ public class PantallaLogin extends javax.swing.JFrame {
         } else if (parametrosDeConfiguracion.getTema().equals("Claro")) {
             ponerTemaClaro();
         }
+        
         initComponents();
-        ImageIcon img = new ImageIcon("login.png");
-        lblLogo.setIcon(img);
         this.setTitle("Inicio de sesión");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
